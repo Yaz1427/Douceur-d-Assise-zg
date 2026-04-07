@@ -52,6 +52,11 @@
     {{ content_for_layout }}
   </main>
 
+  <!-- CART DRAWER -->
+  {%- if settings.cart_type == 'drawer' -%}
+    {%- render 'da-cart-drawer' -%}
+  {%- endif -%}
+
   <!-- FOOTER -->
   {%- section 'da-footer' -%}
 
