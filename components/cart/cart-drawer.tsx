@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingCart, X, Plus, Minus, Trash2 } from 'lucide-react'
@@ -10,33 +10,22 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet'
 import { useCart } from './cart-context'
 import { formatPrice } from '@/lib/shopify/utils'
 
-export function CartDrawer() {
+interface CartDrawerProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
+
+export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
   const { cart, itemCount, updateItem, removeItem, isLoading } = useCart()
-  const [open, setOpen] = useState(false)
 
   const lines = cart?.lines.edges.map(({ node }) => node) ?? []
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <button
-          className="flex items-center gap-2 text-foreground hover:text-primary transition-colors relative"
-          aria-label="Panier"
-        >
-          <ShoppingCart className="h-6 w-6" />
-          <span className="hidden md:inline text-lg">Panier</span>
-          {itemCount > 0 && (
-            <span className="absolute -top-2 -right-2 md:relative md:top-0 md:right-0 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-              {itemCount}
-            </span>
-          )}
-        </button>
-      </SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full sm:max-w-lg flex flex-col">
         <SheetHeader>
           <SheetTitle className="text-2xl">Votre panier</SheetTitle>
@@ -52,7 +41,7 @@ export function CartDrawer() {
             <p className="text-lg text-muted-foreground">
               Votre panier est vide
             </p>
-            <Button onClick={() => setOpen(false)} asChild>
+            <Button onClick={() => onOpenChange(false)} asChild>
               <Link href="/catalogue">Voir nos produits</Link>
             </Button>
           </div>
@@ -148,7 +137,7 @@ export function CartDrawer() {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() => setOpen(false)}
+                onClick={() => onOpenChange(false)}
               >
                 Continuer mes achats
               </Button>
