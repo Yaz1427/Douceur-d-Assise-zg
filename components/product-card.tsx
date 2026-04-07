@@ -13,7 +13,7 @@ export function ProductCard({ product }: ProductCardProps) {
     ? parseFloat(product.compareAtPriceRange.minVariantPrice.amount)
     : null
   
-  const isBestseller = product.tags.includes("bestseller")
+  const isBestseller = product.tags?.includes("bestseller") ?? false
   const isOnSale = compareAtPrice && compareAtPrice > price
 
   return (
