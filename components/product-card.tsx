@@ -8,13 +8,16 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const price = parseFloat(product.priceRange.minVariantPrice.amount)
+  // Safe access to price with fallback
+  const price = product.priceRange?.minVariantPrice?.amount 
+    ? parseFloat(product.priceRange.minVariantPrice.amount)
+    : 0
   const compareAtPrice = product.compareAtPriceRange?.minVariantPrice?.amount 
     ? parseFloat(product.compareAtPriceRange.minVariantPrice.amount)
     : null
   
   const isBestseller = product.tags?.includes("bestseller") ?? false
-  const isOnSale = compareAtPrice && compareAtPrice > price
+  const isOnSale = compareAtPrice && compareAtPrice > price && price > 0
 
   return (
     <Link 
@@ -77,13 +80,19 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Price */}
         <div className="flex items-baseline gap-2 mt-3">
-          <span className="text-2xl font-bold text-primary">
-            {price.toFixed(2).replace('.', ',')}€
-          </span>
-          {isOnSale && (
-            <span className="text-lg text-muted-foreground line-through">
-              {compareAtPrice.toFixed(2).replace('.', ',')}€
-            </span>
+          {price > 0 ? (
+            <>
+              <span className="text-2xl font-bold text-primary">
+                {price.toFixed(2).replace('.', ',')}€
+              </span>
+              {isOnSale && compareAtPrice && (
+                <span className="text-lg text-muted-foreground line-through">
+                  {compareAtPrice.toFixed(2).replace('.', ',')}€
+                </span>
+              )}
+            </>
+          ) : (
+            <span className="text-xl text-muted-foreground">Prix sur demande</span>
           )}
         </div>
 
