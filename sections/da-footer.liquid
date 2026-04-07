@@ -1,0 +1,81 @@
+<footer class="da-footer" role="contentinfo">
+  <div class="da-footer__inner">
+
+    <!-- Colonne 1 : Contact -->
+    <div class="da-footer__col">
+      <h3>Contact</h3>
+      <ul>
+        <li>
+          <a href="mailto:contact@douceurassise.fr">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            contact@douceurassise.fr
+          </a>
+        </li>
+        <li>
+          <a href="tel:+33186261020">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            01 86 26 10 20
+          </a>
+        </li>
+        <li>
+          <span class="da-footer__address">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Paris, France
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Colonne 2 : Informations -->
+    <div class="da-footer__col">
+      <h3>Informations</h3>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/a-propos">À propos</a></li>
+        <li><a href="{{ routes.root_url }}pages/faq">FAQ</a></li>
+        <li><a href="{{ routes.root_url }}pages/livraison">Livraison</a></li>
+        <li><a href="{{ routes.root_url }}pages/cgv">CGV</a></li>
+        <li><a href="{{ routes.root_url }}pages/mentions-legales">Mentions légales</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 3 : Service client -->
+    <div class="da-footer__col">
+      <h3>Service client</h3>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/contact">Nous contacter</a></li>
+        <li><a href="{{ routes.root_url }}pages/faq">Retours et remboursements</a></li>
+        <li><a href="{{ routes.root_url }}pages/livraison">Suivi de commande</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 4 : Paiement sécurisé -->
+    <div class="da-footer__col">
+      <h3>Paiement sécurisé</h3>
+      <div class="da-footer__payment-badges">
+        <span class="da-footer__payment-badge">Visa</span>
+        <span class="da-footer__payment-badge">Mastercard</span>
+        <span class="da-footer__payment-badge">CB</span>
+        <span class="da-footer__payment-badge">PayPal</span>
+      </div>
+      <div class="da-footer__security">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        Paiement 100% sécurisé
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="da-footer__bottom">
+    <div class="da-footer__bottom-inner">
+      <p>© {{ 'now' | date: '%Y' }} Douceur d'Assise &bull; Tous droits réservés</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page DA",
+  "settings": []
+}
+{% endschema %}

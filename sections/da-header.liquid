@@ -1,0 +1,123 @@
+<header class="da-header" role="banner">
+
+  <!-- Top bar : flag + phone -->
+  <div class="da-header__topbar">
+    <div class="da-header__topbar-inner">
+      <span class="da-header__topbar-item">
+        <span style="font-size:1.25rem;">🇫🇷</span>
+        <span>Entreprise française</span>
+      </span>
+      <span class="da-header__topbar-sep" aria-hidden="true">•</span>
+      <span class="da-header__topbar-item">
+        <a href="tel:+33186261020">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          01 86 26 10 20
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="da-header__nav" aria-label="Navigation principale">
+    <div class="da-header__nav-inner">
+
+      <!-- Logo -->
+      <div class="da-header__logo">
+        <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: 240 }}"
+              alt="{{ shop.name }}"
+              width="{{ section.settings.logo_width }}"
+              loading="eager"
+            >
+          {%- else -%}
+            Douceur d'Assise
+          {%- endif -%}
+        </a>
+      </div>
+
+      <!-- Desktop links -->
+      <div class="da-header__links">
+        <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>Accueil</a>
+        <a href="{{ routes.collections_url }}"{% if request.page_type == 'collection' %} aria-current="page"{% endif %}>Catalogue</a>
+        <a href="{{ routes.root_url }}pages/a-propos">À propos</a>
+        <a href="{{ routes.root_url }}pages/contact">Contact</a>
+      </div>
+
+      <!-- Cart + burger -->
+      <div class="da-header__actions">
+        <a href="{{ routes.cart_url }}" class="da-header__cart" aria-label="Panier ({{ cart.item_count }} article{% if cart.item_count != 1 %}s{% endif %})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="da-header__cart-label">Panier</span>
+          {%- if cart.item_count > 0 -%}
+            <span style="background:var(--primary);color:#fff;border-radius:9999px;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;" aria-hidden="true">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+
+        <button
+          class="da-header__burger"
+          id="da-burger"
+          aria-expanded="false"
+          aria-controls="da-mobile-menu"
+          aria-label="Ouvrir le menu"
+        >
+          <svg id="da-icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg id="da-icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="da-header__mobile" id="da-mobile-menu" aria-hidden="true">
+      <div class="da-header__mobile-inner">
+        <a href="{{ routes.root_url }}">Accueil</a>
+        <a href="{{ routes.collections_url }}">Catalogue</a>
+        <a href="{{ routes.root_url }}pages/a-propos">À propos</a>
+        <a href="{{ routes.root_url }}pages/contact">Contact</a>
+        <a href="{{ routes.cart_url }}">Panier ({{ cart.item_count }})</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+(function() {
+  var btn    = document.getElementById('da-burger');
+  var menu   = document.getElementById('da-mobile-menu');
+  var iconM  = document.getElementById('da-icon-menu');
+  var iconX  = document.getElementById('da-icon-close');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    var open = menu.classList.toggle('is-open');
+    menu.setAttribute('aria-hidden', !open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    iconM.style.display = open ? 'none'  : '';
+    iconX.style.display = open ? ''      : 'none';
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "En-tete DA",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Largeur du logo",
+      "default": 160
+    }
+  ]
+}
+{% endschema %}

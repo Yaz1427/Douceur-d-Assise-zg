@@ -1,0 +1,115 @@
+<section style="padding: 64px 24px; background-color: var(--fond-clair);">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="section-title">
+      <h2>{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p>{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product__accordion" style="margin-top: 0;">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary style="padding: 20px 0; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--texte); list-style: none; border-bottom: 1px solid var(--bordure);">
+            {{ block.settings.question }}
+            <span style="font-size: 24px; color: var(--primaire); flex-shrink: 0; margin-left: 16px;">+</span>
+          </summary>
+          <div style="padding: 20px 0 24px; font-size: 17px; color: var(--texte-doux); line-height: 1.8;">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="{{ section.settings.cta_url }}" class="btn btn-secondary">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Rapide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Questions fréquentes"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton — texte",
+      "default": "Voir toutes les questions"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Bouton — lien"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Combien de temps dure la livraison ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Réponse",
+          "default": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Rapide",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Combien de temps dure la livraison ?",
+            "answer": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition de votre commande.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Puis-je retourner le produit si je ne suis pas satisfait ?",
+            "answer": "<p>Absolument. Vous disposez de 30 jours après réception pour nous retourner le produit et être remboursé intégralement, sans justification.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Les coussins sont-ils adaptés à toutes les morphologies ?",
+            "answer": "<p>Oui, nos coussins sont conçus pour s'adapter à différentes morphologies. La mousse à mémoire de forme épouse les contours de votre corps.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Comment entretenir mon coussin ?",
+            "answer": "<p>La housse est amovible et lavable en machine à 30°C. Le coussin lui-même ne doit pas être lavé en machine — nettoyez-le avec un chiffon humide.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

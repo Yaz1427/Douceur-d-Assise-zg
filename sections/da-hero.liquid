@@ -1,0 +1,107 @@
+<section class="da-hero">
+  <div class="da-hero__inner da-container">
+
+    <!-- Texte (order 2 mobile → order 1 desktop) -->
+    <div class="da-hero__text">
+      <h1 class="da-hero__title">{{ section.settings.title }}</h1>
+
+      <p class="da-hero__subtitle">{{ section.settings.subtitle }}</p>
+
+      <div class="da-hero__buttons">
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="da-btn da-btn-primary">
+            {{ section.settings.cta_label }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}
+          <a href="{{ section.settings.cta2_url | default: routes.root_url | append: 'pages/a-propos' }}" class="da-btn da-btn-outline">
+            {{ section.settings.cta2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="da-hero__social-proof">
+        <div class="da-hero__avatars">
+          <span>MC</span>
+          <span>JP</span>
+          <span>FL</span>
+          <span>RD</span>
+        </div>
+        <p><strong>+1 400 clients</strong> nous font confiance</p>
+      </div>
+    </div>
+
+    <!-- Image (order 1 mobile → order 2 desktop) -->
+    <div class="da-hero__image">
+      <div class="da-hero__image-wrap">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            alt="{{ section.settings.image.alt | default: 'Couple senior confortablement installe grace aux coussins Douceur d Assise' }}"
+            width="800"
+            loading="eager"
+          >
+        {%- else -%}
+          <div class="da-hero__placeholder">
+            <span style="font-size:5rem;">🛋️</span>
+            <p>Votre photo<br>produit ici</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero DA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Enfin assis sans douleur"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Coussins ergonomiques conçus pour votre confort quotidien. Soulagez vos douleurs dès la première utilisation."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton principal",
+      "default": "Découvrir nos coussins"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Lien bouton principal"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Bouton secondaire",
+      "default": "En savoir plus"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Lien bouton secondaire"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image hero"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero DA"
+    }
+  ]
+}
+{% endschema %}

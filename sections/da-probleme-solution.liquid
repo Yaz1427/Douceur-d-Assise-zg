@@ -1,0 +1,101 @@
+<section class="da-section da-section--muted">
+  <div class="da-section__inner">
+    <div class="da-pb-sol__grid">
+
+      <h2>Vous reconnaissez-vous ?</h2>
+
+      <div class="da-pb-sol__cards">
+
+        <!-- Carte problèmes -->
+        <div class="da-pb-sol__card da-pb-sol__card--problem">
+          <h3>Vos problèmes</h3>
+          <ul>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'problem' -%}
+                <li {{ block.shopify_attributes }}>
+                  <span class="da-pb-sol__icon da-pb-sol__icon--x">✗</span>
+                  <span>{{ block.settings.text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <!-- Carte solutions -->
+        <div class="da-pb-sol__card da-pb-sol__card--solution">
+          <h3>Nos solutions</h3>
+          <ul>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'solution' -%}
+                <li {{ block.shopify_attributes }}>
+                  <span class="da-pb-sol__icon da-pb-sol__icon--check">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  </span>
+                  <span>{{ block.settings.text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="da-pb-sol__cta">
+        <a href="{{ routes.collections_url }}" class="da-btn da-btn-primary">
+          Découvrir la solution adaptée
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Probleme Solution DA",
+  "blocks": [
+    {
+      "type": "problem",
+      "name": "Probleme",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Problème",
+          "default": "Douleurs au coccyx après être resté assis longtemps"
+        }
+      ]
+    },
+    {
+      "type": "solution",
+      "name": "Solution",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Solution",
+          "default": "Soulagement immédiat des douleurs"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Probleme Solution DA",
+      "blocks": [
+        { "type": "problem", "settings": { "text": "Douleurs au coccyx après être resté assis longtemps" } },
+        { "type": "problem", "settings": { "text": "Mal de dos en fin de journée" } },
+        { "type": "problem", "settings": { "text": "Difficultés à trouver une position confortable" } },
+        { "type": "problem", "settings": { "text": "Raideurs cervicales au réveil" } },
+        { "type": "problem", "settings": { "text": "Inconfort pendant les longs trajets en voiture" } },
+        { "type": "solution", "settings": { "text": "Soulagement immédiat des douleurs" } },
+        { "type": "solution", "settings": { "text": "Mousse à mémoire de forme de qualité" } },
+        { "type": "solution", "settings": { "text": "Design ergonomique étudié" } },
+        { "type": "solution", "settings": { "text": "Housses lavables et hygiéniques" } },
+        { "type": "solution", "settings": { "text": "Garantie satisfait ou remboursé 30 jours" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
