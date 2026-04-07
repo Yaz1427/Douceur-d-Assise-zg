@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { TrustBadges } from "@/components/trust-badges"
 import { ProductCard } from "@/components/product-card"
-import { products } from "@/lib/products"
+import { getProducts } from "@/lib/shopify"
 import { Star, CheckCircle, ArrowRight } from "lucide-react"
 
 const testimonials = [
@@ -41,8 +41,9 @@ const problems = [
   "Inconfort pendant les longs trajets en voiture"
 ]
 
-export default function HomePage() {
-  const featuredProducts = products.slice(0, 4)
+export default async function HomePage() {
+  // Fetch products from Shopify
+  const products = await getProducts({ first: 4 })
 
   return (
     <div className="flex flex-col">
@@ -90,7 +91,7 @@ export default function HomePage() {
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/hero-comfort.jpg"
-                  alt="Couple senior confortablement installé grâce aux coussins Douceur d'Assise"
+                  alt="Couple senior confortablement installe grace aux coussins Douceur d'Assise"
                   fill
                   className="object-cover"
                   priority
@@ -116,11 +117,19 @@ export default function HomePage() {
               Choisis par des milliers de clients satisfaits pour leur qualité et leur efficacité.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">
+                Connectez votre boutique Shopify pour afficher vos produits.
+              </p>
+            </div>
+          )}
           <div className="mt-10 text-center">
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 h-auto border-2">
               <Link href="/catalogue">

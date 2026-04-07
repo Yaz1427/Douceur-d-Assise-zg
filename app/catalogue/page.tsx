@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { ProductCard } from "@/components/product-card"
-import { products } from "@/lib/products"
+import { getProducts } from "@/lib/shopify"
 import { TrustBadges } from "@/components/trust-badges"
 
 export const metadata: Metadata = {
@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   description: "Découvrez notre gamme complète de coussins ergonomiques : coccyx, lombaire, cervical, auto. Livraison gratuite en France. Satisfait ou remboursé 30 jours."
 }
 
-export default function CataloguePage() {
+export default async function CataloguePage() {
+  // Fetch all products from Shopify
+  const products = await getProducts({})
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -33,11 +36,23 @@ export default function CataloguePage() {
       {/* Products Grid */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground mb-4">
+                Aucun produit disponible pour le moment.
+              </p>
+              <p className="text-base text-muted-foreground">
+                Connectez votre boutique Shopify en ajoutant la variable d&apos;environnement{" "}
+                <code className="bg-muted px-2 py-1 rounded">NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN</code>
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

@@ -3,9 +3,15 @@
 import Link from "next/link"
 import { Phone, ShoppingCart, Menu, X } from "lucide-react"
 import { useState } from "react"
+import { useCart } from "@/components/cart/cart-context"
+import { CartDrawer } from "@/components/cart/cart-drawer"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [cartOpen, setCartOpen] = useState(false)
+  const { cart } = useCart()
+  
+  const cartItemCount = cart?.totalQuantity ?? 0
 
   return (
     <header className="sticky top-0 z-50 bg-background">
@@ -68,14 +74,19 @@ export function Header() {
 
             {/* Cart & Mobile Menu */}
             <div className="flex items-center gap-4">
-              <Link 
-                href="/panier" 
-                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors p-2"
-                aria-label="Panier"
+              <button 
+                onClick={() => setCartOpen(true)}
+                className="relative flex items-center gap-2 text-foreground hover:text-primary transition-colors p-2"
+                aria-label="Ouvrir le panier"
               >
                 <ShoppingCart className="h-6 w-6" />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
                 <span className="hidden md:inline text-lg">Panier</span>
-              </Link>
+              </button>
 
               {/* Mobile menu button */}
               <button
@@ -129,6 +140,8 @@ export function Header() {
           </div>
         )}
       </nav>
+
+      <CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
     </header>
   )
 }
