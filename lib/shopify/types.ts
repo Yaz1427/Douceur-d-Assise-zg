@@ -32,25 +32,29 @@ export type Product = {
   id: string
   title: string
   description: string
-  descriptionHtml: string
+  descriptionHtml?: string
   handle: string
-  availableForSale: boolean
-  productType: string | null
+  availableForSale?: boolean
+  productType?: string | null
+  tags?: string[]
   category?: {
     id: string
     name: string
   } | null
-  options: ProductOption[]
-  images: {
+  options?: ProductOption[]
+  featuredImage?: ProductImage | null
+  images?: {
     edges: Array<{ node: ProductImage }>
   }
-  priceRange: {
+  priceRange?: {
     minVariantPrice: Money
   }
   compareAtPriceRange?: {
-    minVariantPrice: Money | null
+    minVariantPrice?: Money | null
   } | null
-  variants: ProductVariant[]
+  variants?: {
+    edges: Array<{ node: ProductVariant }>
+  }
 }
 
 export type ShopifyProduct = Product

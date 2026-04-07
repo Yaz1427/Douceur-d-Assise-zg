@@ -18,6 +18,9 @@ export function ProductCard({ product }: ProductCardProps) {
   
   const isBestseller = product.tags?.includes("bestseller") ?? false
   const isOnSale = compareAtPrice && compareAtPrice > price && price > 0
+  
+  // Get the first image from either featuredImage or images array
+  const firstImage = product.featuredImage || product.images?.edges?.[0]?.node
 
   return (
     <Link 
@@ -26,10 +29,10 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       {/* Image */}
       <div className="relative aspect-square bg-secondary/20">
-        {product.featuredImage ? (
+        {firstImage?.url ? (
           <Image
-            src={product.featuredImage.url}
-            alt={product.featuredImage.altText || product.title}
+            src={firstImage.url}
+            alt={firstImage.altText || product.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
