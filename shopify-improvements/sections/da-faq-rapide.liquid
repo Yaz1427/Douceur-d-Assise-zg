@@ -1,0 +1,124 @@
+<section class="da-section da-section--muted">
+  <div class="da-section__inner">
+    <!-- Header -->
+    <div class="da-section__header">
+      <h2>{{ section.settings.title | default: 'Questions fréquentes' }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p>{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- FAQ Accordion -->
+    <div class="da-faq">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary>
+            {{ block.settings.question }}
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    <!-- CTA Button -->
+    {%- if section.settings.cta_label != blank -%}
+      <div class="da-text-center da-mt-4">
+        <a href="{{ section.settings.cta_url | default: '/pages/faq' }}" class="da-btn da-btn-outline">
+          {{ section.settings.cta_label }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Rapide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Questions fréquentes"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Les réponses aux questions les plus posées par nos clients."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton — texte",
+      "default": "Voir toutes les questions"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Bouton — lien"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Combien de temps dure la livraison ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Réponse",
+          "default": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Rapide",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Combien de temps dure la livraison ?",
+            "answer": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition de votre commande.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Puis-je retourner le produit si je ne suis pas satisfait ?",
+            "answer": "<p>Absolument. Vous disposez de 30 jours après réception pour nous retourner le produit et être remboursé intégralement, sans justification.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Les coussins sont-ils adaptés à toutes les morphologies ?",
+            "answer": "<p>Oui, nos coussins sont conçus pour s'adapter à différentes morphologies. La mousse à mémoire de forme épouse les contours de votre corps.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Comment entretenir mon coussin ?",
+            "answer": "<p>La housse est amovible et lavable en machine à 30°C. Le coussin lui-même ne doit pas être lavé en machine — nettoyez-le avec un chiffon humide.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
