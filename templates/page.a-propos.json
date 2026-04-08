@@ -3,8 +3,8 @@
     "page-content": {
       "type": "da-page-content",
       "settings": {
-        "show_subtitle": false,
-        "subtitle": "",
+        "show_subtitle": true,
+        "subtitle": "Decouvrez l'histoire de Douceur d'Assise et notre engagement pour votre confort",
         "show_cta": true,
         "cta_text": "Decouvrir nos coussins",
         "cta_link": "/collections/all"
@@ -13,7 +13,11 @@
     "reassurance": {
       "type": "da-reassurance",
       "settings": {}
+    },
+    "temoignages": {
+      "type": "da-temoignages",
+      "settings": {}
     }
   },
-  "order": ["page-content", "reassurance"]
+  "order": ["page-content", "reassurance", "temoignages"]
 }
