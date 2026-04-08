@@ -1,11 +1,8 @@
 {
   "sections": {
-    "contact": {
-      "type": "da-contact-form",
-      "settings": {
-        "title": "Contactez-nous",
-        "description": "Une question sur nos coussins ? Notre equipe francaise est a votre ecoute du lundi au vendredi."
-      }
+    "page-contact": {
+      "type": "da-page-contact",
+      "settings": {}
     },
     "faq": {
       "type": "da-faq-rapide",
@@ -16,5 +13,5 @@
       "settings": {}
     }
   },
-  "order": ["contact", "faq", "reassurance"]
+  "order": ["page-contact", "faq", "reassurance"]
 }

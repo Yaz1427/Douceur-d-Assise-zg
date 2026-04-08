@@ -1,12 +1,13 @@
 {
   "sections": {
-    "page-content": {
-      "type": "da-page-content",
-      "settings": {
-        "show_subtitle": false,
-        "show_cta": false
-      }
+    "page-mentions": {
+      "type": "da-page-mentions-legales",
+      "settings": {}
+    },
+    "reassurance": {
+      "type": "da-reassurance",
+      "settings": {}
     }
   },
-  "order": ["page-content"]
+  "order": ["page-mentions", "reassurance"]
 }
