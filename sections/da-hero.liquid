@@ -1,56 +1,65 @@
+{% comment %}
+  Douceur d'Assise - Hero Section
+  Section hero avec titre accrocheur, sous-titre et preuve sociale
+{% endcomment %}
+
 <section class="da-hero">
-  <div class="da-hero__inner da-container">
-
-    <!-- Texte (order 2 mobile → order 1 desktop) -->
-    <div class="da-hero__text">
-      <h1 class="da-hero__title">{{ section.settings.title }}</h1>
-
-      <p class="da-hero__subtitle">{{ section.settings.subtitle }}</p>
-
-      <div class="da-hero__buttons">
+  <div class="da-hero__inner da-animate-stagger">
+    <!-- Content -->
+    <div class="da-hero__content">
+      <h1 class="da-hero__title">{{ section.settings.title | default: 'Enfin assis sans douleur' }}</h1>
+      
+      <p class="da-hero__subtitle">{{ section.settings.subtitle | default: 'Nos coussins ergonomiques soulagent vos douleurs des la premiere utilisation. Concus pour les personnes actives qui passent du temps assis.' }}</p>
+      
+      <div class="da-hero__cta">
         {%- if section.settings.cta_label != blank -%}
-          <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="da-btn da-btn-primary">
+          <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="da-btn da-btn-primary">
             {{ section.settings.cta_label }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg class="da-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         {%- endif -%}
         {%- if section.settings.cta2_label != blank -%}
-          <a href="{{ section.settings.cta2_url | default: routes.root_url | append: 'pages/a-propos' }}" class="da-btn da-btn-outline">
+          <a href="{{ section.settings.cta2_url | default: '/pages/a-propos' }}" class="da-btn da-btn-secondary">
             {{ section.settings.cta2_label }}
           </a>
         {%- endif -%}
       </div>
 
-      <div class="da-hero__social-proof">
+      <!-- Social proof -->
+      <div class="da-hero__social">
         <div class="da-hero__avatars">
-          <span>MC</span>
-          <span>JP</span>
-          <span>FL</span>
-          <span>RD</span>
+          <span class="da-hero__avatar">MC</span>
+          <span class="da-hero__avatar">JP</span>
+          <span class="da-hero__avatar">FL</span>
+          <span class="da-hero__avatar">RD</span>
         </div>
-        <p><strong>+1 400 clients</strong> nous font confiance</p>
+        <span class="da-hero__social-text">
+          <strong>+{{ section.settings.client_count | default: '1 400' }}</strong> clients nous font confiance
+        </span>
       </div>
     </div>
 
-    <!-- Image (order 1 mobile → order 2 desktop) -->
+    <!-- Image -->
     <div class="da-hero__image">
-      <div class="da-hero__image-wrap">
+      <div class="da-hero__image-wrapper">
         {%- if section.settings.image != blank -%}
-          <img
-            src="{{ section.settings.image | image_url: width: 800 }}"
-            alt="{{ section.settings.image.alt | default: 'Couple senior confortablement installe grace aux coussins Douceur d Assise' }}"
+          <img 
+            src="{{ section.settings.image | image_url: width: 800 }}" 
+            alt="{{ section.settings.image.alt | default: 'Coussin ergonomique Douceur d Assise' }}"
             width="800"
+            height="{{ 800 | divided_by: section.settings.image.aspect_ratio | round }}"
             loading="eager"
           >
         {%- else -%}
-          <div class="da-hero__placeholder">
-            <span style="font-size:5rem;">🛋️</span>
-            <p>Votre photo<br>produit ici</p>
+          <div class="da-hero__image-placeholder">
+            <span class="da-hero__image-placeholder-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            </span>
+            <span class="da-hero__image-placeholder-text">Votre photo produit ici</span>
           </div>
         {%- endif -%}
       </div>
     </div>
-
   </div>
 </section>
 
@@ -68,13 +77,13 @@
       "type": "textarea",
       "id": "subtitle",
       "label": "Sous-titre",
-      "default": "Coussins ergonomiques conçus pour votre confort quotidien. Soulagez vos douleurs dès la première utilisation."
+      "default": "Nos coussins ergonomiques soulagent vos douleurs des la premiere utilisation. Concus pour les personnes actives qui passent du temps assis."
     },
     {
       "type": "text",
       "id": "cta_label",
       "label": "Bouton principal",
-      "default": "Découvrir nos coussins"
+      "default": "Decouvrir nos coussins"
     },
     {
       "type": "url",
@@ -85,7 +94,7 @@
       "type": "text",
       "id": "cta2_label",
       "label": "Bouton secondaire",
-      "default": "En savoir plus"
+      "default": "Notre histoire"
     },
     {
       "type": "url",
@@ -96,6 +105,12 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image hero"
+    },
+    {
+      "type": "text",
+      "id": "client_count",
+      "label": "Nombre de clients",
+      "default": "1 400"
     }
   ],
   "presets": [

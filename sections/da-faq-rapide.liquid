@@ -1,41 +1,66 @@
-<section class="da-section da-section--muted">
-  <div class="da-section__inner">
-    <!-- Header -->
-    <div class="da-section__header">
-      <h2>{{ section.settings.title | default: 'Questions fréquentes' }}</h2>
+{% comment %}
+  Douceur d'Assise - FAQ Section
+  Questions frequentes avec accordeon anime
+{% endcomment %}
+
+<section class="da-faq">
+  <div class="da-container">
+    <div class="da-faq__header">
+      <h2 class="da-faq__title">{{ section.settings.title | default: 'Questions frequentes' }}</h2>
       {%- if section.settings.subtitle != blank -%}
-        <p>{{ section.settings.subtitle }}</p>
+        <p class="da-faq__subtitle">{{ section.settings.subtitle }}</p>
       {%- endif -%}
     </div>
 
-    <!-- FAQ Accordion -->
-    <div class="da-faq">
+    <div class="da-faq__list">
       {%- for block in section.blocks -%}
-        <details {{ block.shopify_attributes }}>
-          <summary>
+        <div class="da-faq__item" {{ block.shopify_attributes }}>
+          <button class="da-faq__question" aria-expanded="false">
             {{ block.settings.question }}
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            {{ block.settings.answer }}
+            <span class="da-faq__icon">+</span>
+          </button>
+          <div class="da-faq__answer">
+            <div class="da-faq__answer-inner">
+              {{ block.settings.answer }}
+            </div>
           </div>
-        </details>
+        </div>
       {%- endfor -%}
     </div>
 
-    <!-- CTA Button -->
     {%- if section.settings.cta_label != blank -%}
-      <div class="da-text-center da-mt-4">
-        <a href="{{ section.settings.cta_url | default: '/pages/faq' }}" class="da-btn da-btn-outline">
+      <div class="da-faq__cta">
+        <a href="{{ section.settings.cta_url | default: '/pages/faq' }}" class="da-btn da-btn-secondary">
           {{ section.settings.cta_label }}
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
+          <svg class="da-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
     {%- endif -%}
   </div>
 </section>
+
+<script>
+(function() {
+  document.querySelectorAll('.da-faq__question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.parentElement;
+      var isOpen = item.classList.contains('is-open');
+      
+      // Close all others
+      document.querySelectorAll('.da-faq__item.is-open').forEach(function(openItem) {
+        if (openItem !== item) {
+          openItem.classList.remove('is-open');
+          openItem.querySelector('.da-faq__question').setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Toggle current
+      item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {
@@ -45,13 +70,13 @@
       "type": "text",
       "id": "title",
       "label": "Titre",
-      "default": "Questions fréquentes"
+      "default": "Questions frequentes"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Sous-titre",
-      "default": "Les réponses aux questions les plus posées par nos clients."
+      "default": "Les reponses aux questions les plus posees par nos clients."
     },
     {
       "type": "text",
@@ -79,8 +104,8 @@
         {
           "type": "richtext",
           "id": "answer",
-          "label": "Réponse",
-          "default": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition.</p>"
+          "label": "Reponse",
+          "default": "<p>La livraison prend entre 10 et 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition.</p>"
         }
       ]
     }
@@ -93,28 +118,28 @@
           "type": "faq",
           "settings": {
             "question": "Combien de temps dure la livraison ?",
-            "answer": "<p>La livraison prend entre 10 et 15 jours ouvrés. Vous recevez un numéro de suivi par email dès l'expédition de votre commande.</p>"
+            "answer": "<p>La livraison prend entre 10 et 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition de votre commande.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
             "question": "Puis-je retourner le produit si je ne suis pas satisfait ?",
-            "answer": "<p>Absolument. Vous disposez de 30 jours après réception pour nous retourner le produit et être remboursé intégralement, sans justification.</p>"
+            "answer": "<p>Absolument. Vous disposez de 30 jours apres reception pour nous retourner le produit et etre rembourse integralement, sans justification.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
-            "question": "Les coussins sont-ils adaptés à toutes les morphologies ?",
-            "answer": "<p>Oui, nos coussins sont conçus pour s'adapter à différentes morphologies. La mousse à mémoire de forme épouse les contours de votre corps.</p>"
+            "question": "Les coussins sont-ils adaptes a toutes les morphologies ?",
+            "answer": "<p>Oui, nos coussins sont concus pour s'adapter a differentes morphologies. La mousse a memoire de forme epouse les contours de votre corps.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
             "question": "Comment entretenir mon coussin ?",
-            "answer": "<p>La housse est amovible et lavable en machine à 30°C. Le coussin lui-même ne doit pas être lavé en machine — nettoyez-le avec un chiffon humide.</p>"
+            "answer": "<p>La housse est amovible et lavable en machine a 30C. Le coussin lui-meme ne doit pas etre lave en machine — nettoyez-le avec un chiffon humide.</p>"
           }
         }
       ]

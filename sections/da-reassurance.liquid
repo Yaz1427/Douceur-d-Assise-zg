@@ -1,57 +1,98 @@
-<!-- Trust Badges — reproduction exacte du template -->
-<section class="da-trust">
-  <div class="da-trust__inner">
+{% comment %}
+  Douceur d'Assise - Reassurance Bar
+  Barre de reassurance avec les elements de confiance cles
+{% endcomment %}
 
-    <div class="da-trust__item">
-      <div class="da-trust__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+<section class="da-reassurance">
+  <div class="da-reassurance__inner da-animate-stagger">
+    {%- for block in section.blocks -%}
+      <div class="da-reassurance__item" {{ block.shopify_attributes }}>
+        <span class="da-reassurance__icon">
+          {%- case block.settings.icon -%}
+            {%- when 'truck' -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+            {%- when 'check' -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            {%- when 'flag' -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+            {%- when 'star' -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- when 'shield' -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+            {%- else -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          {%- endcase -%}
+        </span>
+        <span class="da-reassurance__text">{{ block.settings.text }}</span>
       </div>
-      <div>
-        <p class="da-trust__label">Livraison gratuite</p>
-        <p class="da-trust__sublabel">En France métropolitaine</p>
-      </div>
-    </div>
-
-    <div class="da-trust__item">
-      <div class="da-trust__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-      </div>
-      <div>
-        <p class="da-trust__label">Satisfait ou remboursé</p>
-        <p class="da-trust__sublabel">30 jours pour changer d'avis</p>
-      </div>
-    </div>
-
-    <div class="da-trust__item">
-      <div class="da-trust__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-      </div>
-      <div>
-        <p class="da-trust__label">SAV 100% français</p>
-        <p class="da-trust__sublabel">À votre écoute</p>
-      </div>
-    </div>
-
-    <div class="da-trust__item">
-      <div class="da-trust__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      </div>
-      <div>
-        <p class="da-trust__label">4,8/5 étoiles</p>
-        <p class="da-trust__sublabel">Plus de 1 400 avis</p>
-      </div>
-    </div>
-
+    {%- endfor -%}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Trust Badges DA",
+  "name": "Reassurance DA",
   "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Element",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icone",
+          "options": [
+            { "value": "truck", "label": "Livraison" },
+            { "value": "check", "label": "Coche" },
+            { "value": "flag", "label": "Drapeau" },
+            { "value": "star", "label": "Etoile" },
+            { "value": "shield", "label": "Bouclier" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Livraison gratuite"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Trust Badges DA"
+      "name": "Reassurance DA",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Livraison gratuite"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "check",
+            "text": "Satisfait ou rembourse 30j"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "flag",
+            "text": "SAV 100% francais"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "text": "4.8/5 (500+ avis)"
+          }
+        }
+      ]
     }
   ]
 }

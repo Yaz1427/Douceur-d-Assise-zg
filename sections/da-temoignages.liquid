@@ -1,66 +1,59 @@
-<section class="da-section">
-  <div class="da-section__inner">
-    <!-- Header -->
-    <div class="da-section__header">
-      <h2>Ce que nos clients disent</h2>
-      <p>Des témoignages authentiques de personnes comme vous.</p>
+{% comment %}
+  Douceur d'Assise - Testimonials Section
+  Temoignages clients avec avatar, badge "Achat verifie" et bordure accent
+{% endcomment %}
+
+<section class="da-temoignages">
+  <div class="da-container">
+    <div class="da-temoignages__header">
+      <h2 class="da-temoignages__title">{{ section.settings.heading | default: 'Ce que nos clients disent' }}</h2>
+      <p class="da-temoignages__subtitle">{{ section.settings.subheading | default: 'Des temoignages authentiques de personnes comme vous.' }}</p>
     </div>
 
-    <!-- Testimonials Grid -->
     <div class="da-temoignages__grid da-animate-stagger">
       {%- for block in section.blocks -%}
-        <article class="da-temoignage" {{ block.shopify_attributes }}>
-          <!-- Quote icon decorative -->
-          
+        <article class="da-temoignage-card" {{ block.shopify_attributes }}>
           <!-- Stars -->
-          <div class="da-temoignage__stars" aria-label="Note : {{ block.settings.rating }} sur 5">
+          <div class="da-temoignage-card__stars">
             {%- assign count = block.settings.rating | round -%}
             {%- for i in (1..5) -%}
               {%- if i <= count -%}
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
+                <svg class="da-temoignage-card__star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               {%- else -%}
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8E4DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
+                <svg class="da-temoignage-card__star da-temoignage-card__star--empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               {%- endif -%}
             {%- endfor -%}
           </div>
 
           <!-- Text -->
-          <blockquote class="da-temoignage__text">
+          <blockquote class="da-temoignage-card__text">
             "{{ block.settings.text }}"
           </blockquote>
 
-          <!-- Footer with avatar -->
-          <footer class="da-temoignage__footer">
-            <!-- Avatar -->
-            <div class="da-temoignage__avatar" aria-hidden="true">
-              {{ block.settings.name | slice: 0 }}
+          <!-- Footer -->
+          <div class="da-temoignage-card__footer">
+            <div class="da-temoignage-card__author">
+              <div class="da-temoignage-card__avatar">
+                {{ block.settings.name | slice: 0 }}
+              </div>
+              <div class="da-temoignage-card__info">
+                <span class="da-temoignage-card__name">{{ block.settings.name }}</span>
+                <span class="da-temoignage-card__meta">
+                  {%- if block.settings.age != blank -%}{{ block.settings.age }} ans{%- if block.settings.city != blank -%}, {%- endif -%}{%- endif -%}
+                  {%- if block.settings.city != blank -%}{{ block.settings.city }}{%- endif -%}
+                </span>
+                {%- if block.settings.product != blank -%}
+                  <span class="da-temoignage-card__product">{{ block.settings.product }}</span>
+                {%- endif -%}
+              </div>
             </div>
             
-            <!-- Info -->
-            <div class="da-temoignage__info">
-              <p class="da-temoignage__name">{{ block.settings.name }}</p>
-              <p class="da-temoignage__meta">
-                {%- if block.settings.age != blank -%}{{ block.settings.age }} ans{%- if block.settings.city != blank -%}, {%- endif -%}{%- endif -%}
-                {%- if block.settings.city != blank -%}{{ block.settings.city }}{%- endif -%}
-              </p>
-              {%- if block.settings.product != blank -%}
-                <p class="da-temoignage__product">{{ block.settings.product }}</p>
-              {%- endif -%}
-              
-              <!-- Verified badge -->
-              <span class="da-temoignage__verified">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-                Achat vérifié
-              </span>
-            </div>
-          </footer>
+            <!-- Verified badge -->
+            <span class="da-temoignage-card__verified">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+              Achat verifie
+            </span>
+          </div>
         </article>
       {%- endfor -%}
     </div>
@@ -81,7 +74,7 @@
       "type": "text",
       "id": "subheading",
       "label": "Sous-titre",
-      "default": "Des témoignages authentiques de personnes comme vous."
+      "default": "Des temoignages authentiques de personnes comme vous."
     }
   ],
   "blocks": [
@@ -107,13 +100,13 @@
         {
           "type": "text",
           "id": "name",
-          "label": "Prénom Nom",
+          "label": "Prenom Nom",
           "default": "Marie-Claire D."
         },
         {
           "type": "text",
           "id": "age",
-          "label": "Âge"
+          "label": "Age"
         },
         {
           "type": "text",
@@ -123,7 +116,7 @@
         {
           "type": "text",
           "id": "product",
-          "label": "Produit acheté"
+          "label": "Produit achete"
         }
       ]
     }
@@ -136,7 +129,7 @@
           "type": "temoignage",
           "settings": {
             "rating": 5,
-            "text": "Après des mois de douleurs au coccyx, ce coussin a changé ma vie. Je peux enfin regarder la télévision sans souffrir. Merci !",
+            "text": "Apres des mois de douleurs au coccyx, ce coussin a change ma vie. Je peux enfin regarder la television sans souffrir. Merci !",
             "name": "Marie-Claire D.",
             "age": "67",
             "city": "Lyon",
@@ -147,19 +140,19 @@
           "type": "temoignage",
           "settings": {
             "rating": 5,
-            "text": "Très sceptique au début, j'ai été convaincu dès la première utilisation. La qualité est au rendez-vous et le service client est très réactif.",
+            "text": "Tres sceptique au debut, j'ai ete convaincu des la premiere utilisation. La qualite est au rendez-vous et le service client est tres reactif.",
             "name": "Jean-Pierre M.",
             "age": "72",
             "city": "Bordeaux",
-            "product": "Pack Confort Intégral"
+            "product": "Pack Confort Integral"
           }
         },
         {
           "type": "temoignage",
           "settings": {
             "rating": 5,
-            "text": "Je l'utilise tous les jours dans ma voiture pour mes trajets. Fini les douleurs lombaires après 1h de route. Je recommande vivement.",
-            "name": "Françoise L.",
+            "text": "Je l'utilise tous les jours dans ma voiture pour mes trajets. Fini les douleurs lombaires apres 1h de route. Je recommande vivement.",
+            "name": "Francoise L.",
             "age": "63",
             "city": "Nantes",
             "product": "Coussin Auto Confort"
