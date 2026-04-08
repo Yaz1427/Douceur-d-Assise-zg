@@ -1,15 +1,13 @@
 {
   "sections": {
-    "page-content": {
-      "type": "da-page-content",
-      "settings": {
-        "subtitle": "Retrouvez les reponses a vos questions"
-      }
+    "page-faq": {
+      "type": "da-page-faq",
+      "settings": {}
     },
     "reassurance": {
       "type": "da-reassurance",
       "settings": {}
     }
   },
-  "order": ["page-content", "reassurance"]
+  "order": ["page-faq", "reassurance"]
 }

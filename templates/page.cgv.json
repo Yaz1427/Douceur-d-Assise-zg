@@ -1,16 +1,13 @@
 {
   "sections": {
-    "page-content": {
-      "type": "da-page-content",
-      "settings": {
-        "show_subtitle": false,
-        "show_cta": false
-      }
+    "page-cgv": {
+      "type": "da-page-cgv",
+      "settings": {}
     },
     "reassurance": {
       "type": "da-reassurance",
       "settings": {}
     }
   },
-  "order": ["page-content", "reassurance"]
+  "order": ["page-cgv", "reassurance"]
 }
