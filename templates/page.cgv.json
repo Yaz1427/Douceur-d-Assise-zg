@@ -6,7 +6,11 @@
         "show_subtitle": false,
         "show_cta": false
       }
+    },
+    "reassurance": {
+      "type": "da-reassurance",
+      "settings": {}
     }
   },
-  "order": ["page-content"]
+  "order": ["page-content", "reassurance"]
 }

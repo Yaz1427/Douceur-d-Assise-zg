@@ -722,9 +722,11 @@ h3 { font-size: 1.25rem; } /* 20px */
 
 .da-product-card__image {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background-color: var(--muted);
+  min-height: 200px;
+  max-height: 350px;
 }
 
 .da-product-card__image img {
@@ -738,8 +740,11 @@ h3 { font-size: 1.25rem; } /* 20px */
   transform: scale(1.05);
 }
 
-/* Placeholder quand pas d'image */
+/* Placeholder quand pas d'image - taille fixe */
 .da-product-card__placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
