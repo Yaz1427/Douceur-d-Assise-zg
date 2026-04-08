@@ -3,8 +3,8 @@
    Optimise pour seniors (55-75 ans) selon CLAUDE.md
    ===================================================== */
 
-/* Import Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* Import Lora (titres) + Source Sans 3 (corps) - Polices chaleureuses pour seniors */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 /* ===== VARIABLES ===== */
 :root {
@@ -44,7 +44,9 @@
   --container-max: 80rem;
   --container-pad: 1rem;
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Typographie chaleureuse pour seniors */
+  --font-serif: 'Lora', Georgia, serif; /* Titres - confiance, tradition */
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif; /* Corps - lisible, clair */
   
   /* Animation variables */
   --transition-fast: 150ms ease;
@@ -89,7 +91,7 @@ select:focus-visible, textarea:focus-visible {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif); /* Lora - titres chaleureux */
   line-height: 1.25;
   font-weight: 600; /* CLAUDE.md: poids 600 */
   color: var(--foreground);
