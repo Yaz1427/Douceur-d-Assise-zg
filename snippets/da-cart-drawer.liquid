@@ -1,0 +1,214 @@
+{% comment %}
+  Douceur d'Assise - Cart Drawer Snippet
+  Panier lateral avec barre de progression livraison gratuite
+  
+  Usage: {% render 'da-cart-drawer' %}
+{% endcomment %}
+
+{%- liquid
+  assign free_shipping_threshold = 5000 | times: 100
+  assign cart_total = cart.total_price
+  assign remaining = free_shipping_threshold | minus: cart_total
+  assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold
+  if progress > 100
+    assign progress = 100
+  endif
+  assign has_free_shipping = false
+  if cart_total >= free_shipping_threshold
+    assign has_free_shipping = true
+  endif
+-%}
+
+<!-- Overlay -->
+<div class="da-cart-drawer__overlay" id="da-cart-overlay" aria-hidden="true"></div>
+
+<!-- Drawer -->
+<aside class="da-cart-drawer" id="da-cart-drawer" aria-label="Panier" aria-hidden="true">
+  <!-- Header -->
+  <div class="da-cart-drawer__header">
+    <h2 class="da-cart-drawer__title">Votre panier ({{ cart.item_count }})</h2>
+    <button class="da-cart-drawer__close" id="da-cart-close" aria-label="Fermer le panier">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <!-- Progress bar livraison gratuite -->
+    <div class="da-cart-drawer__shipping-progress">
+      {%- if has_free_shipping -%}
+        <p class="da-cart-drawer__shipping-text">
+          <strong>Felicitations !</strong> Vous beneficiez de la livraison gratuite
+        </p>
+      {%- else -%}
+        <p class="da-cart-drawer__shipping-text">
+          Plus que <strong>{{ remaining | money_without_trailing_zeros }}</strong> pour la livraison gratuite
+        </p>
+      {%- endif -%}
+      <div class="da-cart-drawer__shipping-bar">
+        <div class="da-cart-drawer__shipping-fill" style="width: {{ progress }}%;"></div>
+      </div>
+    </div>
+
+    <!-- Items -->
+    <div class="da-cart-drawer__items">
+      {%- for item in cart.items -%}
+        <div class="da-cart-drawer__item" data-line="{{ forloop.index }}">
+          <div class="da-cart-drawer__item-image">
+            {%- if item.image -%}
+              <img 
+                src="{{ item.image | image_url: width: 160 }}" 
+                alt="{{ item.image.alt | default: item.product.title }}"
+                width="80"
+                height="80"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          
+          <div class="da-cart-drawer__item-info">
+            <h3 class="da-cart-drawer__item-title">{{ item.product.title }}</h3>
+            <div class="da-cart-drawer__item-price">{{ item.final_line_price | money_without_trailing_zeros }}</div>
+            
+            <!-- Quantity controls -->
+            <div class="da-cart-drawer__quantity">
+              <button 
+                class="da-cart-drawer__quantity-btn" 
+                data-action="decrease" 
+                data-line="{{ forloop.index }}"
+                aria-label="Diminuer la quantite"
+                {% if item.quantity <= 1 %}disabled{% endif %}
+              >-</button>
+              <span class="da-cart-drawer__quantity-value">{{ item.quantity }}</span>
+              <button 
+                class="da-cart-drawer__quantity-btn" 
+                data-action="increase" 
+                data-line="{{ forloop.index }}"
+                aria-label="Augmenter la quantite"
+              >+</button>
+            </div>
+            
+            <button 
+              class="da-cart-drawer__item-remove" 
+              data-action="remove" 
+              data-line="{{ forloop.index }}"
+            >
+              Supprimer
+            </button>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Footer -->
+    <div class="da-cart-drawer__footer">
+      <div class="da-cart-drawer__subtotal">
+        <span class="da-cart-drawer__subtotal-label">Sous-total</span>
+        <span class="da-cart-drawer__subtotal-value">{{ cart.total_price | money_without_trailing_zeros }}</span>
+      </div>
+      
+      <a href="/checkout" class="da-btn da-btn-primary da-cart-drawer__checkout">
+        Commander
+        <svg class="da-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      
+      <div class="da-cart-drawer__trust">
+        <span class="da-cart-drawer__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Paiement securise
+        </span>
+        <span class="da-cart-drawer__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          Garantie 30j
+        </span>
+      </div>
+    </div>
+
+  {%- else -%}
+    <!-- Empty cart -->
+    <div class="da-cart-drawer__empty">
+      <svg class="da-cart-drawer__empty-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+      <h3 class="da-cart-drawer__empty-title">Votre panier est vide</h3>
+      <p class="da-cart-drawer__empty-text">Decouvrez nos coussins ergonomiques</p>
+      <a href="/collections/all" class="da-btn da-btn-primary" id="da-cart-continue">
+        Voir les produits
+      </a>
+    </div>
+  {%- endif -%}
+</aside>
+
+<script>
+(function() {
+  var drawer = document.getElementById('da-cart-drawer');
+  var overlay = document.getElementById('da-cart-overlay');
+  var closeBtn = document.getElementById('da-cart-close');
+  var cartLink = document.getElementById('da-cart-link');
+  var continueBtn = document.getElementById('da-cart-continue');
+
+  function openDrawer() {
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('is-visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('is-visible');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (cartLink) {
+    cartLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      openDrawer();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeDrawer);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeDrawer);
+  }
+
+  if (continueBtn) {
+    continueBtn.addEventListener('click', closeDrawer);
+  }
+
+  // Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
+
+  // Quantity buttons
+  document.querySelectorAll('[data-action]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var action = btn.dataset.action;
+      var line = btn.dataset.line;
+      var currentQty = parseInt(btn.parentElement.querySelector('.da-cart-drawer__quantity-value').textContent);
+      var newQty = currentQty;
+
+      if (action === 'increase') newQty = currentQty + 1;
+      if (action === 'decrease') newQty = currentQty - 1;
+      if (action === 'remove') newQty = 0;
+
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ line: parseInt(line), quantity: newQty })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(cart) {
+        document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+        location.reload();
+      });
+    });
+  });
+})();
+</script>

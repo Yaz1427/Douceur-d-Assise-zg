@@ -1,0 +1,149 @@
+{% comment %}
+  Douceur d'Assise - FAQ Section
+  Questions frequentes avec accordeon anime
+{% endcomment %}
+
+<section class="da-faq">
+  <div class="da-container">
+    <div class="da-faq__header">
+      <h2 class="da-faq__title">{{ section.settings.title | default: 'Questions frequentes' }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="da-faq__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="da-faq__list">
+      {%- for block in section.blocks -%}
+        <div class="da-faq__item" {{ block.shopify_attributes }}>
+          <button class="da-faq__question" aria-expanded="false">
+            {{ block.settings.question }}
+            <span class="da-faq__icon">+</span>
+          </button>
+          <div class="da-faq__answer">
+            <div class="da-faq__answer-inner">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="da-faq__cta">
+        <a href="{{ section.settings.cta_url | default: '/pages/faq' }}" class="da-btn da-btn-secondary">
+          {{ section.settings.cta_label }}
+          <svg class="da-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+(function() {
+  document.querySelectorAll('.da-faq__question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.parentElement;
+      var isOpen = item.classList.contains('is-open');
+      
+      // Close all others
+      document.querySelectorAll('.da-faq__item.is-open').forEach(function(openItem) {
+        if (openItem !== item) {
+          openItem.classList.remove('is-open');
+          openItem.querySelector('.da-faq__question').setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Toggle current
+      item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Rapide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Questions frequentes"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Les reponses aux questions les plus posees par nos clients."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton — texte",
+      "default": "Voir toutes les questions"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Bouton — lien"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Combien de temps dure la livraison ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Reponse",
+          "default": "<p>La livraison prend entre 10 et 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Rapide",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Combien de temps dure la livraison ?",
+            "answer": "<p>La livraison prend entre 10 et 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition de votre commande.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Puis-je retourner le produit si je ne suis pas satisfait ?",
+            "answer": "<p>Absolument. Vous disposez de 30 jours apres reception pour nous retourner le produit et etre rembourse integralement, sans justification.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Les coussins sont-ils adaptes a toutes les morphologies ?",
+            "answer": "<p>Oui, nos coussins sont concus pour s'adapter a differentes morphologies. La mousse a memoire de forme epouse les contours de votre corps.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Comment entretenir mon coussin ?",
+            "answer": "<p>La housse est amovible et lavable en machine a 30C. Le coussin lui-meme ne doit pas etre lave en machine — nettoyez-le avec un chiffon humide.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

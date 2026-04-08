@@ -1,0 +1,11 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "da-header": {
+      "type": "da-header",
+      "settings": {}
+    }
+  },
+  "order": ["da-header"]
+}
