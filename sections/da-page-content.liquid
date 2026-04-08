@@ -1,0 +1,73 @@
+{%- comment -%}
+  Section pour afficher le contenu des pages avec un style ameliore
+{%- endcomment -%}
+
+<section class="da-page-content">
+  <div class="da-page-content__inner">
+    {%- if page.title != blank -%}
+      <header class="da-page-content__header">
+        <h1 class="da-page-content__title">{{ page.title }}</h1>
+        {%- if section.settings.show_subtitle and section.settings.subtitle != blank -%}
+          <p class="da-page-content__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+    
+    <div class="da-page-content__body rte">
+      {{ page.content }}
+    </div>
+    
+    {%- if section.settings.show_cta -%}
+      <div class="da-page-content__cta">
+        <a href="{{ section.settings.cta_link }}" class="da-btn da-btn-primary">
+          {{ section.settings.cta_text }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contenu de page",
+  "tag": "section",
+  "class": "da-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_subtitle",
+      "label": "Afficher le sous-titre",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Afficher le bouton CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "Decouvrir nos coussins"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contenu de page"
+    }
+  ]
+}
+{% endschema %}

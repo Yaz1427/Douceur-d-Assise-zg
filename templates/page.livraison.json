@@ -3,8 +3,8 @@
     "page-content": {
       "type": "da-page-content",
       "settings": {
-        "show_subtitle": false,
-        "subtitle": "",
+        "show_subtitle": true,
+        "subtitle": "Livraison gratuite en France metropolitaine",
         "show_cta": true,
         "cta_text": "Decouvrir nos coussins",
         "cta_link": "/collections/all"

@@ -1689,3 +1689,206 @@ h3 { font-size: 1.25rem; } /* 20px */
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ===== PAGE CONTENT ===== */
+.da-page-content {
+  background-color: var(--background);
+  padding: 4rem 0 5rem;
+}
+
+.da-page-content__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.da-page-content__header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.da-page-content__title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) { .da-page-content__title { font-size: 2.75rem; } }
+
+.da-page-content__subtitle {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Rich text content - rte class */
+.da-page-content__body.rte {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--foreground);
+}
+
+.da-page-content__body.rte h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.da-page-content__body.rte h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.da-page-content__body.rte p {
+  margin-bottom: 1.5rem;
+}
+
+.da-page-content__body.rte ul,
+.da-page-content__body.rte ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.da-page-content__body.rte li {
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.da-page-content__body.rte ul li::marker {
+  color: var(--primary);
+}
+
+.da-page-content__body.rte strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.da-page-content__body.rte a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+.da-page-content__body.rte a:hover {
+  color: var(--accent);
+}
+
+/* CTA en bas de page */
+.da-page-content__cta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--secondary);
+  text-align: center;
+}
+
+/* ===== CONTACT FORM ===== */
+.da-contact {
+  background-color: var(--background);
+  padding: 4rem 0 5rem;
+}
+
+.da-contact__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 768px) {
+  .da-contact__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.da-contact__info h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.da-contact__info p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+}
+
+.da-contact__details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.da-contact__detail {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  color: var(--foreground);
+}
+
+.da-contact__detail svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.da-contact__form {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.da-contact__form .field {
+  margin-bottom: 1.5rem;
+}
+
+.da-contact__form label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.da-contact__form input,
+.da-contact__form textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.da-contact__form input:focus,
+.da-contact__form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(46, 94, 126, 0.1);
+}
+
+.da-contact__form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.da-contact__form button[type="submit"] {
+  width: 100%;
+}

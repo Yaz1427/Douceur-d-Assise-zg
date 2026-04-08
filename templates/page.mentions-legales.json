@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "page-content": {
+      "type": "da-page-content",
+      "settings": {
+        "show_subtitle": false,
+        "show_cta": false
+      }
+    }
+  },
+  "order": ["page-content"]
+}
