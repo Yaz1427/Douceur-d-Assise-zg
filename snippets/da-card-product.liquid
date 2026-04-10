@@ -6,6 +6,7 @@
 {% endcomment %}
 
 {%- liquid
+  assign product = card_product | default: product
   assign product_url = product.url
   assign featured_image = product.featured_image
   assign price = product.price | money_without_trailing_zeros
