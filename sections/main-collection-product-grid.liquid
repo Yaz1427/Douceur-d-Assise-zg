@@ -1,0 +1,57 @@
+{% comment %}
+  Douceur d'Assise - Collection Product Grid
+  Grille de produits avec cards optimisees seniors
+{% endcomment %}
+
+<div class="da-collection-grid">
+  <div class="da-collection-grid__inner">
+    {%- if collection.products.size > 0 -%}
+      <div class="da-collection-grid__products">
+        {%- for product in collection.products -%}
+          {% render 'da-card-product', product: product %}
+        {%- endfor -%}
+      </div>
+      
+      {%- if paginate.pages > 1 -%}
+        <div class="da-collection-grid__pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="da-collection-grid__empty">
+        <p>Aucun produit dans cette collection pour le moment.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="da-btn da-btn-primary">
+          Voir tous les produits
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Grille Produits",
+  "tag": "section",
+  "class": "section-collection-grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "label": "Produits par page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Colonnes (desktop)"
+    }
+  ]
+}
+{% endschema %}

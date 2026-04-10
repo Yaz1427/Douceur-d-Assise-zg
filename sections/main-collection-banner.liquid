@@ -1,0 +1,22 @@
+{% comment %}
+  Douceur d'Assise - Collection Banner
+  Banniere de collection avec titre et description
+{% endcomment %}
+
+<div class="da-collection-banner">
+  <div class="da-collection-banner__inner">
+    <h1 class="da-collection-banner__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p class="da-collection-banner__description">{{ collection.description }}</p>
+    {%- endif -%}
+    <p class="da-collection-banner__count">{{ collection.products_count }} produit{% if collection.products_count > 1 %}s{% endif %}</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banniere Collection",
+  "tag": "section",
+  "class": "section-collection-banner"
+}
+{% endschema %}
