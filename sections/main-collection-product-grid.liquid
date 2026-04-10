@@ -1,56 +1,89 @@
 {% comment %}
   Douceur d'Assise - Collection Product Grid
-  Grille de produits avec cards optimisees seniors
+  Version custom sans dépendances CSS Horizon
 {% endcomment %}
 
-<div class="da-collection-grid">
-  <div class="da-collection-grid__inner">
-    {%- if collection.products.size > 0 -%}
-      <div class="da-collection-grid__products">
-        {%- for product in collection.products -%}
-          {% render 'da-card-product', product: product %}
-        {%- endfor -%}
-      </div>
-      
-      {%- if paginate.pages > 1 -%}
-        <div class="da-collection-grid__pagination">
-          {{ paginate | default_pagination }}
+<div class="da-collection">
+  <div class="da-collection__inner">
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+
+      {%- if section.settings.enable_sorting -%}
+        <div class="da-collection__toolbar">
+          <p class="da-collection__count">
+            {{ collection.products_count }}
+            produit{% if collection.products_count > 1 %}s{% endif %}
+          </p>
+          <div class="da-collection__sort">
+            <label for="da-sort-by">Trier par :</label>
+            <div class="da-collection__select-wrap">
+              {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+              <select
+                id="da-sort-by"
+                name="sort_by"
+                onchange="window.location.href = '{{ collection.url }}?sort_by=' + this.value"
+              >
+                {%- for option in collection.sort_options -%}
+                  <option
+                    value="{{ option.value | escape }}"
+                    {% if option.value == sort_by %}selected="selected"{% endif %}
+                  >
+                    {{ option.name | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
         </div>
       {%- endif -%}
-    {%- else -%}
-      <div class="da-collection-grid__empty">
-        <p>Aucun produit dans cette collection pour le moment.</p>
-        <a href="{{ routes.all_products_collection_url }}" class="da-btn da-btn-primary">
-          Voir tous les produits
-        </a>
-      </div>
-    {%- endif -%}
+
+      {%- if collection.products.size > 0 -%}
+        <div class="da-collection__grid">
+          {%- for product in collection.products -%}
+            {% render 'da-card-product', card_product: product %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="da-collection__pagination">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+
+      {%- else -%}
+        <div class="da-collection__empty">
+          <p>Aucun produit dans cette collection.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="da-btn da-btn-primary">
+            Voir tous les produits
+          </a>
+        </div>
+      {%- endif -%}
+
+    {%- endpaginate -%}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Grille Produits",
+  "name": "Grille produits collection",
   "tag": "section",
-  "class": "section-collection-grid",
+  "class": "da-section-collection-grid",
   "settings": [
     {
       "type": "range",
       "id": "products_per_page",
       "min": 4,
       "max": 24,
-      "step": 2,
+      "step": 4,
       "default": 12,
       "label": "Produits par page"
     },
     {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 3,
-      "label": "Colonnes (desktop)"
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Afficher le tri"
     }
   ]
 }
