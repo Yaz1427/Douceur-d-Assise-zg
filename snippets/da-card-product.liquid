@@ -67,15 +67,9 @@
     </div>
 
     <div class="da-product-card__cta">
-      {%- if product.available -%}
-        <a href="{{ product_url }}" class="da-btn da-btn-primary">
-          Voir le produit
-        </a>
-      {%- else -%}
-        <button class="da-btn da-btn-secondary" disabled>
-          Rupture de stock
-        </button>
-      {%- endif -%}
+      <a href="{{ product_url }}" class="da-btn da-btn-primary">
+        Voir le produit
+      </a>
     </div>
   </div>
 </article>
