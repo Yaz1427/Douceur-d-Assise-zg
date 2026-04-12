@@ -2,7 +2,10 @@
 
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign has_compare = product.compare_at_price > product.price
+  assign has_compare = false
+  if product.compare_at_price > product.price
+    assign has_compare = true
+  endif
   assign discount_pct = 0
   if has_compare
     assign discount_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round
