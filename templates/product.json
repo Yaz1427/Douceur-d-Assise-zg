@@ -3,70 +3,40 @@
     "main": {
       "type": "da-product-page",
       "blocks": {
-        "bullet-1": {
-          "type": "bullet",
-          "settings": {
-            "icon": "check",
-            "text": "Soulagement immediat des douleurs au coccyx et au dos"
-          }
-        },
-        "bullet-2": {
-          "type": "bullet",
-          "settings": {
-            "icon": "shield",
-            "text": "Mousse a memoire de forme haute densite — dure des annees"
-          }
-        },
-        "bullet-3": {
-          "type": "bullet",
-          "settings": {
-            "icon": "check",
-            "text": "Housse amovible et lavable en machine a 30C"
-          }
-        },
-        "bullet-4": {
-          "type": "bullet",
-          "settings": {
-            "icon": "check",
-            "text": "Adapte a toutes les chaises, voitures et fauteuils"
-          }
-        },
-        "faq-1": {
+        "b1": { "type": "benefit", "settings": { "text": "Soulage les douleurs au coccyx et au dos des la premiere utilisation" } },
+        "b2": { "type": "benefit", "settings": { "text": "Votre dos reste naturellement droit, sans effort" } },
+        "b3": { "type": "benefit", "settings": { "text": "S'adapte parfaitement a votre corps — mousse memoire de forme" } },
+        "b4": { "type": "benefit", "settings": { "text": "Vous pouvez rester assis des heures sans douleur" } },
+        "f1": {
           "type": "faq",
           "settings": {
-            "question": "Quelle est la garantie ?",
-            "answer": "<p>Vous beneficiez d'une garantie satisfait ou rembourse de 30 jours. Si vous n'etes pas satisfait, nous vous remboursons integralement, sans justification.</p>"
+            "question": "Combien de temps pour recevoir ma commande ?",
+            "answer": "<p>Votre coussin est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l'expedition.</p>"
           }
         },
-        "faq-2": {
+        "f2": {
           "type": "faq",
           "settings": {
-            "question": "Combien de temps pour la livraison ?",
-            "answer": "<p>Livraison gratuite en 10 a 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition de votre commande.</p>"
+            "question": "Et si le coussin ne me convient pas ?",
+            "answer": "<p>Vous avez 30 jours pour changer d'avis. Si le coussin ne vous convient pas, renvoyez-le et nous vous remboursons integralement. Sans condition.</p>"
           }
         },
-        "faq-3": {
+        "f3": {
           "type": "faq",
           "settings": {
-            "question": "Est-ce adapte a toutes les morphologies ?",
-            "answer": "<p>Oui, la mousse a memoire de forme s'adapte naturellement a votre morphologie et a la forme de votre corps pour un confort personnalise.</p>"
+            "question": "Comment je lave la housse ?",
+            "answer": "<p>La housse se retire facilement grace a la fermeture eclair. Lavage en machine a 30 degres, sechage a l'air libre. Le coussin lui-meme se nettoie avec un chiffon humide.</p>"
           }
         }
       },
-      "block_order": [
-        "bullet-1",
-        "bullet-2",
-        "bullet-3",
-        "bullet-4",
-        "faq-1",
-        "faq-2",
-        "faq-3"
-      ],
+      "block_order": ["b1", "b2", "b3", "b4", "f1", "f2", "f3"],
       "settings": {
-        "show_reviews": true,
+        "show_reviews": false,
         "review_score": 5,
         "review_count": "247",
-        "desc_heading": "Tout sur ce coussin"
+        "benefits_title": "Pourquoi ce coussin ?",
+        "show_phone": true,
+        "phone": "01 86 26 10 20"
       }
     }
   },
