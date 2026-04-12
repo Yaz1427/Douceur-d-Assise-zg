@@ -1,49 +1,72 @@
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "da-product-page",
       "blocks": {
-        "vendor": {
-          "type": "text",
+        "bullet-1": {
+          "type": "bullet",
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
+            "icon": "check",
+            "text": "Soulagement immediat des douleurs au coccyx et au dos"
           }
         },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
+        "bullet-2": {
+          "type": "bullet",
           "settings": {
-            "picker_type": "button"
+            "icon": "shield",
+            "text": "Mousse a memoire de forme haute densite — dure des annees"
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
+        "bullet-3": {
+          "type": "bullet",
           "settings": {
-            "show_dynamic_checkout": true
+            "icon": "check",
+            "text": "Housse amovible et lavable en machine a 30°C"
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "bullet-4": {
+          "type": "bullet",
+          "settings": {
+            "icon": "check",
+            "text": "Adapte a toutes les chaises, voitures et fauteuils"
+          }
+        },
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "Quelle est la garantie ?",
+            "answer": "<p>Vous beneficiez d'une garantie satisfait ou rembourse de 30 jours. Si vous n'etes pas satisfait, nous vous remboursons integralement, sans justification.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "Combien de temps pour la livraison ?",
+            "answer": "<p>Livraison gratuite en 10 a 15 jours ouvres. Vous recevez un numero de suivi par email des l'expedition de votre commande.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Est-ce adapte a toutes les morphologies ?",
+            "answer": "<p>Oui, la mousse a memoire de forme s'adapte naturellement a votre morphologie et a la forme de votre corps pour un confort personnalise.</p>"
+          }
         }
       },
-      "block_order": ["vendor", "title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description"],
+      "block_order": [
+        "bullet-1",
+        "bullet-2",
+        "bullet-3",
+        "bullet-4",
+        "faq-1",
+        "faq-2",
+        "faq-3"
+      ],
       "settings": {
-        "enable_sticky_info": true,
-        "media_size": "medium",
-        "media_position": "left"
+        "show_reviews": true,
+        "review_score": 5,
+        "review_count": "247",
+        "desc_heading": "Tout sur ce coussin"
       }
     }
   },

@@ -1,0 +1,655 @@
+{{- 'da-styles.css' | asset_url | stylesheet_tag -}}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign has_compare = product.compare_at_price > product.price
+  assign discount_pct = 0
+  if has_compare
+    assign discount_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round
+  endif
+-%}
+
+<div class="dap" data-product-id="{{ product.id }}" data-variant-id="{{ current_variant.id }}">
+  <div class="dap__inner">
+
+    <!-- ═══════════════════ GALLERY ═══════════════════ -->
+    <div class="dap__gallery" id="dap-gallery">
+
+      <!-- Image principale -->
+      <div class="dap__main-img" id="dap-main-img">
+        {%- for image in product.images limit: 8 -%}
+          <div class="dap__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
+            <img
+              src="{{ image | image_url: width: 900 }}"
+              alt="{{ image.alt | default: product.title | escape }}"
+              width="900"
+              height="{{ 900 | divided_by: image.aspect_ratio | round }}"
+              {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+            >
+          </div>
+        {%- else -%}
+          <div class="dap__slide is-active">
+            <div class="dap__img-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              <span>Image a venir</span>
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <!-- Flèches navigation -->
+        {%- if product.images.size > 1 -%}
+          <button class="dap__nav dap__nav--prev" id="dap-prev" aria-label="Image precedente">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="dap__nav dap__nav--next" id="dap-next" aria-label="Image suivante">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        {%- endif -%}
+      </div>
+
+      <!-- Indicateurs dots (mobile) / Thumbnails (desktop) -->
+      {%- if product.images.size > 1 -%}
+        <div class="dap__dots" id="dap-dots">
+          {%- for image in product.images limit: 8 -%}
+            <button class="dap__dot{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Aller a l'image {{ forloop.index }}"></button>
+          {%- endfor -%}
+        </div>
+        <div class="dap__thumbs" id="dap-thumbs">
+          {%- for image in product.images limit: 8 -%}
+            <button class="dap__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Voir image {{ forloop.index }}">
+              <img
+                src="{{ image | image_url: width: 160 }}"
+                alt=""
+                width="80"
+                height="80"
+                loading="lazy"
+              >
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- ═══════════════════ INFOS ═══════════════════ -->
+    <div class="dap__info">
+
+      <!-- Titre -->
+      <h1 class="dap__title">{{ product.title }}</h1>
+
+      <!-- Avis clients -->
+      {%- if section.settings.show_reviews -%}
+        <div class="dap__reviews">
+          <div class="dap__stars" aria-label="{{ section.settings.review_score }} sur 5">
+            {%- assign score = section.settings.review_score | floor -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= score -%}
+                <svg class="dap__star dap__star--full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              {%- else -%}
+                <svg class="dap__star dap__star--empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <span class="dap__review-count">
+            <strong>{{ section.settings.review_score }}/5</strong>
+            ({{ section.settings.review_count }} avis)
+          </span>
+        </div>
+      {%- endif -%}
+
+      <!-- Prix -->
+      <div class="dap__price-block" id="dap-price-block">
+        {%- if has_compare -%}
+          <div class="dap__price-row">
+            <span class="dap__price" id="dap-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+            <span class="dap__price-compare" id="dap-compare">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+            <span class="dap__price-badge">-{{ discount_pct }}%</span>
+          </div>
+        {%- else -%}
+          <div class="dap__price-row">
+            <span class="dap__price" id="dap-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+          </div>
+        {%- endif -%}
+        <p class="dap__price-shipping">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+          Livraison offerte — arrive sous 10-15 jours
+        </p>
+      </div>
+
+      <!-- Bullet points : destruction des objections -->
+      {%- assign bullet_blocks = section.blocks | where: 'type', 'bullet' -%}
+      {%- if bullet_blocks.size > 0 -%}
+        <ul class="dap__bullets">
+          {%- for block in bullet_blocks -%}
+            <li class="dap__bullet" {{ block.shopify_attributes }}>
+              <span class="dap__bullet-icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'check' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  {%- when 'shield' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {%- when 'star' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  {%- when 'heart' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                {%- endcase -%}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <!-- Sélecteur de variants -->
+      {%- unless product.has_only_default_variant -%}
+        <div class="dap__variants">
+          {%- for option in product.options_with_values -%}
+            <div class="dap__option" data-option-index="{{ forloop.index0 }}">
+              <p class="dap__option-label">{{ option.name }} :</p>
+              <div class="dap__option-buttons">
+                {%- for value in option.values -%}
+                  <button
+                    type="button"
+                    class="dap__option-btn{% if option.selected_value == value %} is-active{% endif %}"
+                    data-option="{{ forloop.parentloop.index0 }}"
+                    data-value="{{ value | escape }}"
+                  >
+                    {{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+
+      <!-- Bundle / Quantité promo -->
+      {%- assign bundle_blocks = section.blocks | where: 'type', 'bundle' -%}
+      {%- if bundle_blocks.size > 0 -%}
+        <div class="dap__bundle">
+          <p class="dap__bundle-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Offre speciale — Economisez plus
+          </p>
+          <div class="dap__bundle-options">
+            <label class="dap__bundle-opt dap__bundle-opt--selected">
+              <input type="radio" name="dap-bundle" value="1" checked>
+              <div class="dap__bundle-opt-inner">
+                <span class="dap__bundle-qty">1 coussin</span>
+                <span class="dap__bundle-price">{{ product.price | money_without_trailing_zeros }}</span>
+              </div>
+            </label>
+            {%- for block in bundle_blocks -%}
+              <label class="dap__bundle-opt" {{ block.shopify_attributes }}>
+                <input type="radio" name="dap-bundle" value="{{ block.settings.quantity }}">
+                <div class="dap__bundle-opt-inner">
+                  <span class="dap__bundle-qty">{{ block.settings.quantity }} coussins</span>
+                  <span class="dap__bundle-badge">{{ block.settings.badge }}</span>
+                  <span class="dap__bundle-price">{{ block.settings.price_label }}</span>
+                </div>
+              </label>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <!-- Formulaire ATC -->
+      <div class="dap__form-wrap">
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="dap-form">
+          <input type="hidden" name="id" id="dap-variant-id" value="{{ current_variant.id }}">
+
+          <!-- Quantité -->
+          <div class="dap__qty-row">
+            <div class="dap__qty">
+              <button type="button" class="dap__qty-btn" id="dap-qty-minus" aria-label="Diminuer">−</button>
+              <input
+                type="number"
+                name="quantity"
+                id="dap-qty-input"
+                value="1"
+                min="1"
+                max="10"
+                class="dap__qty-input"
+                aria-label="Quantite"
+              >
+              <button type="button" class="dap__qty-btn" id="dap-qty-plus" aria-label="Augmenter">+</button>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <button
+            type="submit"
+            class="dap__atc-btn"
+            id="dap-atc"
+            {% if current_variant.available == false %}disabled{% endif %}
+          >
+            {%- if current_variant.available -%}
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+              Ajouter au panier
+            {%- else -%}
+              Produit non disponible
+            {%- endif -%}
+          </button>
+        </form>
+      </div>
+
+      <!-- Trust badges — SOUS LE BOUTON, INDISPENSABLE -->
+      <div class="dap__trust">
+        <div class="dap__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Garantie<br><strong>30 jours</strong></span>
+        </div>
+        <div class="dap__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+          <span>Livraison<br><strong>gratuite</strong></span>
+        </div>
+        <div class="dap__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="m15 18 6-6-6-6"/><path d="M3 6h9"/></svg>
+          <span>Retours<br><strong>gratuits</strong></span>
+        </div>
+        <div class="dap__trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Paiement<br><strong>securise</strong></span>
+        </div>
+      </div>
+
+      <!-- Icônes moyens de paiement -->
+      <div class="dap__payment">
+        <span class="dap__payment-label">Accepte :</span>
+        <div class="dap__payment-icons">
+          <!-- Visa -->
+          <span class="dap__pay-icon" title="Visa">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" role="img" aria-label="Visa">
+              <rect width="48" height="32" rx="4" fill="#1A1F71"/>
+              <text x="24" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" letter-spacing="1">VISA</text>
+            </svg>
+          </span>
+          <!-- Mastercard -->
+          <span class="dap__pay-icon" title="Mastercard">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" role="img" aria-label="Mastercard">
+              <rect width="48" height="32" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+              <circle cx="18" cy="16" r="10" fill="#EB001B"/>
+              <circle cx="30" cy="16" r="10" fill="#F79E1B"/>
+              <path d="M24 8.5a10 10 0 0 1 0 15 10 10 0 0 1 0-15z" fill="#FF5F00"/>
+            </svg>
+          </span>
+          <!-- CB -->
+          <span class="dap__pay-icon" title="Carte Bancaire">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" role="img" aria-label="Carte Bancaire">
+              <rect width="48" height="32" rx="4" fill="#003D8F"/>
+              <text x="24" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">CB</text>
+            </svg>
+          </span>
+          <!-- PayPal -->
+          <span class="dap__pay-icon" title="PayPal">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" role="img" aria-label="PayPal">
+              <rect width="48" height="32" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+              <text x="24" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#003087">Pay<tspan fill="#009CDE">Pal</tspan></text>
+            </svg>
+          </span>
+          <!-- Apple Pay -->
+          <span class="dap__pay-icon" title="Apple Pay">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" role="img" aria-label="Apple Pay">
+              <rect width="48" height="32" rx="4" fill="#000"/>
+              <text x="24" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white"> Pay</text>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Mini FAQ -->
+      {%- assign faq_blocks = section.blocks | where: 'type', 'faq' -%}
+      {%- if faq_blocks.size > 0 -%}
+        <div class="dap__faq">
+          <p class="dap__faq-title">Questions frequentes</p>
+          {%- for block in faq_blocks -%}
+            <details class="dap__faq-item" {{ block.shopify_attributes }}>
+              <summary class="dap__faq-q">
+                {{ block.settings.question }}
+                <svg class="dap__faq-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="dap__faq-a">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div><!-- /.dap__info -->
+  </div><!-- /.dap__inner -->
+
+  <!-- ═══════════════════ DESCRIPTION LONGUE ═══════════════════ -->
+  {%- if product.description != blank -%}
+    <div class="dap__desc-section">
+      <div class="dap__desc-inner">
+        <h2 class="dap__desc-title">
+          {%- if section.settings.desc_heading != blank -%}
+            {{ section.settings.desc_heading }}
+          {%- else -%}
+            Details du produit
+          {%- endif -%}
+        </h2>
+        <div class="dap__desc-body rte">
+          {{ product.description }}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+</div><!-- /.dap -->
+
+<!-- ═══════════════════ STICKY ATC MOBILE ═══════════════════ -->
+<div class="dap__sticky-bar" id="dap-sticky-bar" aria-hidden="true">
+  <div class="dap__sticky-inner">
+    <div class="dap__sticky-info">
+      <span class="dap__sticky-title">{{ product.title | truncate: 30 }}</span>
+      <span class="dap__sticky-price" id="dap-sticky-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+    </div>
+    <button type="button" class="dap__sticky-btn" id="dap-sticky-btn">
+      Ajouter au panier
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var form = document.getElementById('dap-form');
+  var variantInput = document.getElementById('dap-variant-id');
+  var priceEl = document.getElementById('dap-price');
+  var compareEl = document.getElementById('dap-compare');
+  var stickyPrice = document.getElementById('dap-sticky-price');
+  var atcBtn = document.getElementById('dap-atc');
+  var qtyInput = document.getElementById('dap-qty-input');
+  var stickyBar = document.getElementById('dap-sticky-bar');
+  var stickyBtn = document.getElementById('dap-sticky-btn');
+  var mainImg = document.getElementById('dap-main-img');
+  var dotsEl = document.getElementById('dap-dots');
+  var thumbsEl = document.getElementById('dap-thumbs');
+
+  var slides = mainImg ? mainImg.querySelectorAll('.dap__slide') : [];
+  var dots = dotsEl ? dotsEl.querySelectorAll('.dap__dot') : [];
+  var thumbs = thumbsEl ? thumbsEl.querySelectorAll('.dap__thumb') : [];
+  var currentSlide = 0;
+
+  // ── Galerie ──────────────────────────────────────────────
+  function goTo(n) {
+    if (!slides.length) return;
+    n = ((n % slides.length) + slides.length) % slides.length;
+    slides[currentSlide].classList.remove('is-active');
+    if (dots[currentSlide]) dots[currentSlide].classList.remove('is-active');
+    if (thumbs[currentSlide]) thumbs[currentSlide].classList.remove('is-active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('is-active');
+    if (dots[currentSlide]) dots[currentSlide].classList.add('is-active');
+    if (thumbs[currentSlide]) thumbs[currentSlide].classList.add('is-active');
+  }
+
+  var prevBtn = document.getElementById('dap-prev');
+  var nextBtn = document.getElementById('dap-next');
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentSlide - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentSlide + 1); });
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() { goTo(parseInt(dot.dataset.index)); });
+  });
+  thumbs.forEach(function(thumb) {
+    thumb.addEventListener('click', function() { goTo(parseInt(thumb.dataset.index)); });
+  });
+
+  // Touch swipe mobile
+  if (mainImg) {
+    var touchStartX = 0;
+    mainImg.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    mainImg.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? currentSlide + 1 : currentSlide - 1);
+    });
+  }
+
+  // ── Variantes ────────────────────────────────────────────
+  var variants = {{ product.variants | json }};
+  var selectedOptions = {};
+
+  document.querySelectorAll('.dap__option-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var optIdx = parseInt(btn.dataset.option);
+      var val = btn.dataset.value;
+      btn.closest('.dap__option-buttons').querySelectorAll('.dap__option-btn').forEach(function(b) {
+        b.classList.remove('is-active');
+      });
+      btn.classList.add('is-active');
+      selectedOptions[optIdx] = val;
+      updateVariant();
+    });
+  });
+
+  // Init selected options from current variant
+  {%- for option in product.options_with_values -%}
+    selectedOptions[{{ forloop.index0 }}] = {{ option.selected_value | json }};
+  {%- endfor -%}
+
+  function updateVariant() {
+    var matched = null;
+    for (var i = 0; i < variants.length; i++) {
+      var v = variants[i];
+      var match = true;
+      for (var o = 0; o < Object.keys(selectedOptions).length; o++) {
+        if (v['option' + (o + 1)] !== selectedOptions[o]) { match = false; break; }
+      }
+      if (match) { matched = v; break; }
+    }
+    if (!matched) return;
+    variantInput.value = matched.id;
+    if (priceEl) priceEl.textContent = formatMoney(matched.price);
+    if (compareEl && matched.compare_at_price > matched.price) {
+      compareEl.textContent = formatMoney(matched.compare_at_price);
+      compareEl.style.display = '';
+    } else if (compareEl) {
+      compareEl.style.display = 'none';
+    }
+    if (stickyPrice) stickyPrice.textContent = formatMoney(matched.price);
+    if (atcBtn) {
+      atcBtn.disabled = !matched.available;
+      atcBtn.innerHTML = matched.available
+        ? '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Ajouter au panier'
+        : 'Produit non disponible';
+    }
+  }
+
+  function formatMoney(cents) {
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(cents / 100);
+  }
+
+  // ── Quantité ─────────────────────────────────────────────
+  var minusBtn = document.getElementById('dap-qty-minus');
+  var plusBtn = document.getElementById('dap-qty-plus');
+  if (minusBtn) minusBtn.addEventListener('click', function() {
+    var v = parseInt(qtyInput.value);
+    if (v > 1) qtyInput.value = v - 1;
+  });
+  if (plusBtn) plusBtn.addEventListener('click', function() {
+    var v = parseInt(qtyInput.value);
+    if (v < 10) qtyInput.value = v + 1;
+  });
+
+  // ── Sticky bar ───────────────────────────────────────────
+  if (stickyBar && atcBtn) {
+    var atcRect = atcBtn.getBoundingClientRect();
+    window.addEventListener('scroll', function() {
+      var rect = atcBtn.getBoundingClientRect();
+      if (rect.bottom < 0) {
+        stickyBar.classList.add('is-visible');
+        stickyBar.setAttribute('aria-hidden', 'false');
+      } else {
+        stickyBar.classList.remove('is-visible');
+        stickyBar.setAttribute('aria-hidden', 'true');
+      }
+    }, { passive: true });
+  }
+
+  if (stickyBtn) {
+    stickyBtn.addEventListener('click', function() {
+      form.dispatchEvent(new Event('submit', { bubbles: true }));
+    });
+  }
+
+  // ── ATC AJAX ─────────────────────────────────────────────
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = atcBtn;
+      var originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dap__spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Ajout...';
+
+      var data = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: data
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(item) {
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Ajoute !';
+        btn.classList.add('dap__atc-btn--success');
+        fetch('/cart.js')
+          .then(function(r) { return r.json(); })
+          .then(function(cart) {
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+          });
+        setTimeout(function() {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.classList.remove('dap__atc-btn--success');
+        }, 2500);
+      })
+      .catch(function() {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Fiche produit DA",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "default": true,
+      "label": "Afficher les avis"
+    },
+    {
+      "type": "range",
+      "id": "review_score",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5,
+      "label": "Note (etoiles)"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Nombre d'avis affiche",
+      "default": "247"
+    },
+    {
+      "type": "text",
+      "id": "desc_heading",
+      "label": "Titre section description",
+      "default": "Tout sur ce coussin"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Argument de vente",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icone",
+          "options": [
+            { "value": "check", "label": "Coche" },
+            { "value": "shield", "label": "Bouclier" },
+            { "value": "star", "label": "Etoile" },
+            { "value": "heart", "label": "Coeur" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Soulagement immediat des douleurs au coccyx"
+        }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Offre pack",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "range",
+          "id": "quantity",
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 2,
+          "label": "Quantite"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge promo",
+          "default": "-10%"
+        },
+        {
+          "type": "text",
+          "id": "price_label",
+          "label": "Affichage prix",
+          "default": "2 x 40,41€"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Question frequente",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Quelle est la garantie ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Reponse",
+          "default": "<p>Vous beneficiez d'une garantie satisfait ou rembourse de 30 jours. Si vous n'etes pas satisfait, nous vous remboursons integralement.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fiche produit DA",
+      "blocks": [
+        { "type": "bullet", "settings": { "icon": "check", "text": "Soulagement immediat des douleurs au coccyx et au dos" } },
+        { "type": "bullet", "settings": { "icon": "shield", "text": "Mousse a memoire de forme haute densite — dure des annees" } },
+        { "type": "bullet", "settings": { "icon": "check", "text": "Housse lavable en machine — toujours propre" } },
+        { "type": "bullet", "settings": { "icon": "check", "text": "Adapte a toutes les chaises, voitures et fauteuils" } },
+        { "type": "faq", "settings": { "question": "Quelle est la garantie ?", "answer": "<p>Garantie satisfait ou rembourse 30 jours. Si vous n'etes pas satisfait, remboursement integral sans question.</p>" } },
+        { "type": "faq", "settings": { "question": "Combien de temps pour la livraison ?", "answer": "<p>Livraison gratuite en 10-15 jours ouvres. Un numero de suivi vous est envoye par email.</p>" } },
+        { "type": "faq", "settings": { "question": "Fonctionne-t-il pour les douleurs lombaires aussi ?", "answer": "<p>Oui, notre coussin soulage aussi les douleurs lombaires grace a son design ergonomique qui soutient toute la zone bas du dos.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
