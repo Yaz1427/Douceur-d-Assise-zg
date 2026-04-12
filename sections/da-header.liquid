@@ -49,7 +49,17 @@
       <!-- Links desktop -->
       <div class="da-header__links">
         <a href="/">Accueil</a>
-        <a href="/collections/all">Catalogue</a>
+        <div class="da-header__dropdown" id="da-dropdown-catalogue">
+          <button class="da-header__dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Catalogue
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <ul class="da-header__dropdown-menu" role="menu">
+            <li role="none"><a href="/collections/all" role="menuitem">Tous les produits</a></li>
+            <li role="none"><a href="/collections/coussins-assise" role="menuitem">Coussins Assise</a></li>
+            <li role="none"><a href="/collections/coussins-sommeil" role="menuitem">Coussins Sommeil</a></li>
+          </ul>
+        </div>
         <a href="/pages/a-propos">A propos</a>
         <a href="/pages/contact">Contact</a>
       </div>
@@ -83,7 +93,17 @@
     <div class="da-header__mobile" id="da-mobile-menu" aria-hidden="true">
       <div class="da-header__mobile-inner">
         <a href="/">Accueil</a>
-        <a href="/collections/all">Catalogue</a>
+        <div class="da-header__mobile-group" id="da-mobile-catalogue">
+          <button class="da-header__mobile-group-trigger" aria-expanded="false">
+            Catalogue
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="da-header__mobile-submenu">
+            <a href="/collections/all">Tous les produits</a>
+            <a href="/collections/coussins-assise">Coussins Assise</a>
+            <a href="/collections/coussins-sommeil">Coussins Sommeil</a>
+          </div>
+        </div>
         <a href="/pages/a-propos">A propos</a>
         <a href="/pages/contact">Contact</a>
         <a href="/cart">
@@ -111,6 +131,35 @@
       btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
       if (iconM) iconM.style.display = open ? 'none' : '';
       if (iconX) iconX.style.display = open ? '' : 'none';
+    });
+  }
+
+  // Dropdown catalogue desktop
+  var dropdown = document.getElementById('da-dropdown-catalogue');
+  if (dropdown) {
+    var trigger = dropdown.querySelector('.da-header__dropdown-trigger');
+    var closeDropdown = function() {
+      dropdown.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = dropdown.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', closeDropdown);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDropdown();
+    });
+  }
+
+  // Sous-menu mobile catalogue
+  var mobileGroup = document.getElementById('da-mobile-catalogue');
+  if (mobileGroup) {
+    var mobileTrigger = mobileGroup.querySelector('.da-header__mobile-group-trigger');
+    mobileTrigger.addEventListener('click', function() {
+      var open = mobileGroup.classList.toggle('is-open');
+      mobileTrigger.setAttribute('aria-expanded', open);
     });
   }
 
