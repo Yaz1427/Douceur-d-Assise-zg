@@ -1,53 +1,48 @@
-<section class="da-section da-section--muted">
-  <div class="da-section__inner">
-    <div class="da-pb-sol__grid">
+<section class="da-problem-solution">
+  <h2 class="da-problem-solution__heading">Vous reconnaissez-vous ?</h2>
+  <div class="da-problem-solution__inner">
 
-      <h2>Vous reconnaissez-vous ?</h2>
-
-      <div class="da-pb-sol__cards">
-
-        <!-- Carte problèmes -->
-        <div class="da-pb-sol__card da-pb-sol__card--problem">
-          <h3>Vos problèmes</h3>
-          <ul>
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'problem' -%}
-                <li {{ block.shopify_attributes }}>
-                  <span class="da-pb-sol__icon da-pb-sol__icon--x">✗</span>
-                  <span>{{ block.settings.text }}</span>
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        </div>
-
-        <!-- Carte solutions -->
-        <div class="da-pb-sol__card da-pb-sol__card--solution">
-          <h3>Nos solutions</h3>
-          <ul>
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'solution' -%}
-                <li {{ block.shopify_attributes }}>
-                  <span class="da-pb-sol__icon da-pb-sol__icon--check">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                  </span>
-                  <span>{{ block.settings.text }}</span>
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="da-pb-sol__cta">
-        <a href="{{ routes.collections_url }}" class="da-btn da-btn-primary">
-          Découvrir la solution adaptée
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-      </div>
-
+    <!-- Carte problèmes -->
+    <div class="da-problem-solution__col da-problem-solution__col--problem">
+      <h2 class="da-problem-solution__title da-problem-solution__title--problem">Vos problèmes</h2>
+      <ul class="da-problem-solution__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'problem' -%}
+            <li class="da-problem-solution__item" {{ block.shopify_attributes }}>
+              <span class="da-problem-solution__icon da-problem-solution__icon--problem" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
     </div>
+
+    <!-- Carte solutions -->
+    <div class="da-problem-solution__col da-problem-solution__col--solution">
+      <h2 class="da-problem-solution__title da-problem-solution__title--solution">Nos solutions</h2>
+      <ul class="da-problem-solution__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'solution' -%}
+            <li class="da-problem-solution__item" {{ block.shopify_attributes }}>
+              <span class="da-problem-solution__icon da-problem-solution__icon--solution" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="da-problem-solution__cta">
+    <a href="{{ routes.collections_url }}" class="da-btn da-btn-primary">
+      Découvrir la solution adaptée
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
   </div>
 </section>
 

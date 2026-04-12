@@ -566,42 +566,32 @@ h3 { font-size: 1.25rem; } /* 20px */
 }
 
 /* Social proof */
-.da-hero__social {
+.da-hero__guarantees {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
 }
 
-.da-hero__avatars {
-  display: flex;
-  align-items: center;
+@media (min-width: 480px) {
+  .da-hero__guarantees {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
 
-.da-hero__avatar {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius-full);
-  background-color: var(--secondary);
-  border: 3px solid var(--card);
+.da-hero__guarantee {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.875rem; /* 14px minimum */
-  font-weight: 600;
-  color: var(--foreground);
-  margin-left: -0.625rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.da-hero__avatar:first-child { margin-left: 0; }
-
-.da-hero__social-text {
-  font-size: 1.125rem; /* 18px pour seniors */
+  gap: 0.5rem;
+  font-size: 1rem; /* 16px */
   color: var(--muted-foreground);
 }
-.da-hero__social-text strong {
-  color: var(--primary);
-  font-weight: 700;
+
+.da-hero__guarantee svg {
+  color: var(--success);
+  flex-shrink: 0;
 }
 
 /* Hero image */
@@ -1544,8 +1534,21 @@ h3 { font-size: 1.25rem; } /* 20px */
 
 /* ===== PROBLEM/SOLUTION ===== */
 .da-problem-solution {
-  background-color: var(--background);
+  background-color: var(--muted);
   padding: 4rem 0;
+}
+
+.da-problem-solution__heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 2.5rem;
+}
+
+.da-problem-solution__cta {
+  text-align: center;
+  margin-top: 2.5rem;
 }
 
 .da-problem-solution__inner {
