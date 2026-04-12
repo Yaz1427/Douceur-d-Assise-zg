@@ -6,17 +6,7 @@
 {% endcomment %}
 
 {%- liquid
-  assign free_shipping_threshold = 5000 | times: 100
-  assign cart_total = cart.total_price
-  assign remaining = free_shipping_threshold | minus: cart_total
-  assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold
-  if progress > 100
-    assign progress = 100
-  endif
-  assign has_free_shipping = false
-  if cart_total >= free_shipping_threshold
-    assign has_free_shipping = true
-  endif
+  assign has_free_shipping = true
 -%}
 
 <!-- Overlay -->
@@ -33,20 +23,12 @@
   </div>
 
   {%- if cart.item_count > 0 -%}
-    <!-- Progress bar livraison gratuite -->
+    <!-- Badge livraison gratuite -->
     <div class="da-cart-drawer__shipping-progress">
-      {%- if has_free_shipping -%}
-        <p class="da-cart-drawer__shipping-text">
-          <strong>Felicitations !</strong> Vous beneficiez de la livraison gratuite
-        </p>
-      {%- else -%}
-        <p class="da-cart-drawer__shipping-text">
-          Plus que <strong>{{ remaining | money_without_trailing_zeros }}</strong> pour la livraison gratuite
-        </p>
-      {%- endif -%}
-      <div class="da-cart-drawer__shipping-bar">
-        <div class="da-cart-drawer__shipping-fill" style="width: {{ progress }}%;"></div>
-      </div>
+      <p class="da-cart-drawer__shipping-text da-cart-drawer__shipping-text--free">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+        <strong>Livraison offerte</strong> sur toute commande
+      </p>
     </div>
 
     <!-- Items -->
