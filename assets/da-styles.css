@@ -341,9 +341,9 @@ h3 { font-size: 1.25rem; } /* 20px */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4.5rem; /* Plus haut pour confort */
+  height: 5.5rem;
 }
-@media (min-width: 768px) { .da-header__nav-inner { height: 5.5rem; } }
+@media (min-width: 768px) { .da-header__nav-inner { height: 7rem; } }
 
 /* Logo */
 .da-header__logo a {
@@ -358,13 +358,13 @@ h3 { font-size: 1.25rem; } /* 20px */
 .da-header__logo a:hover { text-decoration: none; opacity: 0.85; }
 
 .da-header__logo-img {
-  height: 48px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   display: block;
 }
 @media (min-width: 768px) {
-  .da-header__logo-img { height: 60px; }
+  .da-header__logo-img { height: 90px; }
 }
 
 /* Desktop links */
