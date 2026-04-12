@@ -357,12 +357,14 @@ h3 { font-size: 1.25rem; } /* 20px */
 @media (min-width: 768px) { .da-header__logo a { font-size: 1.5rem; } }
 .da-header__logo a:hover { text-decoration: none; opacity: 0.85; }
 
-.da-header__logo img {
-  height: 40px;
+.da-header__logo-img {
+  height: 48px;
   width: auto;
+  object-fit: contain;
+  display: block;
 }
-@media (min-width: 768px) { 
-  .da-header__logo img { height: 48px; } 
+@media (min-width: 768px) {
+  .da-header__logo-img { height: 60px; }
 }
 
 /* Desktop links */

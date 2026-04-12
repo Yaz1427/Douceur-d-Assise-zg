@@ -33,15 +33,22 @@
       <div class="da-header__logo">
         <a href="/" aria-label="{{ shop.name }} - Accueil">
           {%- if section.settings.logo != blank -%}
-            <img 
-              src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}" 
+            <img
+              src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
               alt="{{ shop.name }}"
               width="{{ section.settings.logo_width }}"
               height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
               loading="eager"
+              class="da-header__logo-img"
             >
           {%- else -%}
-            {{ shop.name }}
+            <img
+              src="{{ 'da-logo.jpg' | asset_url }}"
+              alt="{{ shop.name }}"
+              width="{{ section.settings.logo_width | default: 160 }}"
+              loading="eager"
+              class="da-header__logo-img"
+            >
           {%- endif -%}
         </a>
       </div>
