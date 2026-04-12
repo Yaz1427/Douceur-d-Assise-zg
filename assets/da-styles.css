@@ -3848,35 +3848,38 @@ cart-remove-button .svg-wrapper svg { width: 18px; height: 18px; }
 
 @media (min-width: 768px) {
   .pdp {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 0 3rem;
     padding-top: 2rem;
     padding-bottom: 3rem;
   }
-  /* Galerie = col 1, Info = col 2 */
-  .pdp-gallery { grid-column: 1; grid-row: 1 / 20; }
-  .pdp-info { grid-column: 2; grid-row: 1; }
-  .pdp-benefits { grid-column: 1 / 3; }
-  .pdp-desc { grid-column: 1 / 3; }
-  .pdp-faq { grid-column: 1 / 3; }
-  .pdp-footer-cta { grid-column: 1 / 3; }
 }
 
+/* Ligne galerie + info : leur propre grille isolée */
+.pdp-top-row {
+  display: block;
+}
+@media (min-width: 768px) {
+  .pdp-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 3rem;
+    align-items: start;
+  }
+}
 @media (min-width: 1100px) {
-  .pdp { grid-template-columns: 55% 1fr; }
+  .pdp-top-row { grid-template-columns: 55% 1fr; }
 }
 
 /* ══════════════════════════════════════
    GALERIE
 ══════════════════════════════════════ */
 .pdp-gallery {
+  /* Mobile : image pleine largeur en débordant du padding du parent */
   margin: 0 calc(-1 * var(--container-pad));
 }
 @media (min-width: 768px) {
   .pdp-gallery {
     margin: 0;
+    /* Sticky borné à la hauteur de pdp-top-row uniquement */
     position: sticky;
     top: 5rem;
     align-self: start;
