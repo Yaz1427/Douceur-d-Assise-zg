@@ -66,6 +66,17 @@
 
       <!-- Actions -->
       <div class="da-header__actions">
+        <!-- Compte -->
+        {%- if customer -%}
+          <a href="{{ routes.account_url }}" class="da-header__account" aria-label="Mon compte">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </a>
+        {%- else -%}
+          <a href="{{ routes.account_login_url }}" class="da-header__account" aria-label="Se connecter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </a>
+        {%- endif -%}
+
         <!-- Panier -->
         <a href="/cart" class="da-header__cart" id="da-cart-link" aria-label="Panier - {{ cart.item_count }} article(s)">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
@@ -106,6 +117,11 @@
         </div>
         <a href="/pages/a-propos">A propos</a>
         <a href="/pages/contact">Contact</a>
+        {%- if customer -%}
+          <a href="{{ routes.account_url }}">Mon compte</a>
+        {%- else -%}
+          <a href="{{ routes.account_login_url }}">Se connecter</a>
+        {%- endif -%}
         <a href="/cart">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
           Panier ({{ cart.item_count }})

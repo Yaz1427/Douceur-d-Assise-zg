@@ -1,0 +1,110 @@
+{{- 'da-styles.css' | asset_url | stylesheet_tag -}}
+
+<div class="da-account-page">
+  <div class="da-account-page__inner">
+
+    <div class="da-account-page__header">
+      <div>
+        <h1 class="da-account-page__greeting">Bonjour, {{ customer.first_name | default: 'cher client' }} !</h1>
+        <p class="da-account-page__email">{{ customer.email }}</p>
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="da-account-page__logout">Se deconnecter</a>
+    </div>
+
+    <!-- Commandes -->
+    <h2 class="da-account-page__section-title">Mes commandes</h2>
+
+    {%- if customer.orders.size > 0 -%}
+      <div class="da-orders">
+        {%- for order in customer.orders -%}
+          <div class="da-order-card">
+            <div class="da-order-card__header">
+              <div>
+                <span class="da-order-card__number">Commande {{ order.name }}</span>
+                <span class="da-order-card__date"> · {{ order.created_at | date: '%d/%m/%Y' }}</span>
+              </div>
+              {%- assign fin_status = order.financial_status -%}
+              {%- if fin_status == 'paid' -%}
+                <span class="da-order-card__status da-order-card__status--paid">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  Payee
+                </span>
+              {%- elsif fin_status == 'refunded' or fin_status == 'partially_refunded' -%}
+                <span class="da-order-card__status da-order-card__status--refunded">Remboursee</span>
+              {%- else -%}
+                <span class="da-order-card__status da-order-card__status--pending">En attente</span>
+              {%- endif -%}
+            </div>
+
+            <div class="da-order-card__items">
+              {%- for line_item in order.line_items limit: 3 -%}
+                {{ line_item.quantity }} x {{ line_item.title }}{% unless forloop.last %}, {% endunless %}
+              {%- endfor -%}
+              {%- if order.line_items.size > 3 -%}
+                … et {{ order.line_items.size | minus: 3 }} autre(s)
+              {%- endif -%}
+            </div>
+
+            <div class="da-order-card__footer">
+              <span class="da-order-card__total">Total : {{ order.total_price | money }}</span>
+              <a href="{{ order.customer_url }}" class="da-order-card__link">Voir le detail</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="da-orders__empty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <p>Vous n'avez pas encore passe de commande.</p>
+        <a href="/collections/all" class="da-btn da-btn-primary">Decouvrir nos coussins</a>
+      </div>
+    {%- endif -%}
+
+    <!-- Adresses -->
+    <h2 class="da-account-page__section-title">Mes adresses</h2>
+
+    {%- paginate customer.addresses by 5 -%}
+      {%- if customer.addresses.size > 0 -%}
+        <div class="da-customer-page__forms">
+          {%- for address in customer.addresses -%}
+            <div class="da-customer-card" style="gap: 0.75rem;">
+              {%- if address == customer.default_address -%}
+                <span style="font-size:0.8125rem; font-weight:600; color:#4A7C9B;">Adresse principale</span>
+              {%- endif -%}
+              <p style="margin:0; line-height:1.6; font-size:0.9375rem; color:#333;">
+                {{ address.first_name }} {{ address.last_name }}<br>
+                {{ address.address1 }}{% if address.address2 %}<br>{{ address.address2 }}{% endif %}<br>
+                {{ address.zip }} {{ address.city }}<br>
+                {{ address.country }}
+              </p>
+              <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                <a href="{{ routes.account_addresses_url }}/{{ address.id }}" class="da-btn da-btn-secondary" style="font-size:0.875rem; padding:0.5rem 1rem;">Modifier</a>
+                <button
+                  class="da-btn"
+                  style="font-size:0.875rem; padding:0.5rem 1rem; background:transparent; color:#b91c1c; border:1px solid #f5c2c2; border-radius:8px; cursor:pointer;"
+                  data-address-delete-url="{{ routes.account_addresses_url }}/{{ address.id }}"
+                  onclick="if(confirm('Supprimer cette adresse ?')) { var f=document.createElement('form'); f.method='POST'; f.action=this.dataset.addressDeleteUrl; var i=document.createElement('input'); i.type='hidden'; i.name='_method'; i.value='delete'; f.appendChild(i); document.body.appendChild(f); f.submit(); }"
+                >Supprimer</button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p style="color:#777; margin-bottom: 1.5rem;">Aucune adresse enregistree.</p>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+    <a href="{{ routes.account_addresses_url }}/new" class="da-btn da-btn-secondary" style="display:inline-flex; align-items:center; gap:0.5rem;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+      Ajouter une adresse
+    </a>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Espace compte",
+  "tag": "section"
+}
+{% endschema %}

@@ -1,7 +1,8 @@
 {
   "sections": {
     "main": {
-      "type": "main-account"
+      "type": "da-customer-account",
+      "settings": {}
     }
   },
   "order": [

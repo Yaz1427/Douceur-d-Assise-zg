@@ -357,9 +357,20 @@
       .then(function(r) { return r.json(); })
       .then(function() {
         if (atcBtn) { atcBtn.textContent = 'Ajoute au panier !'; atcBtn.classList.add('pdp-atc-btn--ok'); }
-        fetch('/cart.js').then(function(r) { return r.json(); }).then(function(cart) {
-          document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
-        });
+        /* Mise a jour directe du badge + event pour le drawer */
+        fetch('/cart.js')
+          .then(function(r) { return r.json(); })
+          .then(function(cart) {
+            /* 1. Mise a jour directe du badge header */
+            var badge = document.getElementById('da-cart-badge');
+            if (badge) {
+              var n = cart.item_count || 0;
+              badge.textContent = n;
+              badge.style.display = n > 0 ? '' : 'none';
+            }
+            /* 2. Event pour autres listeners (drawer, etc.) */
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+          });
         setTimeout(function() {
           if (atcBtn) { atcBtn.disabled = false; atcBtn.textContent = origText; atcBtn.classList.remove('pdp-atc-btn--ok'); }
         }, 2500);
