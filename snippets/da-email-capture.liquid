@@ -1,0 +1,109 @@
+{%- comment -%}
+  Barre de capture email — discrète, non bloquante.
+  Apparaît après 20s sur toutes les pages sauf panier/compte/checkout.
+  Se masque définitivement si l'utilisateur ferme ou soumet.
+{%- endcomment -%}
+
+{%- unless request.path contains '/cart'
+  or request.path contains '/checkout'
+  or request.path contains '/account'
+  or request.path contains '/password' -%}
+
+{{- 'da-styles.css' | asset_url | stylesheet_tag -}}
+
+<div class="da-capture" id="da-capture" aria-hidden="true" role="complementary">
+  <div class="da-capture__inner">
+
+    <div class="da-capture__text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7C9B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <div>
+        <p class="da-capture__title">Vous hésitez encore ?</p>
+        <p class="da-capture__subtitle">Laissez votre email — notre équipe vous répond sous 24h.</p>
+      </div>
+    </div>
+
+    <form class="da-capture__form" id="da-capture-form" method="post" action="/contact#contact_form" novalidate>
+      <input type="hidden" name="form_type" value="customer">
+      <input type="hidden" name="utf8" value="✓">
+      <div class="da-capture__fields">
+        <input
+          class="da-capture__input"
+          type="email"
+          name="customer[email]"
+          id="da-capture-email"
+          placeholder="votre@email.fr"
+          autocomplete="email"
+          required
+          aria-label="Votre adresse email"
+        >
+        <button type="submit" class="da-capture__submit">Envoyer</button>
+      </div>
+      <p class="da-capture__legal">Vos données ne sont jamais partagées. Désinscription en un clic.</p>
+    </form>
+
+    <div class="da-capture__thanks" id="da-capture-thanks" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7a48" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <p>Merci ! Nous vous contacterons bientôt.</p>
+    </div>
+
+  </div>
+  <button class="da-capture__close" id="da-capture-close" aria-label="Fermer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>
+
+<script>
+(function() {
+  var KEY = 'da_capture_done';
+  if (sessionStorage.getItem(KEY)) return;
+
+  var bar = document.getElementById('da-capture');
+  var closeBtn = document.getElementById('da-capture-close');
+  var form = document.getElementById('da-capture-form');
+  var thanks = document.getElementById('da-capture-thanks');
+  if (!bar) return;
+
+  function show() {
+    bar.setAttribute('aria-hidden', 'false');
+    bar.classList.add('is-visible');
+  }
+
+  function hide() {
+    bar.classList.remove('is-visible');
+    bar.setAttribute('aria-hidden', 'true');
+    sessionStorage.setItem(KEY, '1');
+  }
+
+  /* Apparaît après 20 secondes */
+  setTimeout(show, 20000);
+
+  /* Fermer */
+  closeBtn && closeBtn.addEventListener('click', hide);
+
+  /* Soumission */
+  form && form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('da-capture-email');
+    if (!email || !email.value || !email.validity.valid) {
+      email && email.focus();
+      return;
+    }
+    /* POST vers Shopify contact */
+    var data = new FormData(form);
+    fetch('/contact', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .catch(function() {}) /* Silencieux si echec */
+    .finally(function() {
+      form.hidden = true;
+      if (thanks) thanks.hidden = false;
+      sessionStorage.setItem(KEY, '1');
+      setTimeout(hide, 3000);
+    });
+  });
+})();
+</script>
+
+{%- endunless -%}

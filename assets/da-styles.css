@@ -4482,6 +4482,132 @@ cart-remove-button .svg-wrapper svg { width: 18px; height: 18px; }
 .pdp-sticky__btn:hover { background: #1e4a5e; }
 
 /* ============================================================
+   EMAIL CAPTURE — Barre discrète en bas de page
+   ============================================================ */
+.da-capture {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 8000;
+  background: #fff;
+  border-top: 2px solid #4A7C9B;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.10);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 1.125rem 1.25rem 1.125rem 1.25rem;
+}
+.da-capture.is-visible {
+  transform: translateY(0);
+}
+.da-capture__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.da-capture__text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  max-width: 280px;
+}
+.da-capture__text svg { flex-shrink: 0; margin-top: 2px; }
+.da-capture__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 0.2rem;
+}
+.da-capture__subtitle {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+.da-capture__form {
+  flex: 1;
+  min-width: 260px;
+}
+.da-capture__fields {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.da-capture__input {
+  flex: 1;
+  border: 1.5px solid #d5cfc4;
+  border-radius: 8px;
+  padding: 0.7rem 0.875rem;
+  font-size: 1rem;
+  color: #333;
+  background: #fff;
+  min-width: 0;
+  transition: border-color 0.2s;
+}
+.da-capture__input:focus {
+  outline: none;
+  border-color: #4A7C9B;
+  box-shadow: 0 0 0 3px rgba(74,124,155,0.12);
+}
+.da-capture__input::placeholder { color: #aaa; }
+.da-capture__submit {
+  background: #2E5E7E;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.da-capture__submit:hover { background: #1e4a5e; }
+.da-capture__legal {
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0;
+}
+.da-capture__thanks {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2a7a48;
+  padding: 0.5rem 0;
+}
+.da-capture__thanks p { margin: 0; }
+.da-capture__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 0.35rem;
+  border-radius: 50%;
+  line-height: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.da-capture__close:hover { background: #f3f0eb; color: #333; }
+@media (max-width: 600px) {
+  .da-capture__inner {
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  .da-capture__text { max-width: 100%; }
+  .da-capture__form { width: 100%; }
+  .da-capture__fields { flex-direction: column; }
+  .da-capture__submit { width: 100%; padding: 0.875rem; }
+}
+
+/* ============================================================
    ATC POPUP — Notification ajout panier
    ============================================================ */
 .atc-popup {
