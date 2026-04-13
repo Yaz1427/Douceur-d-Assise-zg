@@ -4482,6 +4482,131 @@ cart-remove-button .svg-wrapper svg { width: 18px; height: 18px; }
 .pdp-sticky__btn:hover { background: #1e4a5e; }
 
 /* ============================================================
+   ATC POPUP — Notification ajout panier
+   ============================================================ */
+.atc-popup {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  width: 340px;
+  max-width: calc(100vw - 2rem);
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+  transform: translateX(calc(100% + 2rem));
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1), opacity 0.3s ease;
+  pointer-events: none;
+}
+.atc-popup.is-open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (max-width: 480px) {
+  .atc-popup {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    transform: translateY(calc(100% + 2rem));
+  }
+  .atc-popup.is-open {
+    transform: translateY(0);
+  }
+}
+.atc-popup__inner {
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.atc-popup__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2a7a48;
+}
+.atc-popup__header svg { flex-shrink: 0; stroke: #2a7a48; }
+.atc-popup__header span { flex: 1; }
+.atc-popup__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: #999;
+  line-height: 0;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+.atc-popup__close:hover { background: #f3f0eb; color: #333; }
+.atc-popup__product {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0ece4;
+}
+.atc-popup__img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  border: 1px solid #e8e4dc;
+}
+.atc-popup__info { flex: 1; min-width: 0; }
+.atc-popup__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.atc-popup__price {
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: #2E5E7E;
+  margin: 0;
+}
+.atc-popup__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.atc-popup__btn {
+  display: block;
+  text-align: center;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  width: 100%;
+}
+.atc-popup__btn--primary {
+  background: #2E5E7E;
+  color: #fff;
+}
+.atc-popup__btn--primary:hover { background: #1e4a5e; color: #fff; text-decoration: none; }
+.atc-popup__btn--secondary {
+  background: transparent;
+  color: #555;
+  border: 1.5px solid #d5cfc4;
+}
+.atc-popup__btn--secondary:hover { background: #f3f0eb; }
+
+/* ============================================================
    CUSTOMER PAGES — Login / Register / Account
    ============================================================ */
 .da-customer-page {
