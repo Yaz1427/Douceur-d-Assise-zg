@@ -9,8 +9,6 @@
   or request.path contains '/account'
   or request.path contains '/password' -%}
 
-{{- 'da-styles.css' | asset_url | stylesheet_tag -}}
-
 <div class="da-capture" id="da-capture" aria-hidden="true" role="complementary">
   <div class="da-capture__inner">
 
@@ -22,21 +20,18 @@
       </div>
     </div>
 
-    <form class="da-capture__form" id="da-capture-form" method="post" action="/contact#contact_form" novalidate>
-      <input type="hidden" name="form_type" value="customer">
-      <input type="hidden" name="utf8" value="✓">
+    <form class="da-capture__form" id="da-capture-form" novalidate>
       <div class="da-capture__fields">
         <input
           class="da-capture__input"
           type="email"
-          name="customer[email]"
           id="da-capture-email"
           placeholder="votre@email.fr"
           autocomplete="email"
           required
           aria-label="Votre adresse email"
         >
-        <button type="submit" class="da-capture__submit">Envoyer</button>
+        <button type="submit" class="da-capture__submit" id="da-capture-btn">Envoyer</button>
       </div>
       <p class="da-capture__legal">Vos données ne sont jamais partagées. Désinscription en un clic.</p>
     </form>
@@ -57,52 +52,85 @@
   var KEY = 'da_capture_done';
   if (sessionStorage.getItem(KEY)) return;
 
-  var bar = document.getElementById('da-capture');
+  var bar     = document.getElementById('da-capture');
   var closeBtn = document.getElementById('da-capture-close');
-  var form = document.getElementById('da-capture-form');
-  var thanks = document.getElementById('da-capture-thanks');
+  var form    = document.getElementById('da-capture-form');
+  var thanks  = document.getElementById('da-capture-thanks');
+  var btn     = document.getElementById('da-capture-btn');
   if (!bar) return;
 
   function show() {
     bar.setAttribute('aria-hidden', 'false');
     bar.classList.add('is-visible');
   }
-
   function hide() {
     bar.classList.remove('is-visible');
     bar.setAttribute('aria-hidden', 'true');
     sessionStorage.setItem(KEY, '1');
+  }
+  function showThanks() {
+    if (form) form.hidden = true;
+    if (thanks) thanks.hidden = false;
+    sessionStorage.setItem(KEY, '1');
+    setTimeout(hide, 3000);
   }
 
   /* Apparaît après 20 secondes */
   setTimeout(show, 20000);
 
   /* Fermer */
-  closeBtn && closeBtn.addEventListener('click', hide);
+  if (closeBtn) closeBtn.addEventListener('click', hide);
 
   /* Soumission */
-  form && form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var email = document.getElementById('da-capture-email');
-    if (!email || !email.value || !email.validity.valid) {
-      email && email.focus();
-      return;
-    }
-    /* POST vers Shopify contact */
-    var data = new FormData(form);
-    fetch('/contact', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    })
-    .catch(function() {}) /* Silencieux si echec */
-    .finally(function() {
-      form.hidden = true;
-      if (thanks) thanks.hidden = false;
-      sessionStorage.setItem(KEY, '1');
-      setTimeout(hide, 3000);
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('da-capture-email');
+      if (!emailInput || !emailInput.value || !emailInput.validity.valid) {
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi...'; }
+
+      /* Encodage URL requis par l'endpoint Shopify /contact */
+      var params = new URLSearchParams();
+      params.append('form_type', 'customer');
+      params.append('utf8', '\u2713');
+      params.append('customer[email]', emailInput.value.trim());
+      params.append('contact[tags]', 'newsletter,capture-barre');
+
+      fetch('/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: params.toString()
+      })
+      .then(function(r) {
+        if (r.ok) {
+          showThanks();
+        } else {
+          /* En cas d'erreur Shopify, soumettre le formulaire normalement */
+          var fallback = document.createElement('form');
+          fallback.method = 'post';
+          fallback.action = '/contact';
+          fallback.style.display = 'none';
+          [['form_type','customer'],['utf8','\u2713'],['customer[email]', emailInput.value.trim()]].forEach(function(pair) {
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = pair[0]; inp.value = pair[1];
+            fallback.appendChild(inp);
+          });
+          document.body.appendChild(fallback);
+          fallback.submit();
+        }
+      })
+      .catch(function() {
+        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer'; }
+      });
     });
-  });
+  }
 })();
 </script>
 
