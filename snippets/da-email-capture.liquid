@@ -21,6 +21,7 @@
     </div>
 
     <form class="da-capture__form" id="da-capture-form" novalidate>
+      <input type="hidden" id="da-capture-token" value="{{ form_authenticity_token }}">
       <div class="da-capture__fields">
         <input
           class="da-capture__input"
@@ -90,9 +91,11 @@
 
       if (btn) { btn.disabled = true; btn.textContent = 'Envoi...'; }
 
+      var token = document.getElementById('da-capture-token');
       var params = new URLSearchParams();
       params.append('form_type', 'contact');
       params.append('utf8', '\u2713');
+      if (token) params.append('authenticity_token', token.value);
       params.append('contact[email]', emailInput.value.trim());
       params.append('contact[body]', 'Abonnement email via barre de capture');
 
