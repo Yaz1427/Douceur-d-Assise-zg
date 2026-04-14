@@ -241,8 +241,174 @@
     </ul>
   </div>
 
-  <!-- Description produit -->
-  {%- if product.description != blank -%}
+  <!-- Description produit — injectee via handle pour chaque produit -->
+  {%- assign pdesc_html = '' -%}
+
+  {%- if ph contains 'coccyx' or ph contains 'classique' -%}
+    {%- capture pdesc_html -%}
+<p>Vous passez des heures assis et votre coccyx ou vos fesses vous font souffrir ? Ce coussin a ete concu precisement pour ca. Sa forme en U soulage la pression sur les zones sensibles et vous permet de rester assis sans douleur.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Moins de pression sur le coccyx et les ischions des les premieres minutes</li>
+  <li>Une assise plus stable, sans glisser sur la chaise</li>
+  <li>Un confort durable, que vous soyez devant la TV, a table ou en voiture</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Mousse a memoire de forme haute densite — s'adapte a votre morphologie</li>
+  <li>Decoupe en U a l'avant — evacue la pression du coccyx et des ischions</li>
+  <li>Housse en velours douce et respirante, lavable en machine</li>
+  <li>Dimensions : environ 44 x 35 x 7 cm — compatible la plupart des chaises</li>
+  <li>Antiderapant integre sous le coussin</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Posez le coussin sur votre chaise, la decoupe en U vers l'avant. Asseyez-vous normalement. C'est tout. Pas de reglage, pas de montage.</p>
+<h3>Entretien</h3>
+<p>Retirez la housse et lavez-la en machine a 30 degres. La mousse se nettoie avec un chiffon humide. Sechage a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'lombaire' or ph contains 'dos' -%}
+    {%- capture pdesc_html -%}
+<p>Le bas du dos qui tire apres quelques heures de bureau ou de television, c'est souvent un probleme de soutien. Ce coussin lombaire comble le vide entre votre dos et votre dossier, et maintient votre colonne dans sa position naturelle.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Le bas du dos soutenu sans effort de votre part</li>
+  <li>Moins de fatigue en fin de journee</li>
+  <li>Une posture meilleure, meme apres des heures de position assise</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Mousse a memoire de forme ergonomique — epouse la courbure naturelle de votre lombaire</li>
+  <li>Elastique de fixation reglable — s'adapte a tous les dossiers de chaise</li>
+  <li>Housse en velours respirant, lavable en machine</li>
+  <li>Dimensions : environ 40 x 30 x 10 cm</li>
+  <li>Leger — facilement transportable du bureau a la maison</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Fixez le coussin dans le bas de votre dossier de chaise grace a l'elastique. Asseyez-vous et appuyez votre dos contre lui. Vous sentirez immediatement le soutien.</p>
+<h3>Entretien</h3>
+<p>Housse lavable en machine a 30 degres. Sechage a plat, a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
+    {%- capture pdesc_html -%}
+<p>Les douleurs aux hanches, aux genoux ou au bas du dos pendant la nuit viennent souvent d'un mauvais alignement. Ce coussin se place entre les genoux et maintient votre bassin en position neutre tout au long de la nuit.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Moins de pression sur les hanches et les genoux</li>
+  <li>Un alignement du bassin mieux respecte pendant le sommeil</li>
+  <li>Des nuits plus reposantes, sans se reveiller a cause de la douleur</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Mousse a memoire de forme souple — confortable toute la nuit</li>
+  <li>Forme anatomique concave — maintient les genoux en place sans glisser</li>
+  <li>Sangle de maintien pour les bougeurs</li>
+  <li>Housse en tissu doux et respirant, lavable en machine</li>
+  <li>Dimensions : environ 25 x 20 x 15 cm</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Placez le coussin entre vos genoux lorsque vous dormez sur le cote. La forme en creux maintient les jambes en place naturellement.</p>
+<h3>Entretien</h3>
+<p>Housse lavable en machine a 30 degres. Sechage a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'auto' or ph contains 'voiture' or ph contains 'trajet' or ph contains 'rehausseur' -%}
+    {%- capture pdesc_html -%}
+<p>Un long trajet en voiture peut vite devenir penible quand on souffre du dos ou du coccyx. Ce coussin rehausseur rehausse legerement votre position et redistribue le poids pour que vous arriviez a destination sans etre epuise.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Moins de pression sur le bas du dos et le coccyx</li>
+  <li>Une vision de la route legerement amelioree grace au rehaussement (3 a 5 cm)</li>
+  <li>Moins de fatigue sur les longs trajets</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Mousse haute densite — ne s'ecrase pas sous le poids du corps</li>
+  <li>Rehaussement de 3 a 5 cm — ameliore la posture au volant</li>
+  <li>Antiderapant integre — ne bouge pas pendant la conduite</li>
+  <li>Housse en tissu respirant, lavable en machine</li>
+  <li>Dimensions : environ 40 x 35 x 5 cm — compatible avec la grande majorite des sieges auto</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Posez le coussin sur votre siege conducteur ou passager. Le cote antiderapant en dessous. Asseyez-vous et ajustez votre position de conduite normalement.</p>
+<h3>Entretien</h3>
+<p>Housse lavable en machine a 30 degres. Sechage a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
+    {%- capture pdesc_html -%}
+<p>Vous vous reveillez avec des douleurs dans le cou ou les epaules ? L'oreiller plat ou trop epais ne soutient pas la nuque correctement. Cet oreiller cervical maintient votre tete dans l'axe de votre colonne vertebrale pendant toute la nuit.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>La nuque soutenue sans tension pendant le sommeil</li>
+  <li>Moins de raideurs au lever</li>
+  <li>Un sommeil plus profond, sans se retourner constamment</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Mousse a memoire de forme — s'adapte a la forme de votre cou et de vos epaules</li>
+  <li>Deux hauteurs integrees : cote plus haut pour les dormeurs sur le cote, cote plus bas pour ceux sur le dos</li>
+  <li>Housse en tissu bambou doux et respirant, lavable en machine</li>
+  <li>Dimensions : environ 60 x 40 x 10/12 cm</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Choisissez la hauteur adaptee a votre position de sommeil habituelle. Le cote haut pour dormir sur le cote, le cote bas pour dormir sur le dos.</p>
+<h3>Entretien</h3>
+<p>Housse lavable en machine a 30 degres. Ne pas mettre la mousse en machine.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'pack' and ph contains 'duo' -%}
+    {%- capture pdesc_html -%}
+<p>Le Pack Duo reunit nos deux coussins les plus vendus : le coussin coccyx et le coussin lombaire. Une solution complete pour ceux qui souffrent a la fois du bas du dos et du coccyx, au bureau comme a la maison.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Le coccyx et le bas du dos soutenus en meme temps</li>
+  <li>Une posture globalement amelioree des les premieres utilisations</li>
+  <li>Moins de fatigue en fin de journee</li>
+</ul>
+<h3>Contenu du pack</h3>
+<ul>
+  <li><strong>Coussin Coccyx</strong> — mousse memoire de forme, decoupe en U, housse velours lavable</li>
+  <li><strong>Coussin Lombaire</strong> — mousse ergonomique, elastique de fixation reglable, housse velours lavable</li>
+</ul>
+<h3>Pourquoi un pack plutot que deux achats separement ?</h3>
+<p>Les deux coussins sont complementaires : l'un soutient ce qui touche le siege (coccyx et ischions), l'autre soutient le dos contre le dossier. Ensemble, ils corrigent l'ensemble de la posture assise.</p>
+<h3>Entretien</h3>
+<p>Les deux housses sont lavables en machine a 30 degres. Sechage a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- elsif ph contains 'pack' -%}
+    {%- capture pdesc_html -%}
+<p>Le Pack Premium combine dans une seule piece le soutien du coccyx et du lombaire. Une solution tout-en-un pour ceux qui veulent simplifier : un seul coussin a poser, deux problemes resolus.</p>
+<h3>Ce que vous allez ressentir</h3>
+<ul>
+  <li>Le coccyx et le bas du dos soutenus simultanement</li>
+  <li>Une posture complete corrigee en une seule action</li>
+  <li>Ideal pour les chaises sans bon dossier (chaises de salle a manger, fauteuils plats)</li>
+</ul>
+<h3>Caracteristiques</h3>
+<ul>
+  <li>Coussin monobloc — assise + soutien lombaire integres</li>
+  <li>Mousse a memoire de forme haute densite</li>
+  <li>Decoupe en U a l'avant pour soulager le coccyx</li>
+  <li>Dossier courbe integre pour le lombaire</li>
+  <li>Housse en velours respirant, lavable en machine</li>
+</ul>
+<h3>Utilisation recommandee</h3>
+<p>Posez le coussin sur votre chaise. Asseyez-vous normalement en appuyant le dos contre la partie dossier. Tout est en place en quelques secondes.</p>
+<h3>Entretien</h3>
+<p>Housse lavable en machine a 30 degres. Sechage a l'air libre.</p>
+    {%- endcapture -%}
+
+  {%- endif -%}
+
+  {%- if pdesc_html != blank -%}
+    <div class="pdp-desc" id="pdp-desc">
+      <h2 class="pdp-section__title">Caracteristiques</h2>
+      <div class="pdp-desc__body rte">{{ pdesc_html }}</div>
+    </div>
+  {%- elsif product.description != blank -%}
     <div class="pdp-desc" id="pdp-desc">
       <h2 class="pdp-section__title">Caracteristiques</h2>
       <div class="pdp-desc__body rte">{{ product.description }}</div>
