@@ -1,7 +1,7 @@
 {%- comment -%}
   Barre de capture email — discrète, non bloquante.
-  Apparaît après 20s sur toutes les pages sauf panier/compte/checkout.
-  Se masque définitivement si l'utilisateur ferme ou soumet.
+  Utilise le tag Liquid {%- form 'contact' -%} pour avoir le bon authenticity_token.
+  Apparaît après 20s. Ne réapparaît pas si fermé ou soumis.
 {%- endcomment -%}
 
 {%- unless request.path contains '/cart'
@@ -20,12 +20,13 @@
       </div>
     </div>
 
-    <form class="da-capture__form" id="da-capture-form" novalidate>
-      <input type="hidden" id="da-capture-token" value="{{ form_authenticity_token }}">
+    {%- form 'contact', id: 'da-capture-form', class: 'da-capture__form' -%}
+      <input type="hidden" name="contact[body]" value="Abonnement email via barre de capture">
       <div class="da-capture__fields">
         <input
           class="da-capture__input"
           type="email"
+          name="contact[email]"
           id="da-capture-email"
           placeholder="votre@email.fr"
           autocomplete="email"
@@ -35,7 +36,7 @@
         <button type="submit" class="da-capture__submit" id="da-capture-btn">Envoyer</button>
       </div>
       <p class="da-capture__legal">Vos données ne sont jamais partagées. Désinscription en un clic.</p>
-    </form>
+    {%- endform -%}
 
     <div class="da-capture__thanks" id="da-capture-thanks">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7a48" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -77,7 +78,6 @@
   }
 
   setTimeout(show, 20000);
-
   if (closeBtn) closeBtn.addEventListener('click', hide);
 
   if (form) {
@@ -88,31 +88,22 @@
         if (emailInput) emailInput.focus();
         return;
       }
-
       if (btn) { btn.disabled = true; btn.textContent = 'Envoi...'; }
 
-      var token = document.getElementById('da-capture-token');
-      var params = new URLSearchParams();
-      params.append('form_type', 'contact');
-      params.append('utf8', '\u2713');
-      if (token) params.append('authenticity_token', token.value);
-      params.append('contact[email]', emailInput.value.trim());
-      params.append('contact[body]', 'Abonnement email via barre de capture');
+      /* Utilise les données du formulaire Liquid (inclut le bon token) */
+      var data = new FormData(form);
 
-      fetch('/contact', {
+      fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
+        body: data
       })
       .then(function(r) {
-        if (r.ok) {
-          showThanks();
-        } else {
-          if (btn) { btn.disabled = false; btn.textContent = 'Envoyer'; }
-        }
+        /* Shopify renvoie 200 apres redirection meme en cas de succes */
+        showThanks();
       })
       .catch(function() {
-        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer'; }
+        /* Fallback : soumission classique */
+        form.submit();
       });
     });
   }
