@@ -180,12 +180,12 @@
     {%- assign b1 = 'Soutient naturellement le bas du dos, sans effort de votre part' -%}
     {%- assign b2 = 'Corrige votre posture assise — votre dos reste droit automatiquement' -%}
     {%- assign b3 = 'Soulage les douleurs lombaires et la tension musculaire du bas du dos' -%}
-    {%- assign b4 = 'Ideal pour le bureau, la voiture et le canape — s\'adapte a tous les sieges' -%}
+    {%- assign b4 = 'Ideal pour le bureau, la voiture et le canape — compatible avec tous les sieges' -%}
 
   {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
     {%- assign benefits_title = 'Pourquoi ce coussin de nuit ?' -%}
     {%- assign b1 = 'Reduit les douleurs de hanche et de genou pendant la nuit' -%}
-    {%- assign b2 = 'Maintient l\'alignement naturel de votre colonne vertebrale en position couchee' -%}
+    {%- assign b2 = "Maintient l'alignement naturel de votre colonne vertebrale en position couchee" -%}
     {%- assign b3 = 'Vous vous reveillez repose, sans raideur ni tension dans les jambes' -%}
     {%- assign b4 = 'Doux et respirant pour un confort optimal toute la nuit' -%}
 
@@ -193,29 +193,29 @@
     {%- assign benefits_title = 'Pourquoi ce coussin auto ?' -%}
     {%- assign b1 = 'Finis les douleurs au coccyx et au dos pendant les longs trajets' -%}
     {%- assign b2 = 'Absorbe les vibrations de la route — votre dos ne souffre plus' -%}
-    {%- assign b3 = 'S\'installe en quelques secondes, compatible avec tous les sieges auto' -%}
-    {%- assign b4 = 'Arrivez a destination repose, comme si vous n\'aviez pas conduit' -%}
+    {%- assign b3 = 'Pose en quelques secondes, compatible avec tous les sieges auto' -%}
+    {%- assign b4 = 'Arrivez a destination repose, sans douleur dans le dos' -%}
 
   {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
     {%- assign benefits_title = 'Pourquoi cet oreiller cervical ?' -%}
     {%- assign b1 = 'Soutient parfaitement votre nuque pendant toute la nuit' -%}
     {%- assign b2 = 'Reduit les douleurs cervicales et les raideurs au reveil' -%}
-    {%- assign b3 = 'Maintient l\'alignement naturel tete-cou-dos pour un sommeil sain' -%}
+    {%- assign b3 = "Maintient l'alignement naturel tete-cou-dos pour un sommeil sain" -%}
     {%- assign b4 = 'Sommeil plus profond, reveil sans douleur ni raideur dans le cou' -%}
 
   {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
     {%- assign benefits_title = 'Pourquoi ce pack confort ?' -%}
     {%- assign b1 = 'Solution complete : soulage le coccyx, le dos et la nuque en meme temps' -%}
     {%- assign b2 = 'Couvre toutes les situations — assis, couche, en voiture' -%}
-    {%- assign b3 = 'Economisez par rapport a l\'achat separe de chaque coussin' -%}
+    {%- assign b3 = 'Economique par rapport aux achats separes de chaque coussin' -%}
     {%- assign b4 = 'Un seul achat pour retrouver le confort au quotidien, partout' -%}
 
   {%- else -%}
-    {%- comment -%} Défaut : coussin coccyx {%- endcomment -%}
+    {%- comment -%}Défaut : coussin coccyx{%- endcomment -%}
     {%- assign benefits_title = 'Pourquoi ce coussin ?' -%}
     {%- assign b1 = 'Soulage la douleur au coccyx des la premiere utilisation' -%}
     {%- assign b2 = 'Reduit la pression sur le coccyx et le bas du dos en position assise' -%}
-    {%- assign b3 = 'S\'adapte a votre morphologie — mousse memoire de forme' -%}
+    {%- assign b3 = 'Epouse parfaitement votre morphologie — mousse memoire de forme' -%}
     {%- assign b4 = 'Restez assis des heures sans souffrir, au bureau, en voiture ou a la maison' -%}
   {%- endif -%}
 
@@ -250,54 +250,58 @@
   {%- endif -%}
 
   <!-- Mini FAQ — adaptée par type de produit -->
+  {%- assign faq_livraison_q = 'Combien de temps pour recevoir ma commande ?' -%}
+  {%- assign faq_livraison_a = '<p>Votre commande est expediee sous 48h et livree chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email.</p>' -%}
+  {%- assign faq_retour_q = 'Et si le produit ne me convient pas ?' -%}
+  {%- assign faq_retour_a = '<p>Vous avez 30 jours pour changer de decision. Si le produit ne vous convient pas, renvoyez-le et nous vous remboursons integralement. Sans condition.</p>' -%}
+
   {%- if ph contains 'lombaire' or ph contains 'dos' -%}
     {%- assign faq1_q = 'Est-ce que ce coussin convient pour le bureau ?' -%}
-    {%- assign faq1_a = '<p>Oui, il est concu precisement pour les longues heures de bureau. Il se fixe sur le dossier de votre chaise et soutient le bas du dos en maintenant votre colonne vertebrale dans sa courbure naturelle.</p>' -%}
-    {%- assign faq2_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq2_a = '<p>Votre coussin est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq3_q = 'Et si le coussin ne me convient pas ?' -%}
-    {%- assign faq3_a = '<p>Vous avez 30 jours pour changer d\'avis. Si le coussin ne vous convient pas, renvoyez-le et nous vous remboursons integralement, sans condition.</p>' -%}
+    {%- assign faq1_a = '<p>Oui, il est concu pour les longues heures de bureau. Il se fixe sur le dossier de votre chaise et soutient le bas du dos en maintenant votre colonne dans sa courbure naturelle.</p>' -%}
+    {%- assign faq2_q = faq_livraison_q -%}
+    {%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}
+    {%- assign faq3_a = faq_retour_a -%}
 
   {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
     {%- assign faq1_q = 'Comment utilise-t-on ce coussin ?' -%}
-    {%- assign faq1_a = '<p>Il se place entre vos genoux lorsque vous dormez sur le cote. Il maintient vos hanches alignees et reduit la pression sur les articulations, pour un sommeil sans interruption.</p>' -%}
-    {%- assign faq2_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq2_a = '<p>Votre coussin est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq3_q = 'Et si le coussin ne me convient pas ?' -%}
-    {%- assign faq3_a = '<p>Vous avez 30 jours pour changer d\'avis. Si le coussin ne vous convient pas, renvoyez-le et nous vous remboursons integralement, sans condition.</p>' -%}
+    {%- assign faq1_a = '<p>Il se place entre vos genoux lorsque vous dormez sur le cote. Il maintient vos hanches alignees et reduit la pression sur les articulations pour un sommeil sans interruption.</p>' -%}
+    {%- assign faq2_q = faq_livraison_q -%}
+    {%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}
+    {%- assign faq3_a = faq_retour_a -%}
 
   {%- elsif ph contains 'auto' or ph contains 'voiture' or ph contains 'trajet' -%}
     {%- assign faq1_q = 'Ce coussin reste-t-il en place pendant la conduite ?' -%}
-    {%- assign faq1_a = '<p>Oui, il est equipe d\'une sangle ou d\'un systeme de fixation qui le maintient sur le siege, meme sur les longs trajets. Il ne glisse pas.</p>' -%}
-    {%- assign faq2_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq2_a = '<p>Votre coussin est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq3_q = 'Et si le coussin ne me convient pas ?' -%}
-    {%- assign faq3_a = '<p>Vous avez 30 jours pour changer d\'avis. Si le coussin ne vous convient pas, renvoyez-le et nous vous remboursons integralement, sans condition.</p>' -%}
+    {%- assign faq1_a = '<p>Oui, il est equipe de sangles de fixation qui le maintiennent sur le siege, meme sur les longs trajets. Il ne glisse pas.</p>' -%}
+    {%- assign faq2_q = faq_livraison_q -%}
+    {%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}
+    {%- assign faq3_a = faq_retour_a -%}
 
   {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
     {%- assign faq1_q = 'Quelle position de sommeil convient le mieux ?' -%}
-    {%- assign faq1_a = '<p>Cet oreiller est adapte aux personnes qui dorment sur le dos ou sur le cote. Sa forme epouse la courbure naturelle de la nuque dans les deux positions pour un soutien optimal.</p>' -%}
-    {%- assign faq2_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq2_a = '<p>Votre oreiller est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq3_q = 'Et si l\'oreiller ne me convient pas ?' -%}
-    {%- assign faq3_a = '<p>Vous avez 30 jours pour changer d\'avis. Si l\'oreiller ne vous convient pas, renvoyez-le et nous vous remboursons integralement, sans condition.</p>' -%}
+    {%- assign faq1_a = '<p>Cet oreiller convient aux personnes qui dorment sur le dos ou sur le cote. Sa forme epouse la courbure naturelle de la nuque dans les deux positions pour un soutien optimal.</p>' -%}
+    {%- assign faq2_q = faq_livraison_q -%}
+    {%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}
+    {%- assign faq3_a = faq_retour_a -%}
 
   {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
     {%- assign faq1_q = 'Quels produits sont inclus dans ce pack ?' -%}
-    {%- assign faq1_a = '<p>Ce pack inclut notre coussin coccyx, notre soutien lombaire et notre oreiller cervical. Ensemble, ils couvrent toutes les situations du quotidien : position assise, sommeil et trajets en voiture.</p>' -%}
-    {%- assign faq2_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq2_a = '<p>Votre commande est expediee sous 48h et livree chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq3_q = 'Et si les produits ne me conviennent pas ?' -%}
-    {%- assign faq3_a = '<p>Vous avez 30 jours pour changer d\'avis. Si les produits ne vous conviennent pas, renvoyez-les et nous vous remboursons integralement, sans condition.</p>' -%}
+    {%- assign faq1_a = '<p>Ce pack reunit notre coussin coccyx, notre soutien lombaire et notre oreiller cervical. Ensemble, ils couvrent toutes les situations : assis, en voiture et la nuit.</p>' -%}
+    {%- assign faq2_q = faq_livraison_q -%}
+    {%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}
+    {%- assign faq3_a = faq_retour_a -%}
 
   {%- else -%}
-    {%- comment -%} Défaut : coussin coccyx {%- endcomment -%}
-    {%- assign faq1_q = 'Combien de temps pour recevoir ma commande ?' -%}
-    {%- assign faq1_a = '<p>Votre coussin est expedie sous 48h et livre chez vous en 10 a 15 jours ouvres. La livraison est gratuite partout en France. Vous recevez un numero de suivi par email des l\'expedition.</p>' -%}
-    {%- assign faq2_q = 'Et si le coussin ne me convient pas ?' -%}
-    {%- assign faq2_a = '<p>Vous avez 30 jours pour changer d\'avis. Si le coussin ne vous convient pas, renvoyez-le et nous vous remboursons integralement. Sans condition.</p>' -%}
+    {%- assign faq1_q = faq_livraison_q -%}
+    {%- assign faq1_a = faq_livraison_a -%}
+    {%- assign faq2_q = faq_retour_q -%}
+    {%- assign faq2_a = faq_retour_a -%}
     {%- assign faq3_q = 'Comment je lave la housse ?' -%}
-    {%- assign faq3_a = '<p>La housse se retire facilement grace a la fermeture eclair. Lavage en machine a 30 degres, sechage a l\'air libre. Le coussin lui-meme se nettoie avec un chiffon humide.</p>' -%}
+    {%- assign faq3_a = '<p>La housse se retire facilement grace a la fermeture eclair. Lavage en machine a 30 degres, sechage a plat. Le coussin lui-meme se nettoie avec un chiffon humide.</p>' -%}
   {%- endif -%}
 
   <div class="pdp-faq" id="pdp-faq">
