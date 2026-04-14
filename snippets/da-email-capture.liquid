@@ -88,23 +88,16 @@
         if (emailInput) emailInput.focus();
         return;
       }
-      if (btn) { btn.disabled = true; btn.textContent = 'Envoi...'; }
 
-      /* Utilise les données du formulaire Liquid (inclut le bon token) */
-      var data = new FormData(form);
+      /* Iframe caché comme cible — soumission native sans rechargement */
+      var iframe = document.createElement('iframe');
+      iframe.name = 'da_capture_target';
+      iframe.style.cssText = 'position:absolute;width:1px;height:1px;left:-9999px;top:-9999px;';
+      document.body.appendChild(iframe);
 
-      fetch(form.action, {
-        method: 'POST',
-        body: data
-      })
-      .then(function(r) {
-        /* Shopify renvoie 200 apres redirection meme en cas de succes */
-        showThanks();
-      })
-      .catch(function() {
-        /* Fallback : soumission classique */
-        form.submit();
-      });
+      form.target = 'da_capture_target';
+      showThanks();    /* Afficher Merci immédiatement */
+      form.submit();   /* Soumission native — Shopify reçoit le formulaire */
     });
   }
 })();
