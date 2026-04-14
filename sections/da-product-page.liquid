@@ -415,8 +415,8 @@
       <h2 class="pdp-section__title">Caracteristiques</h2>
       <div class="pdp-desc__inner">
         <div class="pdp-desc__body rte">{{ desc_body }}</div>
-        {%- if section.settings.desc_image != blank -%}
-          <div class="pdp-desc__aside">
+        <div class="pdp-desc__aside">
+          {%- if section.settings.desc_image != blank -%}
             <img
               src="{{ section.settings.desc_image | image_url: width: 700 }}"
               alt="{{ section.settings.desc_image.alt | default: product.title | escape }}"
@@ -424,43 +424,40 @@
               loading="lazy"
               class="pdp-desc__aside-img"
             >
-          </div>
-        {%- endif -%}
+          {%- else -%}
+            <div class="pdp-img-placeholder">
+              {{ 'product-2' | placeholder_svg_tag: 'pdp-img-placeholder__svg' }}
+              <span class="pdp-img-placeholder__label">Image description</span>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
     </div>
   {%- endif -%}
 
   <!-- Grille d'images produit — choisies dans le customizer -->
-  {%- assign strip_imgs = '' -%}
-  {%- if section.settings.strip_img_1 != blank -%}{%- assign strip_imgs = strip_imgs | append: '1' -%}{%- endif -%}
-  {%- if section.settings.strip_img_2 != blank -%}{%- assign strip_imgs = strip_imgs | append: '2' -%}{%- endif -%}
-  {%- if section.settings.strip_img_3 != blank -%}{%- assign strip_imgs = strip_imgs | append: '3' -%}{%- endif -%}
-  {%- if section.settings.strip_img_4 != blank -%}{%- assign strip_imgs = strip_imgs | append: '4' -%}{%- endif -%}
-
-  {%- if strip_imgs != blank -%}
-    <div class="pdp-img-strip">
-      {%- if section.settings.strip_img_1 != blank -%}
-        <div class="pdp-img-strip__item">
-          <img src="{{ section.settings.strip_img_1 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_1.alt | default: product.title | escape }}" width="700" loading="lazy">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.strip_img_2 != blank -%}
-        <div class="pdp-img-strip__item">
-          <img src="{{ section.settings.strip_img_2 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_2.alt | default: product.title | escape }}" width="700" loading="lazy">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.strip_img_3 != blank -%}
-        <div class="pdp-img-strip__item">
-          <img src="{{ section.settings.strip_img_3 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_3.alt | default: product.title | escape }}" width="700" loading="lazy">
-        </div>
-      {%- endif -%}
-      {%- if section.settings.strip_img_4 != blank -%}
-        <div class="pdp-img-strip__item">
-          <img src="{{ section.settings.strip_img_4 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_4.alt | default: product.title | escape }}" width="700" loading="lazy">
-        </div>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
+  <div class="pdp-img-strip">
+    {%- assign strip_keys = 'strip_img_1,strip_img_2,strip_img_3,strip_img_4' | split: ',' -%}
+    {%- assign placeholder_names = 'product-3,product-4,product-5,product-6' | split: ',' -%}
+    {%- for key in strip_keys -%}
+      {%- assign ph_name = placeholder_names[forloop.index0] -%}
+      <div class="pdp-img-strip__item">
+        {%- if section.settings[key] != blank -%}
+          <img
+            src="{{ section.settings[key] | image_url: width: 700 }}"
+            alt="{{ section.settings[key].alt | default: product.title | escape }}"
+            width="700"
+            loading="lazy"
+          >
+        {%- else -%}
+          <div class="pdp-img-placeholder pdp-img-placeholder--strip">
+            {{ ph_name | placeholder_svg_tag: 'pdp-img-placeholder__svg' }}
+            <span class="pdp-img-placeholder__label">Photo {{ forloop.index }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
 
   <!-- Mini FAQ — adaptée par type de produit -->
   {%- assign faq_livraison_q = 'Combien de temps pour recevoir ma commande ?' -%}

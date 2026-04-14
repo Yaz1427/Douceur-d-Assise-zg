@@ -4414,6 +4414,53 @@ cart-remove-button .svg-wrapper svg { width: 18px; height: 18px; }
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
+/* Zones placeholder (visibles dans l'éditeur, masquées sur le site live) */
+.pdp-img-placeholder {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--card);
+  border: 2px dashed var(--border);
+  aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+.pdp-img-placeholder--strip {
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-lg);
+}
+.pdp-img-placeholder__svg {
+  width: 60%;
+  height: 60%;
+  opacity: 0.3;
+  display: block;
+}
+.pdp-img-placeholder__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+/* Sur le site live (hors editor), les placeholders sont invisibles */
+body:not(.shopify-design-mode) .pdp-img-placeholder {
+  display: none;
+}
+/* Dans l'éditeur, la colonne aside reste visible même sans image */
+body:not(.shopify-design-mode) .pdp-desc__aside:has(.pdp-img-placeholder) {
+  display: none;
+}
+/* Grille sans images sur le live : masquée */
+body:not(.shopify-design-mode) .pdp-img-strip:not(:has(img)) {
+  display: none;
+}
+
 /* ── Grille d'images produit ─────────── */
 .pdp-img-strip {
   display: grid;
