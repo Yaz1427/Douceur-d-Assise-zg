@@ -1,0 +1,252 @@
+{% comment %}
+  Douceur d'Assise - Section "Pourquoi Douceur d'Assise ?"
+  Tableau comparatif rassurant pour seniors méfiants
+{% endcomment %}
+
+<section class="da-comparatif">
+  <div class="da-container">
+    <div class="da-comparatif__header">
+      <h2 class="da-comparatif__title">{{ section.settings.title | default: 'Pourquoi Douceur d\'Assise ?' }}</h2>
+      <p class="da-comparatif__subtitle">{{ section.settings.subtitle | default: 'Nous ne sommes pas les seuls à vendre des coussins. Voilà pourquoi nos clients nous choisissent.' }}</p>
+    </div>
+
+    <!-- Tableau comparatif desktop -->
+    <div class="da-comparatif__table-wrap">
+      <table class="da-comparatif__table" role="table">
+        <thead>
+          <tr>
+            <th scope="col" class="da-comparatif__th da-comparatif__th--label">Ce que vous cherchez</th>
+            <th scope="col" class="da-comparatif__th da-comparatif__th--us">Douceur d'Assise</th>
+            <th scope="col" class="da-comparatif__th da-comparatif__th--super">Supermarché</th>
+            <th scope="col" class="da-comparatif__th da-comparatif__th--premium">Marques premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr class="da-comparatif__row" {{ block.shopify_attributes }}>
+              <td class="da-comparatif__td da-comparatif__td--label">{{ block.settings.criterion }}</td>
+              <td class="da-comparatif__td da-comparatif__td--us">
+                {%- if block.settings.us_check -%}
+                  <span class="da-comparatif__check da-comparatif__check--yes" aria-label="Oui">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  </span>
+                {%- else -%}
+                  <span class="da-comparatif__check da-comparatif__check--no" aria-label="Non">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.us_detail != blank -%}
+                  <span class="da-comparatif__detail">{{ block.settings.us_detail }}</span>
+                {%- endif -%}
+              </td>
+              <td class="da-comparatif__td">
+                {%- if block.settings.super_check == 'yes' -%}
+                  <span class="da-comparatif__check da-comparatif__check--yes" aria-label="Oui">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  </span>
+                {%- elsif block.settings.super_check == 'partial' -%}
+                  <span class="da-comparatif__check da-comparatif__check--partial" aria-label="Parfois">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>
+                  </span>
+                {%- else -%}
+                  <span class="da-comparatif__check da-comparatif__check--no" aria-label="Non">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.super_detail != blank -%}
+                  <span class="da-comparatif__detail">{{ block.settings.super_detail }}</span>
+                {%- endif -%}
+              </td>
+              <td class="da-comparatif__td">
+                {%- if block.settings.premium_check == 'yes' -%}
+                  <span class="da-comparatif__check da-comparatif__check--yes" aria-label="Oui">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  </span>
+                {%- elsif block.settings.premium_check == 'partial' -%}
+                  <span class="da-comparatif__check da-comparatif__check--partial" aria-label="Variable">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>
+                  </span>
+                {%- else -%}
+                  <span class="da-comparatif__check da-comparatif__check--no" aria-label="Non">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.premium_detail != blank -%}
+                  <span class="da-comparatif__detail">{{ block.settings.premium_detail }}</span>
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="da-comparatif__cta">
+        <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="da-btn da-btn-primary">
+          {{ section.settings.cta_label }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparatif DA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Pourquoi Douceur d'Assise ?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Nous ne sommes pas les seuls à vendre des coussins. Voilà pourquoi nos clients nous choisissent."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton CTA (facultatif)",
+      "default": "Choisir mon coussin"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Lien du bouton"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Critère",
+      "settings": [
+        {
+          "type": "text",
+          "id": "criterion",
+          "label": "Critère",
+          "default": "Mousse à mémoire de forme"
+        },
+        {
+          "type": "checkbox",
+          "id": "us_check",
+          "label": "Douceur d'Assise : Oui",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "us_detail",
+          "label": "Douceur d'Assise : détail",
+          "info": "Texte affiché sous la coche (ex: '44,90 €')"
+        },
+        {
+          "type": "select",
+          "id": "super_check",
+          "label": "Supermarché",
+          "options": [
+            { "value": "yes", "label": "Oui" },
+            { "value": "partial", "label": "Parfois / Variable" },
+            { "value": "no", "label": "Non" }
+          ],
+          "default": "no"
+        },
+        {
+          "type": "text",
+          "id": "super_detail",
+          "label": "Supermarché : détail"
+        },
+        {
+          "type": "select",
+          "id": "premium_check",
+          "label": "Marques premium",
+          "options": [
+            { "value": "yes", "label": "Oui" },
+            { "value": "partial", "label": "Parfois / Variable" },
+            { "value": "no", "label": "Non" }
+          ],
+          "default": "yes"
+        },
+        {
+          "type": "text",
+          "id": "premium_detail",
+          "label": "Marques premium : détail"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparatif DA",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "Prix",
+            "us_check": true,
+            "us_detail": "29 - 90 €",
+            "super_check": "yes",
+            "super_detail": "15 - 25 €",
+            "premium_check": "yes",
+            "premium_detail": "60 - 120 €"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "Mousse à mémoire de forme",
+            "us_check": true,
+            "super_check": "no",
+            "premium_check": "yes"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "Housse lavable en machine",
+            "us_check": true,
+            "super_check": "partial",
+            "super_detail": "Parfois",
+            "premium_check": "yes"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "Satisfait ou remboursé 30 jours",
+            "us_check": true,
+            "super_check": "no",
+            "premium_check": "partial",
+            "premium_detail": "Variable"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "SAV en français par téléphone",
+            "us_check": true,
+            "us_detail": "01 86 26 10 20",
+            "super_check": "no",
+            "premium_check": "partial",
+            "premium_detail": "Parfois"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "criterion": "Livraison gratuite",
+            "us_check": true,
+            "super_check": "yes",
+            "super_detail": "En magasin",
+            "premium_check": "partial",
+            "premium_detail": "Dès 50 €"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,182 @@
+{% comment %}
+  Douceur d'Assise - Section "Quel problème voulez-vous résoudre ?"
+  Cartes interactives avec hover : problème affiché, solution révélée au survol
+{% endcomment %}
+
+<section class="da-quel-probleme">
+  <div class="da-container">
+    <div class="da-quel-probleme__header">
+      <h2 class="da-quel-probleme__title">{{ section.settings.title | default: 'Quel problème voulez-vous résoudre ?' }}</h2>
+      <p class="da-quel-probleme__subtitle">{{ section.settings.subtitle | default: 'Chaque coussin est conçu pour un besoin précis. Trouvez le vôtre.' }}</p>
+    </div>
+
+    <div class="da-quel-probleme__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: '/collections/all' }}" class="da-quel-probleme__card" {{ block.shopify_attributes }}>
+
+          <!-- Image / Icône -->
+          <div class="da-quel-probleme__card-visual">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 400 }}"
+                alt="{{ block.settings.problem }}"
+                width="400"
+                loading="lazy"
+                class="da-quel-probleme__card-img"
+              >
+            {%- else -%}
+              <div class="da-quel-probleme__card-icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'coccyx' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  {%- when 'dos' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><line x1="12" x2="12" y1="12" y2="20"/></svg>
+                  {%- when 'nuque' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="4"/><path d="M12 10v4"/><path d="M8 21v-1a4 4 0 0 1 8 0v1"/></svg>
+                  {%- when 'jambes' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="m5 9 7-7 7 7"/><path d="M5 22h14"/></svg>
+                  {%- when 'voiture' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v3h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                  {%- when 'nuit' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                {%- endcase -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- Problème (visible par défaut) -->
+          <div class="da-quel-probleme__card-front">
+            <h3 class="da-quel-probleme__card-problem">{{ block.settings.problem }}</h3>
+            <span class="da-quel-probleme__card-hint">Voir la solution →</span>
+          </div>
+
+          <!-- Solution (visible au hover / focus) -->
+          <div class="da-quel-probleme__card-back" aria-hidden="true">
+            <p class="da-quel-probleme__card-solution">{{ block.settings.solution }}</p>
+            <span class="da-quel-probleme__card-link">Découvrir ce coussin →</span>
+          </div>
+
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quel probleme DA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Quel problème voulez-vous résoudre ?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Chaque coussin est conçu pour un besoin précis. Trouvez le vôtre."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carte problème",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (facultatif)"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône (si pas d'image)",
+          "options": [
+            { "value": "coccyx", "label": "Coccyx" },
+            { "value": "dos", "label": "Dos / Lombaires" },
+            { "value": "nuque", "label": "Nuque / Cervicales" },
+            { "value": "jambes", "label": "Jambes / Hanches" },
+            { "value": "voiture", "label": "Voiture" },
+            { "value": "nuit", "label": "Nuit / Sommeil" },
+            { "value": "default", "label": "Par défaut" }
+          ],
+          "default": "coccyx"
+        },
+        {
+          "type": "text",
+          "id": "problem",
+          "label": "Problème (titre affiché)",
+          "default": "Douleur au coccyx"
+        },
+        {
+          "type": "textarea",
+          "id": "solution",
+          "label": "Solution (texte au survol)",
+          "default": "Notre coussin coccyx soulage la pression dès les premières minutes grâce à sa découpe en U."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien vers le produit"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quel probleme DA",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "icon": "coccyx",
+            "problem": "Douleur au coccyx",
+            "solution": "Notre coussin coccyx soulage la pression dès les premières minutes grâce à sa découpe en U.",
+            "link": "/collections/coussins-assise"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "dos",
+            "problem": "Mal au bas du dos",
+            "solution": "Notre coussin lombaire maintient votre colonne vertébrale dans la bonne position toute la journée.",
+            "link": "/collections/coussins-assise"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "nuque",
+            "problem": "Nuque raide le matin",
+            "solution": "Notre oreiller cervical maintient votre nuque alignée pendant toute la nuit pour un réveil sans douleur.",
+            "link": "/collections/coussins-sommeil"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "jambes",
+            "problem": "Hanches douloureuses la nuit",
+            "solution": "Notre coussin entre-jambes aligne vos hanches et soulage la pression sur votre dos pendant votre sommeil.",
+            "link": "/collections/coussins-sommeil"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "voiture",
+            "problem": "Douleurs en voiture",
+            "solution": "Notre coussin auto épouse votre siège et protège votre dos sur les longs trajets.",
+            "link": "/collections/coussins-assise"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

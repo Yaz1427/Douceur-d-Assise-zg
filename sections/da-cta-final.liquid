@@ -1,18 +1,54 @@
 <section class="da-cta-final">
   <div class="da-cta-final__inner">
-    <h2 class="da-cta-final__title">Prêt à retrouver le confort ?</h2>
-    <p class="da-cta-final__subtitle">Livraison gratuite en France et garantie satisfait ou remboursé 30 jours.</p>
-    <a href="{{ routes.collections_url }}" class="da-btn da-btn-primary">
-      Voir nos coussins
+    <h2 class="da-cta-final__title">{{ section.settings.title | default: 'Prêt à retrouver le confort ?' }}</h2>
+    <p class="da-cta-final__subtitle">{{ section.settings.subtitle | default: 'Livraison gratuite en France et garantie satisfait ou remboursé 30 jours.' }}</p>
+    <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="da-btn da-btn-primary">
+      {{ section.settings.cta_label | default: 'Voir nos coussins' }}
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </a>
+    {%- if section.settings.phone != blank -%}
+      <p class="da-cta-final__phone">
+        Une question ?
+        <a href="tel:{{ section.settings.phone | remove: ' ' }}">Appelez-nous au {{ section.settings.phone }}</a>
+      </p>
+    {%- endif -%}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "CTA Final DA",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Prêt à retrouver le confort ?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Livraison gratuite en France et garantie satisfait ou remboursé 30 jours."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texte du bouton",
+      "default": "Voir nos coussins"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Numéro de téléphone (affiché sous le bouton)",
+      "default": "01 86 26 10 20"
+    }
+  ],
   "presets": [
     {
       "name": "CTA Final DA"

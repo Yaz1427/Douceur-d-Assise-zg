@@ -1,62 +1,73 @@
 {% comment %}
   Douceur d'Assise - Testimonials Section
-  Temoignages clients avec avatar, badge "Achat verifie" et bordure accent
+  Temoignages clients — affiche un placeholder honnete tant qu'aucun vrai avis n'est disponible
 {% endcomment %}
 
 <section class="da-temoignages">
   <div class="da-container">
     <div class="da-temoignages__header">
       <h2 class="da-temoignages__title">{{ section.settings.heading | default: 'Ce que nos clients disent' }}</h2>
-      <p class="da-temoignages__subtitle">{{ section.settings.subheading | default: 'Des temoignages authentiques de personnes comme vous.' }}</p>
+      <p class="da-temoignages__subtitle">{{ section.settings.subheading | default: 'Des témoignages authentiques de personnes comme vous.' }}</p>
     </div>
 
-    <div class="da-temoignages__grid da-animate-stagger">
-      {%- for block in section.blocks -%}
-        <article class="da-temoignage-card" {{ block.shopify_attributes }}>
-          <!-- Stars -->
-          <div class="da-temoignage-card__stars">
-            {%- assign count = block.settings.rating | round -%}
-            {%- for i in (1..5) -%}
-              {%- if i <= count -%}
-                <svg class="da-temoignage-card__star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              {%- else -%}
-                <svg class="da-temoignage-card__star da-temoignage-card__star--empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-
-          <!-- Text -->
-          <blockquote class="da-temoignage-card__text">
-            "{{ block.settings.text }}"
-          </blockquote>
-
-          <!-- Footer -->
-          <div class="da-temoignage-card__footer">
-            <div class="da-temoignage-card__author">
-              <div class="da-temoignage-card__avatar">
-                {{ block.settings.name | slice: 0 }}
-              </div>
-              <div class="da-temoignage-card__info">
-                <span class="da-temoignage-card__name">{{ block.settings.name }}</span>
-                <span class="da-temoignage-card__meta">
-                  {%- if block.settings.age != blank -%}{{ block.settings.age }} ans{%- if block.settings.city != blank -%}, {%- endif -%}{%- endif -%}
-                  {%- if block.settings.city != blank -%}{{ block.settings.city }}{%- endif -%}
-                </span>
-                {%- if block.settings.product != blank -%}
-                  <span class="da-temoignage-card__product">{{ block.settings.product }}</span>
+    {%- if section.settings.show_testimonials and section.blocks.size > 0 -%}
+      <div class="da-temoignages__grid da-animate-stagger">
+        {%- for block in section.blocks -%}
+          <article class="da-temoignage-card" {{ block.shopify_attributes }}>
+            <!-- Stars -->
+            <div class="da-temoignage-card__stars">
+              {%- assign count = block.settings.rating | round -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= count -%}
+                  <svg class="da-temoignage-card__star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {%- else -%}
+                  <svg class="da-temoignage-card__star da-temoignage-card__star--empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            <!-- Text -->
+            <blockquote class="da-temoignage-card__text">
+              "{{ block.settings.text }}"
+            </blockquote>
+
+            <!-- Footer -->
+            <div class="da-temoignage-card__footer">
+              <div class="da-temoignage-card__author">
+                <div class="da-temoignage-card__avatar">
+                  {{ block.settings.name | slice: 0 }}
+                </div>
+                <div class="da-temoignage-card__info">
+                  <span class="da-temoignage-card__name">{{ block.settings.name }}</span>
+                  <span class="da-temoignage-card__meta">
+                    {%- if block.settings.age != blank -%}{{ block.settings.age }} ans{%- if block.settings.city != blank -%}, {%- endif -%}{%- endif -%}
+                    {%- if block.settings.city != blank -%}{{ block.settings.city }}{%- endif -%}
+                  </span>
+                  {%- if block.settings.product != blank -%}
+                    <span class="da-temoignage-card__product">{{ block.settings.product }}</span>
+                  {%- endif -%}
+                </div>
               </div>
             </div>
-            
-            <!-- Verified badge -->
-            <span class="da-temoignage-card__verified">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-              Achat verifie
-            </span>
-          </div>
-        </article>
-      {%- endfor -%}
-    </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <!-- Placeholder honnete — a retirer quand les vrais avis arrivent -->
+      <div class="da-temoignages__placeholder">
+        <div class="da-temoignages__placeholder-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="da-temoignages__placeholder-title">Bientôt vos avis ici</h3>
+        <p class="da-temoignages__placeholder-text">
+          Nous venons de lancer notre boutique. Dès que nos premiers clients partagent leur expérience, leurs avis apparaîtront ici. Nous n'inventons rien.
+        </p>
+        <p class="da-temoignages__placeholder-cta">
+          Vous avez déjà acheté chez nous ?
+          <a href="/pages/contact" class="da-temoignages__placeholder-link">Partagez votre avis</a>
+        </p>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -75,6 +86,13 @@
       "id": "subheading",
       "label": "Sous-titre",
       "default": "Des temoignages authentiques de personnes comme vous."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Afficher les temoignages (cochez uniquement avec de vrais avis)",
+      "default": false,
+      "info": "Laissez decoché tant que vous n'avez pas de vrais avis clients. Un message honnete s'affiche a la place."
     }
   ],
   "blocks": [
@@ -94,7 +112,7 @@
         {
           "type": "textarea",
           "id": "text",
-          "label": "Texte",
+          "label": "Texte du temoignage",
           "default": "Excellent produit, je le recommande vivement !"
         },
         {
@@ -106,59 +124,24 @@
         {
           "type": "text",
           "id": "age",
-          "label": "Age"
+          "label": "Age (facultatif)"
         },
         {
           "type": "text",
           "id": "city",
-          "label": "Ville"
+          "label": "Ville (facultatif)"
         },
         {
           "type": "text",
           "id": "product",
-          "label": "Produit achete"
+          "label": "Produit achete (facultatif)"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Temoignages DA",
-      "blocks": [
-        {
-          "type": "temoignage",
-          "settings": {
-            "rating": 5,
-            "text": "Apres des mois de douleurs au coccyx, ce coussin a change ma vie. Je peux enfin regarder la television sans souffrir. Merci !",
-            "name": "Marie-Claire D.",
-            "age": "67",
-            "city": "Lyon",
-            "product": "Coussin Confort Coccyx"
-          }
-        },
-        {
-          "type": "temoignage",
-          "settings": {
-            "rating": 5,
-            "text": "Tres sceptique au debut, j'ai ete convaincu des la premiere utilisation. La qualite est au rendez-vous et le service client est tres reactif.",
-            "name": "Jean-Pierre M.",
-            "age": "72",
-            "city": "Bordeaux",
-            "product": "Pack Confort Integral"
-          }
-        },
-        {
-          "type": "temoignage",
-          "settings": {
-            "rating": 5,
-            "text": "Je l'utilise tous les jours dans ma voiture pour mes trajets. Fini les douleurs lombaires apres 1h de route. Je recommande vivement.",
-            "name": "Francoise L.",
-            "age": "63",
-            "city": "Nantes",
-            "product": "Coussin Auto Confort"
-          }
-        }
-      ]
+      "name": "Temoignages DA"
     }
   ]
 }

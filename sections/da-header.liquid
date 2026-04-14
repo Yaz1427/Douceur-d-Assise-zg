@@ -8,20 +8,24 @@
   <div class="da-header__topbar">
     <div class="da-header__topbar-inner">
       <span class="da-header__topbar-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Entreprise francaise
+        🇫🇷 Entreprise française
       </span>
       <span class="da-header__topbar-sep">•</span>
       <span class="da-header__topbar-item">
-        <a href="tel:{{ section.settings.phone | default: '0186261020' }}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:{{ section.settings.phone | default: '0186261020' | remove: ' ' }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           {{ section.settings.phone | default: '01 86 26 10 20' }}
         </a>
       </span>
       <span class="da-header__topbar-sep">•</span>
       <span class="da-header__topbar-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
         Livraison gratuite en France
+      </span>
+      <span class="da-header__topbar-sep">•</span>
+      <span class="da-header__topbar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        Satisfait ou remboursé 30 jours
       </span>
     </div>
   </div>
@@ -58,16 +62,19 @@
         <a href="/">Accueil</a>
         <div class="da-header__dropdown" id="da-dropdown-catalogue">
           <button class="da-header__dropdown-trigger" aria-expanded="false" aria-haspopup="true">
-            Catalogue
+            Nos Coussins
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <ul class="da-header__dropdown-menu" role="menu">
-            <li role="none"><a href="/collections/all" role="menuitem">Tous les produits</a></li>
+            <li role="none"><a href="/collections/all" role="menuitem">Tous les coussins</a></li>
             <li role="none"><a href="/collections/coussins-assise" role="menuitem">Coussins Assise</a></li>
             <li role="none"><a href="/collections/coussins-sommeil" role="menuitem">Coussins Sommeil</a></li>
+            <li role="none" class="da-header__dropdown-divider" aria-hidden="true"></li>
+            <li role="none"><a href="/collections/packs" role="menuitem">Packs économiques</a></li>
           </ul>
         </div>
-        <a href="/pages/a-propos">A propos</a>
+        <a href="/pages/a-propos">Notre Histoire</a>
+        <a href="/blogs/conseils">Conseils & Guides</a>
         <a href="/pages/contact">Contact</a>
       </div>
 
@@ -76,17 +83,17 @@
         <!-- Compte -->
         {%- if customer -%}
           <a href="{{ routes.account_url }}" class="da-header__account" aria-label="Mon compte">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           </a>
         {%- else -%}
           <a href="{{ routes.account_login_url }}" class="da-header__account" aria-label="Se connecter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           </a>
         {%- endif -%}
 
         <!-- Panier -->
         <a href="/cart" class="da-header__cart" id="da-cart-link" aria-label="Panier - {{ cart.item_count }} article(s)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
           <span class="da-header__cart-label">Panier</span>
           <span class="da-header__cart-badge" id="da-cart-badge" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
             {{ cart.item_count }}
@@ -94,15 +101,15 @@
         </a>
 
         <!-- Burger mobile -->
-        <button 
-          class="da-header__burger" 
-          id="da-burger" 
-          aria-expanded="false" 
+        <button
+          class="da-header__burger"
+          id="da-burger"
+          aria-expanded="false"
           aria-controls="da-mobile-menu"
           aria-label="Ouvrir le menu"
         >
-          <svg id="da-icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-          <svg id="da-icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          <svg id="da-icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg id="da-icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: none;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
     </div>
@@ -113,16 +120,18 @@
         <a href="/">Accueil</a>
         <div class="da-header__mobile-group" id="da-mobile-catalogue">
           <button class="da-header__mobile-group-trigger" aria-expanded="false">
-            Catalogue
+            Nos Coussins
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="da-header__mobile-submenu">
-            <a href="/collections/all">Tous les produits</a>
+            <a href="/collections/all">Tous les coussins</a>
             <a href="/collections/coussins-assise">Coussins Assise</a>
             <a href="/collections/coussins-sommeil">Coussins Sommeil</a>
+            <a href="/collections/packs">Packs économiques</a>
           </div>
         </div>
-        <a href="/pages/a-propos">A propos</a>
+        <a href="/pages/a-propos">Notre Histoire</a>
+        <a href="/blogs/conseils">Conseils & Guides</a>
         <a href="/pages/contact">Contact</a>
         {%- if customer -%}
           <a href="{{ routes.account_url }}">Mon compte</a>
@@ -130,9 +139,15 @@
           <a href="{{ routes.account_login_url }}">Se connecter</a>
         {%- endif -%}
         <a href="/cart">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
           Panier ({{ cart.item_count }})
         </a>
+        <!-- Réassurance mobile -->
+        <div class="da-header__mobile-trust">
+          <span>🇫🇷 Entreprise française</span>
+          <span>🚚 Livraison gratuite</span>
+          <span>✓ Satisfait ou remboursé 30 jours</span>
+        </div>
       </div>
     </div>
   </nav>
@@ -145,7 +160,7 @@
   var menu = document.getElementById('da-mobile-menu');
   var iconM = document.getElementById('da-icon-menu');
   var iconX = document.getElementById('da-icon-close');
-  
+
   if (btn && menu) {
     btn.addEventListener('click', function() {
       var open = menu.classList.toggle('is-open');

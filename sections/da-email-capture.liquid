@@ -1,0 +1,113 @@
+{% comment %}
+  Douceur d'Assise - Section capture email
+  Offre un guide PDF gratuit en echange de l'email
+  Utilise le formulaire natif Shopify (contact form) + champ cache pour categorie
+{% endcomment %}
+
+<section class="da-email-capture">
+  <div class="da-container">
+    <div class="da-email-capture__inner">
+
+      <!-- Icône / Illustration -->
+      <div class="da-email-capture__visual" aria-hidden="true">
+        <div class="da-email-capture__book-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        </div>
+      </div>
+
+      <!-- Contenu -->
+      <div class="da-email-capture__content">
+        <p class="da-email-capture__label">{{ section.settings.eyebrow | default: 'Guide gratuit' }}</p>
+        <h2 class="da-email-capture__title">{{ section.settings.title | default: '7 conseils pour soulager votre dos au quotidien' }}</h2>
+        <p class="da-email-capture__description">{{ section.settings.description | default: 'Recevez notre guide pratique par email : postures, exercices simples et conseils pour retrouver le confort.' }}</p>
+
+        <!-- Formulaire -->
+        {%- form 'customer', id: 'da-email-capture-form', class: 'da-email-capture__form' -%}
+          <input type="hidden" name="contact[tags]" value="guide-dos-gratuit">
+          <input type="hidden" name="contact[body]" value="Demande de guide gratuit depuis la page d'accueil.">
+
+          <div class="da-email-capture__fields">
+            <label for="da-capture-email" class="da-visually-hidden">Votre adresse email</label>
+            <input
+              type="email"
+              id="da-capture-email"
+              name="contact[email]"
+              placeholder="{{ section.settings.placeholder | default: 'Votre adresse email' }}"
+              required
+              autocomplete="email"
+              class="da-email-capture__input"
+            >
+            <button type="submit" class="da-btn da-btn-primary da-email-capture__btn">
+              {{ section.settings.cta_label | default: 'Recevoir le guide' }}
+            </button>
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <p class="da-email-capture__success" role="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+              Parfait ! Vérifiez votre boîte email — votre guide arrive dans quelques minutes.
+            </p>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <p class="da-email-capture__error" role="alert">
+              Veuillez saisir une adresse email valide.
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+
+        <p class="da-email-capture__disclaimer">{{ section.settings.disclaimer | default: 'Gratuit, sans spam. Vous pouvez vous désinscrire à tout moment.' }}</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Capture email DA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiquette au-dessus du titre",
+      "default": "Guide gratuit"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "7 conseils pour soulager votre dos au quotidien"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Recevez notre guide pratique par email : postures, exercices simples et conseils pour retrouver le confort."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder champ email",
+      "default": "Votre adresse email"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texte du bouton",
+      "default": "Recevoir le guide"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Texte sous le formulaire",
+      "default": "Gratuit, sans spam. Vous pouvez vous desinscrire a tout moment."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Capture email DA"
+    }
+  ]
+}
+{% endschema %}
