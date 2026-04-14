@@ -415,11 +415,11 @@
       <h2 class="pdp-section__title">Caracteristiques</h2>
       <div class="pdp-desc__inner">
         <div class="pdp-desc__body rte">{{ desc_body }}</div>
-        {%- if product.images.size > 1 -%}
+        {%- if section.settings.desc_image != blank -%}
           <div class="pdp-desc__aside">
             <img
-              src="{{ product.images[1] | image_url: width: 700 }}"
-              alt="{{ product.images[1].alt | default: product.title | escape }}"
+              src="{{ section.settings.desc_image | image_url: width: 700 }}"
+              alt="{{ section.settings.desc_image.alt | default: product.title | escape }}"
               width="700"
               loading="lazy"
               class="pdp-desc__aside-img"
@@ -430,19 +430,35 @@
     </div>
   {%- endif -%}
 
-  <!-- Grille d'images produit (a partir de la 3e image) -->
-  {%- if product.images.size > 2 -%}
+  <!-- Grille d'images produit — choisies dans le customizer -->
+  {%- assign strip_imgs = '' -%}
+  {%- if section.settings.strip_img_1 != blank -%}{%- assign strip_imgs = strip_imgs | append: '1' -%}{%- endif -%}
+  {%- if section.settings.strip_img_2 != blank -%}{%- assign strip_imgs = strip_imgs | append: '2' -%}{%- endif -%}
+  {%- if section.settings.strip_img_3 != blank -%}{%- assign strip_imgs = strip_imgs | append: '3' -%}{%- endif -%}
+  {%- if section.settings.strip_img_4 != blank -%}{%- assign strip_imgs = strip_imgs | append: '4' -%}{%- endif -%}
+
+  {%- if strip_imgs != blank -%}
     <div class="pdp-img-strip">
-      {%- for img in product.images offset: 2 limit: 4 -%}
+      {%- if section.settings.strip_img_1 != blank -%}
         <div class="pdp-img-strip__item">
-          <img
-            src="{{ img | image_url: width: 700 }}"
-            alt="{{ img.alt | default: product.title | escape }}"
-            width="700"
-            loading="lazy"
-          >
+          <img src="{{ section.settings.strip_img_1 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_1.alt | default: product.title | escape }}" width="700" loading="lazy">
         </div>
-      {%- endfor -%}
+      {%- endif -%}
+      {%- if section.settings.strip_img_2 != blank -%}
+        <div class="pdp-img-strip__item">
+          <img src="{{ section.settings.strip_img_2 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_2.alt | default: product.title | escape }}" width="700" loading="lazy">
+        </div>
+      {%- endif -%}
+      {%- if section.settings.strip_img_3 != blank -%}
+        <div class="pdp-img-strip__item">
+          <img src="{{ section.settings.strip_img_3 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_3.alt | default: product.title | escape }}" width="700" loading="lazy">
+        </div>
+      {%- endif -%}
+      {%- if section.settings.strip_img_4 != blank -%}
+        <div class="pdp-img-strip__item">
+          <img src="{{ section.settings.strip_img_4 | image_url: width: 700 }}" alt="{{ section.settings.strip_img_4.alt | default: product.title | escape }}" width="700" loading="lazy">
+        </div>
+      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -836,6 +852,39 @@
       "id": "phone",
       "label": "Numero de telephone",
       "default": "01 86 26 10 20"
+    },
+    {
+      "type": "header",
+      "content": "Images — section description"
+    },
+    {
+      "type": "image_picker",
+      "id": "desc_image",
+      "label": "Image a droite de la description"
+    },
+    {
+      "type": "header",
+      "content": "Images — grille de photos"
+    },
+    {
+      "type": "image_picker",
+      "id": "strip_img_1",
+      "label": "Photo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "strip_img_2",
+      "label": "Photo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "strip_img_3",
+      "label": "Photo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "strip_img_4",
+      "label": "Photo 4"
     }
   ],
   "blocks": [
