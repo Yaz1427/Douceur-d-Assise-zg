@@ -1,0 +1,24 @@
+{% doc %}
+  Renders an SVG French flag (tricolore) to replace the 🇫🇷 emoji
+  which may not render correctly on all systems.
+
+  @example
+  {% render 'flag-fr' %}
+{% enddoc %}
+
+<svg class="flag-fr" width="20" height="14" viewBox="0 0 3 2" aria-label="Drapeau français" role="img" focusable="false">
+  <rect width="1" height="2" x="0" fill="#002395"/>
+  <rect width="1" height="2" x="1" fill="#FFFFFF"/>
+  <rect width="1" height="2" x="2" fill="#ED2939"/>
+</svg>
+
+{% stylesheet %}
+.flag-fr {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+{% endstylesheet %}

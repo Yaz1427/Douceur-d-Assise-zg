@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "da-page-suivi-commande": {
+      "type": "da-page-suivi-commande",
+      "settings": {}
+    }
+  },
+  "order": ["da-page-suivi-commande"]
+}

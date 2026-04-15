@@ -1,0 +1,191 @@
+{% doc %}
+  Renders the 5 product page accordions (details/summary) with key
+  information about the product: who it's for, problems solved,
+  technical specs, delivery & returns, and care instructions.
+
+  Designed for Douceur d'Assise product pages targeting seniors.
+
+  @example
+  {% render 'product-accordions' %}
+{% enddoc %}
+
+<div class="da-accordions">
+
+  <details class="da-accordion">
+    <summary class="da-accordion__header">
+      <span class="da-accordion__title">Ce coussin est fait pour vous si...</span>
+      <span class="da-accordion__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="da-accordion__body">
+      <ul>
+        <li>Vous avez mal au coccyx après 30 minutes assis</li>
+        <li>Vous passez plusieurs heures par jour assis (TV, repas, voiture)</li>
+        <li>Les coussins de supermarché ne vous ont pas convaincu</li>
+        <li>Vous cherchez une solution simple, sans médicaments</li>
+        <li>Vous souhaitez protéger votre dos sur les longs trajets</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="da-accordion">
+    <summary class="da-accordion__header">
+      <span class="da-accordion__title">Problèmes soulagés</span>
+      <span class="da-accordion__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="da-accordion__body">
+      <p>Ce coussin peut aider à soulager :</p>
+      <ul>
+        <li>Douleurs au coccyx en position assise prolongée</li>
+        <li>Pression sur le bas du dos</li>
+        <li>Inconfort après de longues heures assis</li>
+        <li>Gêne lors des trajets en voiture</li>
+      </ul>
+      <p class="da-accordion__disclaimer">Ce coussin n'est pas un dispositif médical. Il ne remplace pas un avis médical. En cas de douleurs persistantes, consultez un professionnel de santé.</p>
+    </div>
+  </details>
+
+  <details class="da-accordion">
+    <summary class="da-accordion__header">
+      <span class="da-accordion__title">Caractéristiques techniques</span>
+      <span class="da-accordion__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="da-accordion__body">
+      <ul>
+        <li><strong>Matière :</strong> Mousse à mémoire de forme</li>
+        <li><strong>Housse :</strong> Tissu respirant, amovible et lavable en machine (30°C)</li>
+        <li><strong>Forme :</strong> Découpe ergonomique pour libérer le coccyx</li>
+        <li><strong>Base :</strong> Revêtement antidérapant</li>
+        <li><strong>Dimensions :</strong> Voir fiche produit</li>
+        <li><strong>Poids :</strong> Environ 500 g</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="da-accordion">
+    <summary class="da-accordion__header">
+      <span class="da-accordion__title">Livraison et retours</span>
+      <span class="da-accordion__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="da-accordion__body">
+      <ul>
+        <li><strong>Livraison gratuite</strong> en France métropolitaine</li>
+        <li><strong>Délai :</strong> 10 à 15 jours ouvrés après expédition</li>
+        <li><strong>Suivi :</strong> Numéro de suivi envoyé par email dès l'expédition</li>
+        <li><strong>Retours :</strong> Satisfait ou remboursé 30 jours, sans justification</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="da-accordion">
+    <summary class="da-accordion__header">
+      <span class="da-accordion__title">Instructions d'entretien</span>
+      <span class="da-accordion__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="da-accordion__body">
+      <ul>
+        <li>Housse amovible, lavable en machine à 30°C</li>
+        <li>Ne pas laver la mousse directement à la machine</li>
+        <li>Sécher la housse à l'air libre (pas de sèche-linge)</li>
+        <li>Laver toutes les 2 à 3 semaines pour une hygiène optimale</li>
+        <li>Nettoyer la mousse avec un chiffon humide si nécessaire</li>
+      </ul>
+    </div>
+  </details>
+
+</div>
+
+{% stylesheet %}
+.da-accordions {
+  margin-top: 2.5rem;
+  border-top: 1px solid #D4C4A8;
+}
+
+.da-accordion {
+  border-bottom: 1px solid #D4C4A8;
+}
+
+.da-accordion__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  cursor: pointer;
+  list-style: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.da-accordion__header::-webkit-details-marker {
+  display: none;
+}
+
+.da-accordion__title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.4;
+}
+
+.da-accordion__icon {
+  color: #4A7C9B;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.da-accordion[open] .da-accordion__icon {
+  transform: rotate(180deg);
+}
+
+.da-accordion__body {
+  padding-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.da-accordion__body p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.da-accordion__body ul {
+  margin: 0 0 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.da-accordion__body li {
+  margin-bottom: 0.5rem;
+}
+
+.da-accordion__disclaimer {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #FFF8E7;
+  border-left: 3px solid #C17A5A;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.875rem;
+  color: #6B5040;
+}
+
+@media (max-width: 749px) {
+  .da-accordion__header {
+    padding: 1rem 0;
+  }
+
+  .da-accordion__title {
+    font-size: 0.9375rem;
+  }
+}
+{% endstylesheet %}

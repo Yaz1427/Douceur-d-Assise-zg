@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "da-page-engagements": {
+      "type": "da-page-engagements",
+      "settings": {}
+    }
+  },
+  "order": ["da-page-engagements"]
+}
