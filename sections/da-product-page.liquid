@@ -1,4 +1,5 @@
 {{- 'da-styles.css' | asset_url | stylesheet_tag -}}
+{{- 'da-product-page.css' | asset_url | stylesheet_tag -}}
 
 {%- assign cv = product.selected_or_first_available_variant -%}
 {%- assign has_compare = false -%}
@@ -172,9 +173,10 @@
        ║  EN DESSOUS DE LA FLOTTAISON ║
        ╚══════════════════════════════╝ -->
 
-  <!-- Bénéfices produit — détection automatique par handle -->
+  <!-- Détection type produit (utilisé partout en-dessous) -->
   {%- assign ph = product.handle -%}
 
+  <!-- Bénéfices produit — détection automatique par handle -->
   {%- if ph contains 'lombaire' or ph contains 'dos' -%}
     {%- assign benefits_title = 'Pourquoi ce coussin lombaire ?' -%}
     {%- assign b1 = 'Soutient naturellement le bas du dos, sans effort de votre part' -%}
@@ -211,7 +213,6 @@
     {%- assign b4 = 'Un seul achat pour retrouver le confort au quotidien, partout' -%}
 
   {%- else -%}
-    {%- comment -%}Défaut : coussin coccyx{%- endcomment -%}
     {%- assign benefits_title = 'Pourquoi ce coussin ?' -%}
     {%- assign b1 = 'Soulage la douleur au coccyx des la premiere utilisation' -%}
     {%- assign b2 = 'Reduit la pression sur le coccyx et le bas du dos en position assise' -%}
@@ -223,7 +224,6 @@
     <h2 class="pdp-section__title">{{ benefits_title }}</h2>
     <ul class="pdp-benefits__list">
       {%- for benefit in (1..4) -%}
-        {%- assign bkey = 'b' | append: benefit -%}
         <li class="pdp-benefits__item">
           <span class="pdp-benefits__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -239,6 +239,78 @@
         </li>
       {%- endfor -%}
     </ul>
+  </div>
+
+  <!-- ========== NOUVEAU : COMMENT L'UTILISER (3 étapes) ========== -->
+  {%- if ph contains 'lombaire' or ph contains 'dos' -%}
+    {%- assign how_step1 = 'Fixez-le' -%}
+    {%- assign how_step1_text = 'Attachez le coussin au bas du dossier de votre chaise grace a l\'elastique.' -%}
+    {%- assign how_step2 = 'Asseyez-vous' -%}
+    {%- assign how_step2_text = 'Appuyez votre dos contre lui. Le soutien est immediat.' -%}
+    {%- assign how_step3 = 'Oubliez-le' -%}
+    {%- assign how_step3_text = 'Votre dos est soutenu naturellement pendant des heures, sans y penser.' -%}
+  {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
+    {%- assign how_step1 = 'Placez-le' -%}
+    {%- assign how_step1_text = 'Placez le coussin entre vos genoux avant de vous coucher sur le cote.' -%}
+    {%- assign how_step2 = 'Endormez-vous' -%}
+    {%- assign how_step2_text = 'La forme anatomique maintient vos jambes en place naturellement.' -%}
+    {%- assign how_step3 = 'Reveillez-vous repose' -%}
+    {%- assign how_step3_text = 'Moins de pression sur les hanches et les genoux, un sommeil plus continu.' -%}
+  {%- elsif ph contains 'auto' or ph contains 'voiture' or ph contains 'trajet' or ph contains 'rehausseur' -%}
+    {%- assign how_step1 = 'Posez-le' -%}
+    {%- assign how_step1_text = 'Posez le coussin sur le siege, face antiderapante vers le bas.' -%}
+    {%- assign how_step2 = 'Installez-vous' -%}
+    {%- assign how_step2_text = 'Ajustez votre position comme d\'habitude. Le coussin ne bouge pas.' -%}
+    {%- assign how_step3 = 'Conduisez serein' -%}
+    {%- assign how_step3_text = 'Moins de douleurs au coccyx et au dos, meme sur les longs trajets.' -%}
+  {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
+    {%- assign how_step1 = 'Choisissez le cote' -%}
+    {%- assign how_step1_text = 'Cote haut pour dormir sur le cote, cote bas pour dormir sur le dos.' -%}
+    {%- assign how_step2 = 'Posez votre tete' -%}
+    {%- assign how_step2_text = 'La forme ergonomique epouse la courbure de votre nuque.' -%}
+    {%- assign how_step3 = 'Dormez profondement' -%}
+    {%- assign how_step3_text = 'Reveil sans douleurs cervicales ni raideurs au cou.' -%}
+  {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
+    {%- assign how_step1 = 'Deballez' -%}
+    {%- assign how_step1_text = 'Deballez vos deux coussins. Ils sont prets a l\'emploi, sans montage.' -%}
+    {%- assign how_step2 = 'Installez-les' -%}
+    {%- assign how_step2_text = 'Coussin coccyx sur l\'assise, soutien lombaire au dossier.' -%}
+    {%- assign how_step3 = 'Profitez' -%}
+    {%- assign how_step3_text = 'Votre posture est corrigee dans son ensemble. Confort immediat.' -%}
+  {%- else -%}
+    {%- assign how_step1 = 'Posez-le' -%}
+    {%- assign how_step1_text = 'Posez le coussin sur votre chaise, la decoupe en U vers l\'avant.' -%}
+    {%- assign how_step2 = 'Asseyez-vous' -%}
+    {%- assign how_step2_text = 'Installez-vous normalement. Pas de reglage, pas de montage.' -%}
+    {%- assign how_step3 = 'Soulagement' -%}
+    {%- assign how_step3_text = 'La pression disparait des les premieres minutes. C\'est tout.' -%}
+  {%- endif -%}
+
+  <div class="pdp-how" id="pdp-how">
+    <h2 class="pdp-section__title">Comment l'utiliser ?</h2>
+    <div class="pdp-how__steps">
+      <div class="pdp-how__step">
+        <div class="pdp-how__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3 class="pdp-how__step-title">{{ how_step1 }}</h3>
+        <p class="pdp-how__step-text">{{ how_step1_text }}</p>
+      </div>
+      <div class="pdp-how__step">
+        <div class="pdp-how__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 22v-2a7 7 0 0 1 14 0v2"/></svg>
+        </div>
+        <h3 class="pdp-how__step-title">{{ how_step2 }}</h3>
+        <p class="pdp-how__step-text">{{ how_step2_text }}</p>
+      </div>
+      <div class="pdp-how__step">
+        <div class="pdp-how__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.12 0 4.07.73 5.61 1.96"/></svg>
+        </div>
+        <h3 class="pdp-how__step-title">{{ how_step3 }}</h3>
+        <p class="pdp-how__step-text">{{ how_step3_text }}</p>
+      </div>
+    </div>
   </div>
 
   <!-- Description produit — injectee via handle pour chaque produit -->
@@ -435,12 +507,86 @@
     </div>
   {%- endif -%}
 
-  <!-- Grille d'images produit — choisies dans le customizer -->
+  <!-- ========== NOUVEAU : DANS QUELLES SITUATIONS ? ========== -->
+  {%- if ph contains 'lombaire' or ph contains 'dos' -%}
+    {%- assign ctx1_t = 'Au bureau' -%}{%- assign ctx1_d = 'Des heures assis sans fatigue dans le bas du dos' -%}
+    {%- assign ctx2_t = 'En voiture' -%}{%- assign ctx2_d = 'Long trajet sans douleur a l\'arrivee' -%}
+    {%- assign ctx3_t = 'Sur le canape' -%}{%- assign ctx3_d = 'Soiree TV confortable, posture soutenue' -%}
+    {%- assign ctx4_t = 'A table' -%}{%- assign ctx4_d = 'Repas familial sans gene au dos' -%}
+  {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
+    {%- assign ctx1_t = 'Sommeil sur le cote' -%}{%- assign ctx1_d = 'Alignement naturel des hanches toute la nuit' -%}
+    {%- assign ctx2_t = 'Grossesse' -%}{%- assign ctx2_d = 'Confort retrouve pour dormir sereinement' -%}
+    {%- assign ctx3_t = 'Apres operation' -%}{%- assign ctx3_d = 'Soutien apres une chirurgie de la hanche ou du genou' -%}
+    {%- assign ctx4_t = 'Douleurs sciatique' -%}{%- assign ctx4_d = 'Reduit la pression sur le nerf pendant le sommeil' -%}
+  {%- elsif ph contains 'auto' or ph contains 'voiture' or ph contains 'trajet' or ph contains 'rehausseur' -%}
+    {%- assign ctx1_t = 'Trajets quotidiens' -%}{%- assign ctx1_d = 'Chaque matin, sans douleur dans le bas du dos' -%}
+    {%- assign ctx2_t = 'Longs voyages' -%}{%- assign ctx2_d = 'Route des vacances sans pause forcee pour le dos' -%}
+    {%- assign ctx3_t = 'Teletravail' -%}{%- assign ctx3_d = 'Utilisable aussi sur une chaise de bureau' -%}
+    {%- assign ctx4_t = 'Conduite pro' -%}{%- assign ctx4_d = 'Taxi, VTC, commercial — essentiel au quotidien' -%}
+  {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
+    {%- assign ctx1_t = 'Sommeil sur le dos' -%}{%- assign ctx1_d = 'Cote plat, la nuque soutenue naturellement' -%}
+    {%- assign ctx2_t = 'Sommeil sur le cote' -%}{%- assign ctx2_d = 'Cote haut, tete alignee avec la colonne' -%}
+    {%- assign ctx3_t = 'En voyage' -%}{%- assign ctx3_d = 'Glisse dans une housse pour le retrouver a l\'hotel' -%}
+    {%- assign ctx4_t = 'Sieste' -%}{%- assign ctx4_d = 'Repos reparateur meme pour une courte sieste' -%}
+  {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
+    {%- assign ctx1_t = 'Au bureau' -%}{%- assign ctx1_d = 'Coccyx + lombaire soutenus toute la journee' -%}
+    {%- assign ctx2_t = 'En voiture' -%}{%- assign ctx2_d = 'Long trajet sans douleur au dos ni au coccyx' -%}
+    {%- assign ctx3_t = 'Sur le canape' -%}{%- assign ctx3_d = 'Posture complete soutenue, meme assis longtemps' -%}
+    {%- assign ctx4_t = 'A table' -%}{%- assign ctx4_d = 'Repas en famille sans que le dos tire' -%}
+  {%- else -%}
+    {%- assign ctx1_t = 'Au bureau' -%}{%- assign ctx1_d = 'Assis devant l\'ordinateur sans douleur' -%}
+    {%- assign ctx2_t = 'En voiture' -%}{%- assign ctx2_d = 'Long trajet sans pression sur le coccyx' -%}
+    {%- assign ctx3_t = 'Sur le canape' -%}{%- assign ctx3_d = 'Soiree TV confortable' -%}
+    {%- assign ctx4_t = 'Au restaurant' -%}{%- assign ctx4_d = 'Leger et transportable avec vous' -%}
+  {%- endif -%}
+
+  <div class="pdp-contexts" id="pdp-contexts">
+    <h2 class="pdp-section__title">Dans quelles situations ?</h2>
+    <div class="pdp-contexts__grid">
+      <div class="pdp-context">
+        <div class="pdp-context__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+        </div>
+        <h3 class="pdp-context__title">{{ ctx1_t }}</h3>
+        <p class="pdp-context__text">{{ ctx1_d }}</p>
+      </div>
+      <div class="pdp-context">
+        <div class="pdp-context__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>
+        <h3 class="pdp-context__title">{{ ctx2_t }}</h3>
+        <p class="pdp-context__text">{{ ctx2_d }}</p>
+      </div>
+      <div class="pdp-context">
+        <div class="pdp-context__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"/><path d="M4 18v2"/><path d="M20 18v2"/></svg>
+        </div>
+        <h3 class="pdp-context__title">{{ ctx3_t }}</h3>
+        <p class="pdp-context__text">{{ ctx3_d }}</p>
+      </div>
+      <div class="pdp-context">
+        <div class="pdp-context__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M12 19v3"/><path d="m8 22 4-3 4 3"/><path d="M2 8h20"/><path d="M21 8a4 4 0 0 0-8 0"/><path d="M11 8a4 4 0 0 0-8 0"/></svg>
+        </div>
+        <h3 class="pdp-context__title">{{ ctx4_t }}</h3>
+        <p class="pdp-context__text">{{ ctx4_d }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grille d'images produit — avec légendes contextuelles -->
+  {%- assign caption1 = section.settings.strip_caption_1 | default: ctx1_t -%}
+  {%- assign caption2 = section.settings.strip_caption_2 | default: ctx2_t -%}
+  {%- assign caption3 = section.settings.strip_caption_3 | default: ctx3_t -%}
+  {%- assign caption4 = section.settings.strip_caption_4 | default: ctx4_t -%}
+
   <div class="pdp-img-strip">
     {%- assign strip_keys = 'strip_img_1,strip_img_2,strip_img_3,strip_img_4' | split: ',' -%}
+    {%- assign strip_captions = caption1 | append: '|' | append: caption2 | append: '|' | append: caption3 | append: '|' | append: caption4 | split: '|' -%}
     {%- assign placeholder_names = 'product-3,product-4,product-5,product-6' | split: ',' -%}
     {%- for key in strip_keys -%}
       {%- assign ph_name = placeholder_names[forloop.index0] -%}
+      {%- assign cap = strip_captions[forloop.index0] -%}
       <div class="pdp-img-strip__item">
         {%- if section.settings[key] != blank -%}
           <img
@@ -455,8 +601,79 @@
             <span class="pdp-img-placeholder__label">Photo {{ forloop.index }}</span>
           </div>
         {%- endif -%}
+        {%- if cap != blank -%}
+          <span class="pdp-img-strip__caption">{{ cap }}</span>
+        {%- endif -%}
       </div>
     {%- endfor -%}
+  </div>
+
+  <!-- ========== NOUVEAU : CE QUE VOUS RECEVEZ ========== -->
+  {%- if ph contains 'pack' and ph contains 'duo' -%}
+    {%- assign pkg1 = '1 coussin coccyx avec housse velours lavable' -%}
+    {%- assign pkg2 = '1 coussin lombaire avec elastique de fixation' -%}
+    {%- assign pkg3 = 'Notice d\'utilisation en francais' -%}
+    {%- assign pkg4 = 'Facture et garantie 2 ans' -%}
+  {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
+    {%- assign pkg1 = '1 coussin monobloc coccyx + lombaire' -%}
+    {%- assign pkg2 = 'Housse velours supplementaire offerte' -%}
+    {%- assign pkg3 = 'Notice d\'utilisation en francais' -%}
+    {%- assign pkg4 = 'Facture et garantie 2 ans' -%}
+  {%- else -%}
+    {%- assign pkg1 = '1 coussin avec housse lavable' -%}
+    {%- assign pkg2 = 'Emballage soigne, prêt a offrir' -%}
+    {%- assign pkg3 = 'Notice d\'utilisation en francais' -%}
+    {%- assign pkg4 = 'Facture et garantie 2 ans' -%}
+  {%- endif -%}
+
+  <div class="pdp-package" id="pdp-package">
+    <h2 class="pdp-section__title">Ce que vous recevez</h2>
+    <div class="pdp-package__content">
+      <div class="pdp-package__visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+      </div>
+      <ul class="pdp-package__list">
+        <li>{{ pkg1 }}</li>
+        <li>{{ pkg2 }}</li>
+        <li>{{ pkg3 }}</li>
+        <li>{{ pkg4 }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== NOUVEAU : NOS GARANTIES (bloc fort) ========== -->
+  <div class="pdp-guarantees" id="pdp-guarantees">
+    <h2 class="pdp-section__title">Nos garanties</h2>
+    <div class="pdp-guarantees__grid">
+      <div class="pdp-guarantee">
+        <div class="pdp-guarantee__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/></svg>
+        </div>
+        <h3 class="pdp-guarantee__title">Livraison gratuite</h3>
+        <p class="pdp-guarantee__text">Partout en France metropolitaine. Sans minimum d'achat.</p>
+      </div>
+      <div class="pdp-guarantee">
+        <div class="pdp-guarantee__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </div>
+        <h3 class="pdp-guarantee__title">30 jours pour changer d'avis</h3>
+        <p class="pdp-guarantee__text">Retour gratuit et remboursement integral. Sans condition.</p>
+      </div>
+      <div class="pdp-guarantee">
+        <div class="pdp-guarantee__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3 class="pdp-guarantee__title">Garantie 2 ans</h3>
+        <p class="pdp-guarantee__text">Defauts de fabrication remplaces gratuitement.</p>
+      </div>
+      <div class="pdp-guarantee">
+        <div class="pdp-guarantee__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="pdp-guarantee__title">Paiement securise</h3>
+        <p class="pdp-guarantee__text">CB, Visa, Mastercard, PayPal — 100% chiffre.</p>
+      </div>
+    </div>
   </div>
 
   <!-- Mini FAQ — adaptée par type de produit -->
@@ -468,48 +685,31 @@
   {%- if ph contains 'lombaire' or ph contains 'dos' -%}
     {%- assign faq1_q = 'Est-ce que ce coussin convient pour le bureau ?' -%}
     {%- assign faq1_a = '<p>Oui, il est concu pour les longues heures de bureau. Il se fixe sur le dossier de votre chaise et soutient le bas du dos en maintenant votre colonne dans sa courbure naturelle.</p>' -%}
-    {%- assign faq2_q = faq_livraison_q -%}
-    {%- assign faq2_a = faq_livraison_a -%}
-    {%- assign faq3_q = faq_retour_q -%}
-    {%- assign faq3_a = faq_retour_a -%}
-
+    {%- assign faq2_q = faq_livraison_q -%}{%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}{%- assign faq3_a = faq_retour_a -%}
   {%- elsif ph contains 'jambe' or ph contains 'nuit' or ph contains 'sommeil' or ph contains 'paisible' -%}
     {%- assign faq1_q = 'Comment utilise-t-on ce coussin ?' -%}
     {%- assign faq1_a = '<p>Il se place entre vos genoux lorsque vous dormez sur le cote. Il maintient vos hanches alignees et reduit la pression sur les articulations pour un sommeil sans interruption.</p>' -%}
-    {%- assign faq2_q = faq_livraison_q -%}
-    {%- assign faq2_a = faq_livraison_a -%}
-    {%- assign faq3_q = faq_retour_q -%}
-    {%- assign faq3_a = faq_retour_a -%}
-
+    {%- assign faq2_q = faq_livraison_q -%}{%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}{%- assign faq3_a = faq_retour_a -%}
   {%- elsif ph contains 'auto' or ph contains 'voiture' or ph contains 'trajet' -%}
     {%- assign faq1_q = 'Ce coussin reste-t-il en place pendant la conduite ?' -%}
     {%- assign faq1_a = '<p>Oui, il est equipe de sangles de fixation qui le maintiennent sur le siege, meme sur les longs trajets. Il ne glisse pas.</p>' -%}
-    {%- assign faq2_q = faq_livraison_q -%}
-    {%- assign faq2_a = faq_livraison_a -%}
-    {%- assign faq3_q = faq_retour_q -%}
-    {%- assign faq3_a = faq_retour_a -%}
-
+    {%- assign faq2_q = faq_livraison_q -%}{%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}{%- assign faq3_a = faq_retour_a -%}
   {%- elsif ph contains 'cervical' or ph contains 'oreiller' or ph contains 'nuque' -%}
     {%- assign faq1_q = 'Quelle position de sommeil convient le mieux ?' -%}
     {%- assign faq1_a = '<p>Cet oreiller convient aux personnes qui dorment sur le dos ou sur le cote. Sa forme epouse la courbure naturelle de la nuque dans les deux positions pour un soutien optimal.</p>' -%}
-    {%- assign faq2_q = faq_livraison_q -%}
-    {%- assign faq2_a = faq_livraison_a -%}
-    {%- assign faq3_q = faq_retour_q -%}
-    {%- assign faq3_a = faq_retour_a -%}
-
+    {%- assign faq2_q = faq_livraison_q -%}{%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}{%- assign faq3_a = faq_retour_a -%}
   {%- elsif ph contains 'pack' or ph contains 'integral' or ph contains 'premium' -%}
     {%- assign faq1_q = 'Quels produits sont inclus dans ce pack ?' -%}
     {%- assign faq1_a = '<p>Ce pack reunit notre coussin coccyx, notre soutien lombaire et notre oreiller cervical. Ensemble, ils couvrent toutes les situations : assis, en voiture et la nuit.</p>' -%}
-    {%- assign faq2_q = faq_livraison_q -%}
-    {%- assign faq2_a = faq_livraison_a -%}
-    {%- assign faq3_q = faq_retour_q -%}
-    {%- assign faq3_a = faq_retour_a -%}
-
+    {%- assign faq2_q = faq_livraison_q -%}{%- assign faq2_a = faq_livraison_a -%}
+    {%- assign faq3_q = faq_retour_q -%}{%- assign faq3_a = faq_retour_a -%}
   {%- else -%}
-    {%- assign faq1_q = faq_livraison_q -%}
-    {%- assign faq1_a = faq_livraison_a -%}
-    {%- assign faq2_q = faq_retour_q -%}
-    {%- assign faq2_a = faq_retour_a -%}
+    {%- assign faq1_q = faq_livraison_q -%}{%- assign faq1_a = faq_livraison_a -%}
+    {%- assign faq2_q = faq_retour_q -%}{%- assign faq2_a = faq_retour_a -%}
     {%- assign faq3_q = 'Comment je lave la housse ?' -%}
     {%- assign faq3_a = '<p>La housse se retire facilement grace a la fermeture eclair. Lavage en machine a 30 degres, sechage a plat. Le coussin lui-meme se nettoie avec un chiffon humide.</p>' -%}
   {%- endif -%}
@@ -532,6 +732,23 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+  </div>
+
+  <!-- ========== NOUVEAU : BESOIN D'AIDE ? (bloc contact fort) ========== -->
+  <div class="pdp-help" id="pdp-help">
+    <h2 class="pdp-section__title">Une question ? On est la.</h2>
+    <p class="pdp-help__intro">Service client francais, reactif et humain. Pas de robot, pas de formulaire qui traine — vous nous contactez, on vous repond.</p>
+    <div class="pdp-help__contacts">
+      <a href="tel:{{ section.settings.phone | default: '0186261020' | replace: ' ', '' }}" class="pdp-help__contact">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        {{ section.settings.phone | default: '01 86 26 10 20' }}
+      </a>
+      <a href="mailto:contact@douceurdassise.fr" class="pdp-help__contact">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Nous ecrire
+      </a>
+    </div>
+    <p class="pdp-help__hours">Du lundi au vendredi, 9h-18h</p>
   </div>
 
   <!-- CTA répété en bas + téléphone -->
@@ -719,18 +936,13 @@
       return r.json();
     })
     .then(function() {
-      /* Recuperer le panier mis a jour */
       return fetch('/cart.js').then(function(r) { return r.json(); });
     })
     .then(function(cart) {
       var n = cart.item_count || 0;
-      /* Mise a jour badge */
       updateBadge(n);
-      /* Event global */
       document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
-      /* Afficher popup */
       openPopup();
-      /* Restaurer boutons */
       btns.forEach(function(b) { if (b) { b.disabled = false; b.textContent = 'Ajouter au panier'; } });
     })
     .catch(function() {
@@ -861,27 +1073,48 @@
     },
     {
       "type": "header",
-      "content": "Images — grille de photos"
+      "content": "Images — grille de photos contextuelles"
     },
     {
       "type": "image_picker",
       "id": "strip_img_1",
-      "label": "Photo 1"
+      "label": "Photo 1 (ex. au bureau)"
+    },
+    {
+      "type": "text",
+      "id": "strip_caption_1",
+      "label": "Legende photo 1",
+      "info": "Si vide, la legende de la situation correspondante est utilisee"
     },
     {
       "type": "image_picker",
       "id": "strip_img_2",
-      "label": "Photo 2"
+      "label": "Photo 2 (ex. en voiture)"
+    },
+    {
+      "type": "text",
+      "id": "strip_caption_2",
+      "label": "Legende photo 2"
     },
     {
       "type": "image_picker",
       "id": "strip_img_3",
-      "label": "Photo 3"
+      "label": "Photo 3 (ex. sur le canape)"
+    },
+    {
+      "type": "text",
+      "id": "strip_caption_3",
+      "label": "Legende photo 3"
     },
     {
       "type": "image_picker",
       "id": "strip_img_4",
-      "label": "Photo 4"
+      "label": "Photo 4 (ex. detail produit)"
+    },
+    {
+      "type": "text",
+      "id": "strip_caption_4",
+      "label": "Legende photo 4"
     }
   ],
   "blocks": [
