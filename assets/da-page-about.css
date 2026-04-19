@@ -1,0 +1,504 @@
+/* ==========================================================================
+   DA — Page "Notre Histoire" (Gérard-friendly)
+   --------------------------------------------------------------------------
+   Règles persona (non-négociables) :
+   - Taille corps ≥ 18px, line-height 1.7 pour lisibilité senior
+   - Contraste texte ≥ 4.5:1 (WCAG AA)
+   - Boutons 56px de haut (au-delà du minimum 52px)
+   - Pas d'animations complexes, pas de hover-only
+   - Largeur de lecture max ~680px pour confort oculaire
+   - Palette : #FAF9F6, #2E5E7E, #4A7C9B, #D4C4A8, #6B9E78, #333
+   ========================================================================== */
+
+/* ---------- Variables locales ---------- */
+.da-page-about {
+  --da-bg: #FAF9F6;
+  --da-bg-soft: #F4F0E8;
+  --da-beige: #D4C4A8;
+  --da-beige-light: #EDE5D4;
+  --da-blue: #4A7C9B;
+  --da-blue-dark: #2E5E7E;
+  --da-blue-darker: #234A65;
+  --da-text: #333333;
+  --da-text-soft: #5A5A5A;
+  --da-success: #6B9E78;
+  --da-urgency: #C17A5A;
+  --da-border: #E5DDD0;
+  --da-shadow: 0 2px 12px rgba(46, 94, 126, 0.08);
+  --da-shadow-hover: 0 4px 20px rgba(46, 94, 126, 0.14);
+  --da-radius: 12px;
+  --da-radius-lg: 16px;
+  --da-radius-sm: 8px;
+  --da-font-body: 'Georgia', 'Cambria', 'Times New Roman', serif;
+  --da-font-heading: 'Georgia', 'Cambria', 'Times New Roman', serif;
+}
+
+/* ---------- Section wrapper ---------- */
+.da-page-about {
+  background: var(--da-bg);
+  color: var(--da-text);
+  font-family: var(--da-font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  padding: 48px 20px 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.da-page-about__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+.da-page-about__header {
+  text-align: center;
+  padding: 40px 24px 48px;
+  margin-bottom: 40px;
+  background: linear-gradient(180deg, var(--da-beige-light) 0%, var(--da-bg) 100%);
+  border-radius: var(--da-radius-lg);
+  border: 1px solid var(--da-border);
+}
+
+.da-page-about__header h1 {
+  margin: 0 0 12px;
+  font-family: var(--da-font-heading);
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 700;
+  color: var(--da-blue-dark);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.da-page-about__tagline {
+  margin: 0;
+  font-size: 20px;
+  color: var(--da-text-soft);
+  font-style: italic;
+}
+
+/* ---------- Content ---------- */
+.da-page-about__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.da-page-about__section {
+  background: #FFFFFF;
+  border: 1px solid var(--da-border);
+  border-radius: var(--da-radius);
+  padding: 36px 32px;
+  box-shadow: var(--da-shadow);
+}
+
+.da-page-about__section h2 {
+  margin: 0 0 20px;
+  font-family: var(--da-font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--da-blue-dark);
+  line-height: 1.3;
+  position: relative;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--da-beige);
+}
+
+.da-page-about__section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--da-blue-dark);
+}
+
+.da-page-about__section p {
+  margin: 0 0 16px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--da-text);
+}
+
+.da-page-about__section p:last-child {
+  margin-bottom: 0;
+}
+
+.da-page-about__section strong {
+  color: var(--da-blue-dark);
+  font-weight: 700;
+}
+
+/* ---------- Bloc Histoire (premier bloc, plus chaleureux) ---------- */
+.da-page-about__story {
+  background: #FFFFFF;
+  border-left: 4px solid var(--da-blue);
+  position: relative;
+}
+
+.da-page-about__greeting {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--da-blue-dark);
+  margin-bottom: 20px !important;
+  font-family: var(--da-font-heading);
+}
+
+.da-page-about__story-text p {
+  max-width: 680px;
+}
+
+/* ---------- Listes (puces "cochet" style) ---------- */
+.da-page-about__list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.da-page-about__list li {
+  position: relative;
+  padding: 12px 16px 12px 44px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 1.6;
+  background: var(--da-bg-soft);
+  border-radius: var(--da-radius-sm);
+  border-left: 3px solid var(--da-beige);
+}
+
+.da-page-about__list li::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background: var(--da-beige);
+  border-radius: 50%;
+}
+
+.da-page-about__list li::after {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 50%;
+  transform: translateY(-60%) rotate(45deg);
+  width: 4px;
+  height: 9px;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+}
+
+/* ---------- Promesses (liste avec icônes SVG) ---------- */
+.da-page-about__promise {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--da-bg-soft) 100%);
+}
+
+.da-page-about__promise-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.da-page-about__promise-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--da-border);
+  border-radius: var(--da-radius-sm);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--da-text);
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.da-page-about__promise-list li:hover,
+.da-page-about__promise-list li:focus-within {
+  border-color: var(--da-success);
+}
+
+.da-page-about__promise-list li svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--da-success);
+  margin-top: 2px;
+}
+
+/* ---------- Bloc Honnêteté (ton différent, plus sérieux) ---------- */
+.da-page-about__honesty {
+  background: #FFFFFF;
+  border-left: 4px solid var(--da-urgency);
+}
+
+.da-page-about__honesty h2 {
+  color: var(--da-blue-dark);
+}
+
+.da-page-about__honesty p {
+  font-size: 18px;
+}
+
+.da-page-about__honesty strong {
+  color: var(--da-urgency);
+  font-weight: 700;
+}
+
+/* ---------- Bloc Contact ---------- */
+.da-page-about__team {
+  background: linear-gradient(180deg, var(--da-beige-light) 0%, #FFFFFF 100%);
+  border-left: 4px solid var(--da-blue-dark);
+}
+
+.da-page-about__contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  gap: 12px;
+}
+
+.da-page-about__contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #FFFFFF;
+  border: 2px solid var(--da-border);
+  border-radius: var(--da-radius-sm);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--da-text);
+  min-height: 56px;
+}
+
+.da-page-about__contact-list li svg {
+  flex-shrink: 0;
+  color: var(--da-blue-dark);
+  width: 24px;
+  height: 24px;
+}
+
+.da-page-about__contact-list a {
+  color: var(--da-blue-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.da-page-about__contact-list a:hover,
+.da-page-about__contact-list a:focus {
+  color: var(--da-blue-darker);
+}
+
+.da-page-about__ps {
+  margin-top: 20px !important;
+  padding: 16px 20px;
+  background: var(--da-bg-soft);
+  border-radius: var(--da-radius-sm);
+  font-size: 17px;
+  color: var(--da-text-soft);
+  border-left: 3px solid var(--da-beige);
+}
+
+/* ---------- CTA final ---------- */
+.da-page-about__cta {
+  margin-top: 48px;
+  padding: 48px 32px;
+  background: linear-gradient(135deg, var(--da-blue-dark) 0%, var(--da-blue) 100%);
+  border-radius: var(--da-radius-lg);
+  text-align: center;
+  color: #FFFFFF;
+  box-shadow: var(--da-shadow-hover);
+}
+
+.da-page-about__cta h2 {
+  margin: 0 0 12px;
+  color: #FFFFFF;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: var(--da-font-heading);
+  line-height: 1.2;
+}
+
+.da-page-about__cta p {
+  margin: 0 0 28px;
+  font-size: 19px;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.5;
+}
+
+.da-page-about__cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Boutons ---------- */
+.da-page-about .da-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 16px 32px;
+  font-family: var(--da-font-body);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.da-page-about .da-btn:focus-visible {
+  outline: 3px solid var(--da-beige);
+  outline-offset: 3px;
+}
+
+.da-page-about .da-btn-primary {
+  background: var(--da-beige);
+  color: var(--da-blue-darker);
+  border-color: var(--da-beige);
+}
+
+.da-page-about .da-btn-primary:hover,
+.da-page-about .da-btn-primary:focus {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: var(--da-blue-darker);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.da-page-about .da-btn-secondary {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.da-page-about .da-btn-secondary:hover,
+.da-page-about .da-btn-secondary:focus {
+  background: #FFFFFF;
+  color: var(--da-blue-darker);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Responsive — Mobile first adjustments ---------- */
+@media (max-width: 768px) {
+  .da-page-about {
+    padding: 24px 16px 56px;
+  }
+
+  .da-page-about__header {
+    padding: 32px 20px 36px;
+    margin-bottom: 28px;
+  }
+
+  .da-page-about__header h1 {
+    font-size: 30px;
+  }
+
+  .da-page-about__tagline {
+    font-size: 17px;
+  }
+
+  .da-page-about__content {
+    gap: 24px;
+  }
+
+  .da-page-about__section {
+    padding: 28px 22px;
+  }
+
+  .da-page-about__section h2 {
+    font-size: 24px;
+  }
+
+  .da-page-about__greeting {
+    font-size: 20px;
+  }
+
+  .da-page-about__cta {
+    margin-top: 32px;
+    padding: 36px 22px;
+  }
+
+  .da-page-about__cta h2 {
+    font-size: 26px;
+  }
+
+  .da-page-about__cta p {
+    font-size: 18px;
+  }
+
+  .da-page-about__cta-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .da-page-about .da-btn {
+    width: 100%;
+    min-height: 56px;
+  }
+
+  .da-page-about__contact-list li,
+  .da-page-about__promise-list li {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .da-page-about__header h1 {
+    font-size: 26px;
+  }
+
+  .da-page-about__section {
+    padding: 24px 18px;
+  }
+
+  .da-page-about__section h2 {
+    font-size: 22px;
+  }
+}
+
+/* ---------- Accessibilité : respect des préférences utilisateur ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .da-page-about *,
+  .da-page-about *::before,
+  .da-page-about *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .da-page-about__cta {
+    display: none;
+  }
+
+  .da-page-about {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  .da-page-about__section {
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
