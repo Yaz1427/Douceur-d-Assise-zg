@@ -1,0 +1,275 @@
+/* =====================================================
+   DOUCEUR D'ASSISE — Design System v3
+   Optimise pour seniors (55-75 ans) selon CLAUDE.md
+   ===================================================== */
+
+/* Import Lora (titres) + Source Sans 3 (corps) - Polices chaleureuses pour seniors */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+/* ===== VARIABLES ===== */
+:root {
+  /* Couleurs du CLAUDE.md */
+  --background: #FAF9F6;
+  --foreground: #333333;
+  --card: #FFFFFF;
+  --card-foreground: #333333;
+  --primary: #2E5E7E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #D4C4A8;
+  --secondary-foreground: #333333;
+  --muted: #F5F3EF;
+  --muted-foreground: #666666;
+  --accent: #4A7C9B;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C17A5A;
+  --destructive-foreground: #FFFFFF;
+  --success: #6B9E78;
+  --success-foreground: #FFFFFF;
+  --border: #E8E4DC;
+  --input: #E8E4DC;
+  --ring: #4A7C9B;
+
+  /* Derived */
+  --secondary-30: rgba(212, 196, 168, 0.30);
+  --secondary-20: rgba(212, 196, 168, 0.20);
+  --success-5: rgba(107, 158, 120, 0.05);
+  --success-10: rgba(107, 158, 120, 0.10);
+  --success-20: rgba(107, 158, 120, 0.20);
+
+  --radius: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  --container-max: 80rem;
+  --container-pad: 1rem;
+
+  /* Typographie chaleureuse pour seniors */
+  --font-serif: 'Lora', Georgia, serif; /* Titres - confiance, tradition */
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif; /* Corps - lisible, clair */
+  
+  /* Animation variables */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { 
+  font-size: 16px; 
+  -webkit-text-size-adjust: 100%; 
+  scroll-behavior: smooth; 
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1.125rem; /* 18px minimum pour seniors */
+  line-height: 1.6;
+  color: var(--foreground);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { text-decoration: underline; }
+
+/* Focus visible pour accessibilite */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif); /* Lora - titres chaleureux */
+  line-height: 1.25;
+  font-weight: 600; /* CLAUDE.md: poids 600 */
+  color: var(--foreground);
+}
+
+/* CLAUDE.md: H1 32-40px, H2 24-28px */
+h1 { font-size: 2rem; } /* 32px */
+h2 { font-size: 1.5rem; } /* 24px */
+h3 { font-size: 1.25rem; } /* 20px */
+@media (min-width: 768px) {
+  h1 { font-size: 2.5rem; } /* 40px */
+  h2 { font-size: 1.75rem; } /* 28px */
+  h3 { font-size: 1.5rem; } /* 24px */
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideOutRight {
+  from { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Animation utility classes */
+.da-animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.da-animate-fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.da-animate-stagger > * {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+.da-animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.da-animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.da-animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.da-animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.da-animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.da-animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ===== CONTAINER ===== */
+.da-container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+}
+
+@media (min-width: 768px) {
+  .da-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ===== BUTTONS ===== */
+/* CLAUDE.md: Hauteur minimum 52px, padding 16px 32px, texte 18px gras, coins 8px */
+.da-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 2rem; /* 16px 32px */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 700; /* Gras */
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: none;
+  text-decoration: none;
+  min-height: 52px; /* CLAUDE.md: 52px minimum */
+  min-width: 140px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.01em;
+}
+
+.da-btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.da-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton primaire - CTA principal */
+.da-btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 1rem 2.5rem; /* Plus de padding horizontal */
+}
+.da-btn-primary:hover {
+  background-color: #245068;
+  box-shadow: 0 6px 20px rgba(46, 94, 126, 0.35);
+}
+
+/* Bouton secondaire - avec fond pour plus de visibilite (pas ghost) */
+.da-btn-secondary {
+  background-color: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 0.875rem 2rem;
+}
+.da-btn-secondary:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+/* Bouton accent - chaleureux */
+.da-btn-accent {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border: none;
+}
+.da-btn-accent:hover {
+  background-color: #c9b899;
+}
+
+.da-btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+

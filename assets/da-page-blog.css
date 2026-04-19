@@ -1,0 +1,307 @@
+/* ============================================================
+   BLOG — OVERRIDES DOUCEUR D'ASSISE
+   Cible les classes Horizon pour harmoniser avec le DA design
+   ============================================================ */
+
+/* --- En-tête de la page blog --- */
+.main-blog {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.main-blog .title--primary {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Sous-titre contextuel */
+.main-blog::before {
+  content: "Conseils & Astuces pour votre confort";
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+
+/* --- Grille d'articles --- */
+.blog-articles {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1.75rem !important;
+}
+
+.blog-articles--collage .blog-articles__article:first-child {
+  grid-column: span 1 !important;
+}
+
+@media (max-width: 1024px) {
+  .blog-articles {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .blog-articles {
+    grid-template-columns: 1fr !important;
+  }
+  .main-blog {
+    padding: 1.5rem 1rem 2rem;
+  }
+}
+
+/* --- Cartes articles --- */
+.article-card-wrapper {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07) !important;
+  transition: box-shadow 0.25s ease, transform 0.25s ease !important;
+  background: #fff;
+  border: 1px solid #EDE9E0 !important;
+}
+
+.article-card-wrapper:hover {
+  box-shadow: 0 6px 24px rgba(46, 94, 126, 0.14) !important;
+  transform: translateY(-3px);
+}
+
+.article-card-wrapper .card,
+.article-card-wrapper .article-card {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Image de la carte */
+.article-card__image-wrapper {
+  overflow: hidden;
+}
+
+.article-card__image img,
+.article-card__image .motion-reduce {
+  transition: transform 0.4s ease !important;
+}
+
+.article-card-wrapper:hover .article-card__image img {
+  transform: scale(1.04);
+}
+
+/* Contenu de la carte */
+.article-card-wrapper .card__information {
+  padding: 1.25rem 1.25rem 1rem !important;
+}
+
+/* Titre de la carte */
+.article-card-wrapper .card__heading {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.5rem !important;
+  color: var(--foreground) !important;
+}
+
+.article-card-wrapper .card__heading a {
+  color: var(--foreground) !important;
+  text-decoration: none !important;
+}
+
+.article-card-wrapper .card__heading a:hover {
+  color: var(--primary) !important;
+}
+
+/* Date */
+.article-card__info {
+  font-size: 0.8125rem !important;
+  color: var(--muted-foreground) !important;
+  margin-bottom: 0.75rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Extrait */
+.article-card__excerpt {
+  font-size: 0.9375rem !important;
+  color: #555 !important;
+  line-height: 1.65 !important;
+  margin-bottom: 1rem !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+/* Lien "Lire l'article" ajouté via ::after sur le wrapper du footer */
+.article-card__footer::after {
+  content: "Lire l'article →";
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin-top: 0.5rem;
+}
+
+/* Pied de carte (commentaires si activés) */
+.article-card__footer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.25rem;
+}
+
+/* --- Pagination --- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+/* ============================================================
+   ARTICLE DETAIL — LISIBILITÉ SENIORS
+   ============================================================ */
+
+.article-template {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* Image hero */
+.article-template__hero-container {
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+/* Titre H1 */
+.article-template__title {
+  font-size: 1.875rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: var(--foreground) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Date */
+.article-template header .circle-divider,
+.article-template header .caption-with-letter-spacing {
+  font-size: 0.875rem !important;
+  color: var(--muted-foreground) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Corps de l'article */
+.article-template__content {
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+  color: #333 !important;
+  margin-top: 2rem !important;
+}
+
+.article-template__content p {
+  margin-bottom: 1.25rem !important;
+}
+
+.article-template__content h2 {
+  font-size: 1.375rem !important;
+  font-weight: 700 !important;
+  color: var(--foreground) !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.article-template__content h3 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: var(--foreground) !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.article-template__content ul,
+.article-template__content ol {
+  padding-left: 1.5rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.article-template__content li {
+  margin-bottom: 0.5rem !important;
+  font-size: 1.125rem !important;
+  line-height: 1.7 !important;
+}
+
+.article-template__content strong {
+  color: var(--foreground) !important;
+}
+
+/* Blocs mise en avant dans l'article */
+.article-template__content .da-article-highlight {
+  background: rgba(74, 124, 155, 0.08);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 1.0625rem;
+}
+
+.article-template__content .da-article-cta {
+  display: block;
+  background: var(--primary);
+  color: #fff !important;
+  text-align: center;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  margin: 2rem auto;
+  max-width: 360px;
+  transition: background 0.2s ease;
+}
+
+.article-template__content .da-article-cta:hover {
+  background: #235070 !important;
+  color: #fff !important;
+}
+
+/* Bouton retour au blog */
+.article-template__back {
+  margin-top: 2.5rem;
+  text-align: left !important;
+}
+
+.article-template__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--primary) !important;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.article-template__link:hover {
+  text-decoration: underline !important;
+}
+
+@media (max-width: 749px) {
+  .article-template__title {
+    font-size: 1.5rem !important;
+  }
+  .article-template__content {
+    font-size: 1rem !important;
+  }
+  .article-template__content h2 {
+    font-size: 1.25rem !important;
+  }
+  .article-template__content li {
+    font-size: 1rem !important;
+  }
+}

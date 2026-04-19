@@ -32,8 +32,18 @@
   {% comment %} Theme CSS {% endcomment %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   
-  {% comment %} Douceur d'Assise Custom CSS {% endcomment %}
-  {{ 'da-styles.css' | asset_url | stylesheet_tag }}
+  {% comment %} Douceur d'Assise Custom CSS — découpé par domaine {% endcomment %}
+  {{ 'da-base.css' | asset_url | stylesheet_tag }}
+  {{ 'da-header.css' | asset_url | stylesheet_tag }}
+  {{ 'da-footer.css' | asset_url | stylesheet_tag }}
+  {{ 'da-components.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-home.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-collection.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-cart.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-product.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-customer.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-static.css' | asset_url | stylesheet_tag }}
+  {{ 'da-page-blog.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
 
